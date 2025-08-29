@@ -1,0 +1,7 @@
+Backend/.env
+AdminPannel/.env
+Frontend/.env
+Frontend/.env
+
+# Local Netlify folder
+.netlify

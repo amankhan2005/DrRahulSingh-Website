@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+
+html, body {
+    overflow-x: hidden;
+  }
+  
+body{
+    font-family: "Poppins", serif;
+}
+.messiri{
+    font-family: "El Messiri", serif;
+}
+
+.text-primary{
+    color: #003480 !important;
+}
+.hover-text-primary:hover{
+    color: #3597e0 !important;
+}
+
+.border-primary{
+    border-color: #003480 !important;
+}
+
+:root{
+    --primary:#2e6294 ;
+    --hover-primary:#3597e0;
+}
+
+.bg-primary{
+    background-color: var(--primary) !important;
+}
+
+.blog ul{
+    list-style: disc !important;
+    list-style-position: inside !important;
+}
+.blog ol{
+    list-style: decimal !important;
+    list-style-position: inside !important;
+}
+/* 
+.blog ol {
+    list-style-type: decimal;
+    padding-left: 20px; 
+  }
+  
+  .blog ul {
+    list-style-type: disc; 
+    padding-left: 20px;
+  } */
