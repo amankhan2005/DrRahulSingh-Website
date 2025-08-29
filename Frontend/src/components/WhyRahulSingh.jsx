@@ -1,7 +1,6 @@
- import { useState } from 'react';
-import { ChevronRight } from 'lucide-react';
-import { FaUserMd, FaStethoscope, FaThumbsUp } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+ import { useState } from "react";
+import { FaUserMd, FaStethoscope, FaThumbsUp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function WhyChooseDrRahul() {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -44,15 +43,17 @@ export default function WhyChooseDrRahul() {
   ];
 
   return (
-    <section className="w-full bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section className="w-full bg-gray-50 py-12 px-5 sm:px-6 lg:px-10 relative overflow-hidden">
       <div className="container mx-auto relative z-10">
         {/* Header Section */}
-        <div className="text-center lg:mb-4 mb-6">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2 leading-tight">
+        <div className="text-center mb-10 lg:mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-3 leading-snug">
             Why Choose Dr. Rahul Singh
           </h2>
-          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Combining advanced surgical expertise with compassionate care, Dr. Rahul Singh is trusted by thousands for safe, effective, and personalized neurospine treatments.
+          <p className="text-sm md:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-2">
+            Combining advanced surgical expertise with compassionate care, Dr.
+            Rahul Singh is trusted by thousands for safe, effective, and
+            personalized neurospine treatments.
           </p>
         </div>
 
@@ -62,43 +63,45 @@ export default function WhyChooseDrRahul() {
             <div
               key={feature.id}
               className={`group relative overflow-hidden cursor-pointer rounded-2xl transition-all duration-500 transform hover:scale-105 bg-white ${
-                hoveredCard === feature.id ? 'shadow-2xl shadow-[#3b628b]/20' : 'shadow-lg'
+                hoveredCard === feature.id
+                  ? "shadow-2xl shadow-[#3b628b]/20"
+                  : "shadow-lg"
               } border border-gray-100 hover:border-[#3b628b]/20`}
               onMouseEnter={() => setHoveredCard(feature.id)}
               onMouseLeave={() => setHoveredCard(null)}
             >
+              {/* Decorative Background */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#3b628b]/5 to-transparent rounded-full transform translate-x-12 -translate-y-12"></div>
 
-              <div className="relative z-10 lg:p-6 p-4 h-full">
-                {/* Icon Section */}
-                <div className="flex items-center justify-center mb-4">
+              {/* Card Content */}
+              <div className="relative z-10 p-5 sm:p-6 h-full flex flex-col items-center text-center">
+                {/* Icon */}
+                <div className="mb-4 flex justify-center">
                   <div
                     className={`p-4 ${feature.iconBg} rounded-2xl transition-all duration-300 ${
-                      hoveredCard === feature.id ? 'scale-110 rotate-6' : ''
+                      hoveredCard === feature.id ? "scale-110 rotate-6" : ""
                     }`}
                   >
                     <div className={feature.iconColor}>{feature.icon}</div>
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="mb-4 text-center">
-                  <h3 className="text-xl font-bold mb-1 text-[#13335b]">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm font-medium text-[#3b628b] mb-2">
-                    {feature.subtitle}
-                  </p>
-                  <p className="text-gray-600 leading-relaxed text-sm">
-                    {feature.description}
-                  </p>
-                </div>
+                {/* Text */}
+                <h3 className="text-lg md:text-xl font-bold mb-2 text-[#13335b]">
+                  {feature.title}
+                </h3>
+                <p className="text-xs md:text-sm font-medium text-[#3b628b] mb-2">
+                  {feature.subtitle}
+                </p>
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base">
+                  {feature.description}
+                </p>
               </div>
 
               {/* Hover overlay */}
               <div
                 className={`absolute inset-0 bg-gradient-to-br from-[#3b628b]/5 to-[#13335b]/5 transition-opacity duration-300 rounded-2xl ${
-                  hoveredCard === feature.id ? 'opacity-100' : 'opacity-0'
+                  hoveredCard === feature.id ? "opacity-100" : "opacity-0"
                 }`}
               ></div>
             </div>

@@ -32,7 +32,8 @@ const ClinicStats = () => {
   }, []);
 
   return (
-    <section className=" py-10  mb-8 bg-gradient-to-r from-[#7da4c4] via-[#2e6294] to-[#588dc0]">
+    // 👇 hidden on small screens, visible from md onwards
+    <section className="hidden md:block py-10 mb-8 bg-gradient-to-r from-[#7da4c4] via-[#2e6294] to-[#588dc0]">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
           {statsData.map((stat, index) => {
