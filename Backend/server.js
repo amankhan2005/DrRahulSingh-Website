@@ -1,41 +1,128 @@
-import express from 'express'
+//  import express from 'express'
+// import mongoose from 'mongoose'
+// import dotenv from 'dotenv'
+// dotenv.config();
+// import cors from 'cors'
+// import path from 'path'
+// import { fileURLToPath } from 'url'
+
+// const app = express()
+// const port = process.env.PORT
+// const mongoDBUrl = process.env.MONGODB
+
+// app.use(express.json())
+// app.use(cors())
+
+// // ========== Existing Routes ==========
+// import teamRoutes from './Routes/team.js'
+// app.use('/team', teamRoutes)
+
+// import blogRoutes from "./Routes/blog.routes.js";
+// app.use("/blog", blogRoutes);
+
+// import galleryRoutes from './Routes/gallery.routes.js'
+// app.use('/gallery', galleryRoutes)
+
+// import caseRoutes from './Routes/case.routes.js'
+// app.use('/case', caseRoutes); 
+
+// import inquiryRoutes from './Routes/inquiry.routes.js'
+// app.use('/inquiry', inquiryRoutes)
+
+// import adminRoutes from './Routes/user.routes.js'
+// app.use('/admin', adminRoutes)
+
+// import contactRoutes from './Routes/contact.routes.js'
+// app.use('/inquiry-msg', contactRoutes)
+// // =====================================
+
+// // ===== MongoDB Connection =====
+// mongoose.connect(mongoDBUrl)
+//     .then(() => console.log('MongoDB Connected'))
+//     .catch((err) => console.log(`MongoDb Error, Err- ${err}}`))
+
+// // ===== Serve React Admin Panel =====
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
+
+// // Serve build folder (React admin panel)
+// app.use(express.static(path.join(__dirname, 'build')))
+
+// // For all other routes, serve index.html
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'))
+// })
+
+// // ===== Start Server =====
+// app.listen(port, () => {
+//     console.log(`Server is running on ${port}`)
+// })
+
+// app.get('/', (req, res) => {
+//     res.send(`Server is Running on port ${port}`);
+// });
+
+
+ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config();
 import cors from 'cors'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
 const app = express()
 const port = process.env.PORT
 const mongoDBUrl = process.env.MONGODB
+
 app.use(express.json())
 app.use(cors())
 
-//routes
-
+// ========== Existing Routes ==========
 import teamRoutes from './Routes/team.js'
-app.use('/team',teamRoutes)
+app.use('/team', teamRoutes)
 
 import blogRoutes from "./Routes/blog.routes.js";
 app.use("/blog", blogRoutes);
 
-
 import galleryRoutes from './Routes/gallery.routes.js'
-app.use('/gallery',galleryRoutes)
+app.use('/gallery', galleryRoutes)
 
 import caseRoutes from './Routes/case.routes.js'
-app.use('/case',caseRoutes); 
+app.use('/case', caseRoutes); 
 
 import inquiryRoutes from './Routes/inquiry.routes.js'
-app.use('/inquiry',inquiryRoutes)
+app.use('/inquiry', inquiryRoutes)
 
 import adminRoutes from './Routes/user.routes.js'
-app.use('/admin',adminRoutes)
+app.use('/admin', adminRoutes)
 
 import contactRoutes from './Routes/contact.routes.js'
-app.use('/inquiry-msg',contactRoutes)
+app.use('/inquiry-msg', contactRoutes)
+// =====================================
 
+// ===== MongoDB Connection =====
+mongoose.connect(mongoDBUrl)
+    .then(() => console.log('MongoDB Connected'))
+    .catch((err) => console.log(`MongoDb Error, Err- ${err}}`))
 
-mongoose.connect(mongoDBUrl).then(() => console.log('MongoDB Connected')).catch((err) => console.log(`MongoDb Error, Err- ${err}}`))
-app.listen(port, () => { console.log(`Server is running on ${port}`) })
+// ===== Serve Vite Admin Panel =====
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+// Serve dist folder (Vite build)
+app.use(express.static(path.join(__dirname, 'dist')))
+
+// For all other routes, serve index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+})
+
+// ===== Start Server =====
+app.listen(port, () => {
+    console.log(`Server is running on ${port}`)
+})
+
 app.get('/', (req, res) => {
     res.send(`Server is Running on port ${port}`);
 });
