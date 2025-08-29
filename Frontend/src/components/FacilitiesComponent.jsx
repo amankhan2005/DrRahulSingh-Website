@@ -31,7 +31,7 @@ function FacilitiesComponent({ props }) {
               <h3 className="md:text-lg text-base font-semibold text-gray-800 mb-2">
                 {specialty.title}
               </h3>
-              <p className="text-gray-600 md:text-sm text-xs line-clamp-2 min-h-[40px]">
+              <p className="text-gray-600 text-xs md:text-sm line-clamp-1 md:line-clamp-2 min-h-[20px]">
                 {specialty.description}
               </p>
             </div>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight, FaPlus, FaTimes } from "react-icons/fa";
 import BreadCumb from "../components/BreadCumb";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGalleryData } from "../redux/slices/dataslice"; // ⬅️ cases wala hata diya
+import { fetchGalleryData } from "../redux/slices/dataslice";
 import { useLocation } from "react-router-dom";
 
 function GalleryPage() {
@@ -29,7 +29,6 @@ function GalleryPage() {
     setActiveTab(tab);
   }, [location.search]);
 
-  // Filter data depending on the tab
   const filteredData =
     galleryData?.filter((item) => item.category === activeTab) || [];
 
@@ -49,6 +48,7 @@ function GalleryPage() {
 
   return (
     <div>
+      {/* BreadCumb full-width */}
       <BreadCumb
         items={[
           { label: "Home", link: "/" },
@@ -57,33 +57,32 @@ function GalleryPage() {
         title="Our Recent Memories"
       />
 
-      {/* Tabs */}
-      <div className="flex justify-center gap-6 border-b mb-6">
-        {["photo", "video", "news", "rewards"].map((tab) => ( 
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`py-2 px-4 font-semibold ${
-              activeTab === tab
-                ? "text-primary border-b-2 border-primary"
-                : "text-gray-600"
-            }`}
-          >
-            {tab === "photo" && "Photo Gallery"}
-            {tab === "video" && "Video Gallery"}
-            {tab === "news" && "News & Media"}
-            {tab === "rewards" && "Awards & Achievements"}
-          </button>
-        ))}
-      </div>
+      {/* Content inside container for alignment */}
+      <div className="container mx-auto px-4 py-10">
+        {/* Tabs */}
+        <div className="flex justify-center gap-6 border-b mb-6">
+          {["photo", "video", "news", "rewards"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`py-2 px-4 font-semibold ${
+                activeTab === tab
+                  ? "text-primary border-b-2 border-primary"
+                  : "text-gray-600"
+              }`}
+            >
+              {tab === "photo" && "Photo Gallery"}
+              {tab === "video" && "Video Gallery"}
+              {tab === "news" && "News & Media"}
+              {tab === "rewards" && "Awards & Achievements"}
+            </button>
+          ))}
+        </div>
 
-      {/* Tab Content */}
-      <div className="py-10 px-4 md:px-10">
+        {/* Tab Content */}
         {status === "loading" && <p>Loading...</p>}
         {error && <p className="text-red-500">{error}</p>}
-        {filteredData.length === 0 && (
-          <p className="text-red-500">No Data Found</p>
-        )}
+        {filteredData.length === 0 && <p className="text-red-500">No Data Found</p>}
 
         {/* Photos */}
         {activeTab === "photo" && (
