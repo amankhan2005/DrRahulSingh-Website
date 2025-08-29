@@ -36,7 +36,8 @@ export const createInquiry = async (req, res) => {
       text: `
         Dear ${patientName},
 
-        Your Contact has been successfully created with Hope Hospital in the ${department} department.
+        Your Contact has been successfully created with Landmark Advance Neurospine Care Superspeciality Hospital
+ in the ${department} department.
 
           email:${email}
           Mobile No: ${mobileNo}
