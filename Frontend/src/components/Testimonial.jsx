@@ -1,27 +1,37 @@
-import React from "react";
+ import React, { useEffect } from "react";
 
 export default function GoogleReviews() {
+  useEffect(() => {
+    // Tagembed script load
+    const script = document.createElement("script");
+    script.src = "https://widget.tagembed.com/embed.min.js";
+    script.type = "text/javascript";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <section className="py-10 bg-white">
       <div className="container mx-auto px-4 text-center">
         {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
-          What Our Patients Say
-        </h2>
+        <h2 className="text-2xl md:text-4xl font-bold text-primary mb-4 whitespace-nowrap">
+  What Our Patients Say
+</h2>
         <p className="text-gray-600 mb-6 text-sm md:text-base">
-          See why so many families choose us for their healthcare needs.        </p>
+          See why so many families choose us for their healthcare needs.
+        </p>
 
-        {/* Reviews iframe inside professional frame */}
-        <div className="w-full h-80 md:h-[500px] overflow-hidden rounded-lg shadow-md border border-gray-300 bg-white">
-          <iframe
-            src="https://widgets.sociablekit.com/google-reviews/iframe/25591444"
-            frameBorder="0"
-            width="100%"
-            height="100%"
-            title="Google Reviews"
-            className="w-full h-full"
-          ></iframe>
-        </div>
+        {/* Tagembed widget */}
+        <div
+          className="tagembed-widget"
+          style={{ width: "100%", height: "600px", overflow: "auto" }}
+          data-widget-id="298493"
+          data-website="1"
+        ></div>
       </div>
     </section>
   );

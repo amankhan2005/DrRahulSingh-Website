@@ -47,7 +47,7 @@ export default function WhyChooseDrRahul() {
       <div className="container mx-auto relative z-10">
         {/* Header Section */}
         <div className="text-center mb-10 lg:mb-12">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-3 leading-snug">
+          <h2 className="text-xl  l md:text-3xl lg:text-4xl font-bold text-primary mb-3 leading-snug">
             Why Choose Dr. Rahul Singh
           </h2>
           <p className="text-sm md:text-base lg:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-2">

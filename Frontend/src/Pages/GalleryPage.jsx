@@ -48,7 +48,7 @@ function GalleryPage() {
 
   return (
     <div>
-      {/* BreadCumb full-width */}
+      {/* BreadCumb */}
       <BreadCumb
         items={[
           { label: "Home", link: "/" },
@@ -57,36 +57,38 @@ function GalleryPage() {
         title="Our Recent Memories"
       />
 
-      {/* Content inside container for alignment */}
-      <div className="container mx-auto px-4 py-10">
-        {/* Tabs */}
-        <div className="flex justify-center gap-6 border-b mb-6">
-          {["photo", "video", "news", "rewards"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`py-2 px-4 font-semibold ${
-                activeTab === tab
-                  ? "text-primary border-b-2 border-primary"
-                  : "text-gray-600"
-              }`}
-            >
-              {tab === "photo" && "Photo Gallery"}
-              {tab === "video" && "Video Gallery"}
-              {tab === "news" && "News & Media"}
-              {tab === "rewards" && "Awards & Achievements"}
-            </button>
-          ))}
+      {/* Main Content */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {/* Tabs - horizontally scrollable on small screens */}
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex gap-4 sm:gap-6 min-w-max">
+            {["photo", "video", "news", "rewards"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`whitespace-nowrap py-2 px-4 font-semibold text-sm sm:text-base border-b-2 ${
+                  activeTab === tab
+                    ? "text-primary border-primary"
+                    : "text-gray-600 border-transparent"
+                } transition-colors`}
+              >
+                {tab === "photo" && "Photo Gallery"}
+                {tab === "video" && "Video Gallery"}
+                {tab === "news" && "News & Media"}
+                {tab === "rewards" && "Awards & Achievements"}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Tab Content */}
-        {status === "loading" && <p>Loading...</p>}
-        {error && <p className="text-red-500">{error}</p>}
-        {filteredData.length === 0 && <p className="text-red-500">No Data Found</p>}
+        {status === "loading" && <p className="mt-6">Loading...</p>}
+        {error && <p className="mt-6 text-red-500">{error}</p>}
+        {filteredData.length === 0 && <p className="mt-6 text-red-500">No Data Found</p>}
 
         {/* Photos */}
         {activeTab === "photo" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
             {filteredData.map((img, idx) => (
               <div
                 key={idx}
@@ -97,7 +99,7 @@ function GalleryPage() {
                   <FaPlus className="text-white text-3xl" />
                 </div>
                 <img
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
                   src={img.src || img.imageUrl}
                   alt={img.title || "Gallery Image"}
                 />
@@ -108,7 +110,7 @@ function GalleryPage() {
 
         {/* Videos */}
         {activeTab === "video" && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
             {filteredData.map((video, idx) => (
               <div
                 key={idx}
@@ -117,7 +119,7 @@ function GalleryPage() {
               >
                 <video
                   src={video.videoUrl || video.imageUrl}
-                  className="w-full aspect-[4/6] object-cover rounded-lg"
+                  className="w-full aspect-video object-cover rounded-lg"
                   muted
                   preload="metadata"
                 />
@@ -131,7 +133,7 @@ function GalleryPage() {
 
         {/* News */}
         {activeTab === "news" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
             {filteredData.map((news, idx) => (
               <div
                 key={idx}
@@ -152,7 +154,7 @@ function GalleryPage() {
 
         {/* Rewards */}
         {activeTab === "rewards" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
             {filteredData.map((reward, idx) => (
               <div
                 key={idx}
@@ -175,7 +177,7 @@ function GalleryPage() {
       {/* Modal */}
       {modalOpen && filteredData[currentIndex] && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-50"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-50 p-4 sm:p-6"
           onWheel={activeTab === "photo" ? handleWheel : undefined}
         >
           <button
@@ -199,7 +201,7 @@ function GalleryPage() {
               }
               controls
               autoPlay
-              className="max-w-full max-h-screen object-contain rounded-lg"
+              className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg"
             />
           ) : (
             <img
@@ -208,7 +210,7 @@ function GalleryPage() {
                 filteredData[currentIndex].imageUrl
               }
               alt={filteredData[currentIndex].title || "Gallery Item"}
-              className="max-w-full max-h-screen object-contain rounded-lg"
+              className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg"
             />
           )}
 
