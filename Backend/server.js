@@ -144,7 +144,9 @@ const port = process.env.PORT || 5000;
 const mongoDBUrl = process.env.MONGODB;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  {origin:["http://localhost:5173","http://localhost:5174","https://landmark-hospitals.netlify.app","https://landmark-hospitals-admin.netlify.app/"]}
+));
 
 // ========== Existing Routes ==========
 import teamRoutes from './Routes/team.js';

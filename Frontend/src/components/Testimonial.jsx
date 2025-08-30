@@ -19,7 +19,7 @@ export default function GoogleReviews() {
       <div className="container mx-auto px-4">
         {/* Heading */}
         <div className=" mx-auto px-4 text-center">
-          <h2 className="text-2xl md:text-4xl font-bold text-primary mb-4">
+          <h2 className="text-2xl md:text-5xl font-bold text-primary mb-4">
             What Our Patients Say
           </h2>
           <p className="text-gray-600 mb-6 text-sm md:text-base">

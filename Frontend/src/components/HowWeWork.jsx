@@ -170,7 +170,7 @@ export default function HowWeWork() {
         {/* CTA */}
         <div className="mt-10 text-center">
           <button
-            className="inline-flex items-center px-6 py-3 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="inline-flex cursor-pointer items-center px-6 py-3 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
             style={{
               background: `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`,
             }}

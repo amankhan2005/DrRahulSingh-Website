@@ -35,7 +35,7 @@ const Features = () => {
         </div>
         <Link
           to="/our-team"
-          className="mt-4 text-center border border-white py-1 px-4 rounded hover:bg-white hover:text-blue-500 transition"
+          className="mt-4 text-center border border-white py-2 px-4 rounded hover:bg-white hover:text-blue-500 transition"
         >
           View Doctors
         </Link>
