@@ -101,6 +101,11 @@ import contactRoutes from './Routes/contact.routes.js'
 app.use('/inquiry-msg', contactRoutes)
 // =====================================
 
+
+app.get("/",(req,res)=>{
+    res.send("Server is Runing")
+})
+
 // ===== MongoDB Connection =====
 mongoose.connect(mongoDBUrl)
     .then(() => console.log('MongoDB Connected'))
