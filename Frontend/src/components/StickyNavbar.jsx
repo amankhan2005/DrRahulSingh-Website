@@ -40,7 +40,7 @@ const StickyNavbar = () => {
         <Header />
       </div>
 
-       <div className="pt-32">
+       <div className="pt-33">
        </div>
     </>
   );
