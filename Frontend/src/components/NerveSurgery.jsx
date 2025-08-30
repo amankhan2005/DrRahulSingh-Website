@@ -1,6 +1,5 @@
 import React from "react";
-import nerveImg from "../assets/home/peripheral-nerve-surgery.jpg"; // replace with actual image path
-
+import nerveImg from "../assets/home/peripheral-nerve-surgery.jpg";  
 export default function PeripheralNerveSurgery() {
   return (
     <section className="bg-white py-8">
@@ -17,7 +16,7 @@ export default function PeripheralNerveSurgery() {
         <div className="flex flex-col md:flex-row gap-8 bg-white rounded-lg shadow-2xs p-6">
           {/* Left Content */}
           <div className="flex-1 flex items-center">
-            <p className="text-gray-800 leading-relaxed text-justify">
+           <p className="text-gray-800 text-left md:text-justify leading-snug md:leading-relaxed">
               <span className="font-semibold">Peripheral nerve surgery</span> addresses disorders and injuries
               of the peripheral nervous system, including carpal tunnel syndrome, ulnar nerve entrapment,
               brachial plexus injuries, nerve tumors, traumatic lacerations, and chronic neuropathic pain.

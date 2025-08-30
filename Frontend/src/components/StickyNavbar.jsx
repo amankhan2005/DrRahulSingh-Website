@@ -24,8 +24,7 @@ const StickyNavbar = () => {
 
   return (
     <>
-      {/* TopNavBar (hide/show on scroll) */}
-      <div
+       <div
         className={`fixed top-0 left-0 w-full z-50 bg-gray-800 text-white transition-transform duration-300 ${
           showTopBar ? "translate-y-0" : "-translate-y-full"
         }`}
@@ -33,8 +32,7 @@ const StickyNavbar = () => {
         <TopNavBar />
       </div>
 
-      {/* Header → top depends on TopBar visibility */}
-      <div
+       <div
         className={`fixed w-full h-20 bg-white shadow-md z-40 transition-all duration-300 ${
           showTopBar ? "top-12" : "top-0"
         }`}
@@ -42,10 +40,8 @@ const StickyNavbar = () => {
         <Header />
       </div>
 
-      {/* Page content padding (TopBar + Header height initially) */}
-      <div className="pt-32">
-        {/* content starts below navbar */}
-      </div>
+       <div className="pt-32">
+       </div>
     </>
   );
 };
