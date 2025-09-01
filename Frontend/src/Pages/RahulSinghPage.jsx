@@ -141,13 +141,13 @@ export default function RahulSinghPage() {
     </div>
 
     {/* Right Image */}
-    <div className="flex-1">
+    {/* <div className="flex-1">
       <img
         src="https://www.drrahulneurosurgeon.com/Content/assets/images/img2.jpg"
         alt="Dr. Rahul Singh"
         className="h-96 rounded-3xl shadow-lg"
       />
-    </div>
+    </div> */}
   </div>
 </section>
 
