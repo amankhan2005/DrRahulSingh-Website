@@ -16,7 +16,7 @@ const Cases = () => {
   useEffect(() => {
     dispatch(fetchCasesData());
   }, [dispatch]);
-
+console.log(casesData)
   // Modal Handlers
   const openModal = (index) => {
     setCurrentImageIndex(index);
