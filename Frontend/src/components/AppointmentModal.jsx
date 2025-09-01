@@ -194,7 +194,7 @@ const AppointmentModal = ({ onClose }) => {
                 message.startsWith("✅")
                   ? "text-green-600"
                   : message.startsWith("⏳")
-                  ? "text-blue-600"
+                  ? "text-primary"
                   : "text-red-600"
               }`}
             >
