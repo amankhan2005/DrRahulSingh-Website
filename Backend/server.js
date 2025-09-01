@@ -139,6 +139,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors';
 
+
 const app = express();
 const port = process.env.PORT || 5000;
 const mongoDBUrl = process.env.MONGODB;
@@ -161,8 +162,8 @@ app.use('/gallery', galleryRoutes);
 import caseRoutes from './Routes/case.routes.js';
 app.use('/case', caseRoutes); 
 
-import inquiryRoutes from './Routes/inquiry.routes.js';
-app.use('/inquiry', inquiryRoutes);
+ import appointmentRoutes from "./Routes/appointment.Routes.js";
+app.use("/appointment", appointmentRoutes);
 
 import adminRoutes from './Routes/user.routes.js';
 app.use('/admin', adminRoutes);
@@ -175,6 +176,9 @@ app.use('/inquiry-msg', contactRoutes);
 app.get("/", (req,res) => {
   res.send(`Server is Running on port ${port}`);
 });
+
+ 
+
 
 // ===== MongoDB Connection =====
 mongoose.connect(mongoDBUrl)

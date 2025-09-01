@@ -10,12 +10,15 @@ const AppointmentData = () => {
 
   const api = import.meta.env.VITE_API_URL;
 
+  // Fetch appointments
   const fetchAppointments = async () => {
+    setLoading(true);
+    setError("");
     try {
-      const response = await axios.get(`${api}/inquiry/getall`);
-      setAppointments(response.data);
+      const response = await axios.get(`${api}/appointment/getall`);
+      setAppointments(response.data.data || []);
     } catch (err) {
-      setError("Error fetching data");
+      setError("Error fetching appointments");
     } finally {
       setLoading(false);
     }
@@ -25,18 +28,11 @@ const AppointmentData = () => {
     fetchAppointments();
   }, []);
 
-  if (loading) {
-    return <p className="text-center text-gray-500 mt-4">Loading...</p>;
-  }
-
-  if (error) {
-    return <p className="text-center text-red-500 mt-4">{error}</p>;
-  }
-
+  // Delete appointment
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "This appointment will be deleted permanently!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -47,18 +43,48 @@ const AppointmentData = () => {
     if (!result.isConfirmed) return;
 
     try {
-      await axios.delete(`${api}/inquiry/delete/${id}`);
+      await axios.delete(`${api}/appointment/delete/${id}`);
       fetchAppointments();
-      Swal.fire("Deleted!", "The inquiry has been deleted.", "success");
+      Swal.fire("Deleted!", "The appointment has been removed.", "success");
     } catch (error) {
-      console.error("Error deleting inquiry:", error);
-      Swal.fire("Error!", "Failed to delete inquiry.", "error");
+      console.error("Error deleting appointment:", error);
+      Swal.fire("Error!", "Failed to delete appointment.", "error");
     }
   };
 
+  // Approve appointment
+  const handleApprove = async (id) => {
+    const result = await Swal.fire({
+      title: "Approve this appointment?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Approve!",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!result.isConfirmed) return;
+
+    try {
+      await axios.post(`${api}/appointment/approve/${id}`);
+      fetchAppointments();
+      Swal.fire(
+        "Approved!",
+        "The appointment has been approved and email sent.",
+        "success"
+      );
+    } catch (error) {
+      console.error("Error approving appointment:", error);
+      Swal.fire("Error!", "Failed to approve appointment.", "error");
+    }
+  };
+
+  // Load more appointments
   const onMore = () => {
     setLoadCount((prevCount) => Math.min(prevCount + 5, appointments.length));
   };
+
+  if (loading) return <p className="text-center text-gray-500 mt-4">Loading...</p>;
+  if (error) return <p className="text-center text-red-500 mt-4">{error}</p>;
 
   return (
     <div className="p-6">
@@ -66,56 +92,78 @@ const AppointmentData = () => {
         Recent Patient Appointments
       </h2>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border px-4 py-2 text-left">Department</th>
-              <th className="border px-4 py-2 text-left">Requested Doctor</th>
-              <th className="border px-4 py-2 text-left">Patient Name</th>
-              <th className="border px-4 py-2 text-left">Mobile No</th>
-              <th className="border px-4 py-2 text-left">Email</th>
-              <th className="border px-4 py-2 text-left">Date</th>
-              <th className="border px-4 py-2 text-left">Time</th>
-              <th className="border px-4 py-2 text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {appointments?.slice(0, loadCount).reverse().map((appointment) => (
-              <tr key={appointment._id} className="hover:bg-gray-50 transition">
-                <td className="border px-4 py-3">{appointment.department}</td>
-                <td className="border px-4 py-3">{appointment.requestedDoctor}</td>
-                <td className="border px-4 py-3">{appointment.patientName}</td>
-                <td className="border px-4 py-3">{appointment.mobileNo}</td>
-                <td className="border px-4 py-3">{appointment.email}</td>
-                <td className="border px-4 py-3">{appointment.date}</td>
-                <td className="border px-4 py-3">{appointment.time}</td>
-                <td className="border px-4 py-3 text-center">
-                  <button
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition"
-                    onClick={() => handleDelete(appointment._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {appointments.length === 0 && (
+          <p className="col-span-full text-center text-red-500 py-6">
+            No Appointments Yet!
+          </p>
+        )}
 
-            {appointments.length === 0 && (
-              <tr>
-                <td colSpan={8} className="text-center text-red-500 py-6">
-                  No Data Yet!
-                </td>
-              </tr>
+        {appointments.slice(0, loadCount).map((appointment) => (
+          <div
+            key={appointment._id}
+            className="relative bg-white rounded-xl shadow p-4 border border-gray-200 hover:shadow-lg transition"
+          >
+            {/* Watermark */}
+            {appointment.status?.toLowerCase() === "approved" && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <span className="text-6xl font-bold text-gray-300 opacity-20 rotate-[-30deg] select-none">
+                  APPROVED
+                </span>
+              </div>
             )}
-          </tbody>
-        </table>
+
+            {/* Card content */}
+            <div className="flex justify-between items-center mb-2 relative z-10">
+              <span className="font-semibold text-gray-700">{appointment.name}</span>
+              <div className="space-x-2">
+                <button
+                  className={`px-3 py-1 rounded text-sm font-medium transition-all duration-200 ${
+                    appointment.status?.toLowerCase() === "approved"
+                      ? "bg-gray-400 text-gray-200 cursor-not-allowed shadow-inner"
+                      : "bg-green-500 hover:bg-green-600 text-white shadow-md"
+                  }`}
+                  onClick={() => handleApprove(appointment._id)}
+                  disabled={appointment.status?.toLowerCase() === "approved"}
+                >
+                  {appointment.status?.toLowerCase() === "approved" ? "Approved" : "Approve"}
+                </button>
+                <button
+                  className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition text-sm shadow-md"
+                  onClick={() => handleDelete(appointment._id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+
+            <div className="text-gray-600 text-sm space-y-1 relative z-10">
+              <p><strong>Phone:</strong> {appointment.number}</p>
+              <p><strong>Email:</strong> {appointment.email}</p>
+              <p><strong>Department:</strong> {appointment.department}</p>
+              <p><strong>Date:</strong> {appointment.date}</p>
+              <p><strong>Time:</strong> {appointment.time}</p>
+              <p>
+                <strong>Status:</strong>{" "}
+                <span
+                  className={
+                    appointment.status?.toLowerCase() === "approved"
+                      ? "text-green-600"
+                      : "text-yellow-600"
+                  }
+                >
+                  {appointment.status || "Pending"}
+                </span>
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
 
       {loadCount < appointments.length && (
-        <div className="text-center mt-4">
+        <div className="text-center mt-6">
           <button
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded shadow transition"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded shadow transition"
             onClick={onMore}
           >
             Show More
