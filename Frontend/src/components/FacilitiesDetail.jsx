@@ -3,7 +3,7 @@ import { facilities as facilitiesData } from "../FacilitiesData";
 import pattern from "../assets/pattern13.jpg";
 import BreadCumb2 from "./Breadcumb2.jsx";
 import { FaCheck } from "react-icons/fa";
-import AppointmentForm from "./AppointmentForm.jsx";
+import AppointmentForm from "./AppointmentModal.jsx";
 import FAQSection from "./Faq.jsx";
 
 const FacilitiesDetail = () => {

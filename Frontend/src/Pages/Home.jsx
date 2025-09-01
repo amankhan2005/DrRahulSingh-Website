@@ -10,6 +10,7 @@ const WhyChooseUs = lazy(() => import('../components/WhyChooseUs'));
 const Testimonial = lazy(() => import('../components/Testimonial'));
 const Gallery = lazy(() => import('../components/Gallery'));
 import YouTubeGallery from '../components/YoutubeGallery';
+import AppointmentModal from '../components/AppointmentModal';
  const ContactUs = lazy(() => import('../components/ContactUs'));
 const HowWeWork = lazy(() => import('../components/HowWeWork'));
 const BlogComponent = lazy(() => import('../components/BlogSection'));

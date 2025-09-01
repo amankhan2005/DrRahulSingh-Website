@@ -3,19 +3,16 @@ import axios from "axios";
 
 const backendUrl = import.meta.env.VITE_BACKENDURL;
 
-// -------------------- Thunks --------------------
-
-// Fetch all appointments (Admin dashboard)
-export const fetchAppointments = createAsyncThunk(
+ 
+ export const fetchAppointments = createAsyncThunk(
   "appointments/fetchAppointments",
   async () => {
     const res = await axios.get(`${backendUrl}/appointment/getall`);
-    return res.data.data; // backend me appointments "data" key me hain
+    return res.data.data;  
   }
 );
 
-// Create new appointment (User form)
-export const createAppointment = createAsyncThunk(
+ export const createAppointment = createAsyncThunk(
   "appointments/createAppointment",
   async (appointment) => {
     const res = await axios.post(`${backendUrl}/appointment/create`, appointment);
@@ -23,8 +20,7 @@ export const createAppointment = createAsyncThunk(
   }
 );
 
-// Delete appointment (Admin)
-export const deleteAppointment = createAsyncThunk(
+ export const deleteAppointment = createAsyncThunk(
   "appointments/deleteAppointment",
   async (id) => {
     await axios.delete(`${backendUrl}/appointment/delete/${id}`);
@@ -32,15 +28,13 @@ export const deleteAppointment = createAsyncThunk(
   }
 );
 
-// -------------------- Initial State --------------------
-const initialState = {
+ const initialState = {
   list: [],
   status: null,
   error: null,
 };
 
-// -------------------- Slice --------------------
-const appointmentSlice = createSlice({
+ const appointmentSlice = createSlice({
   name: "appointments",
   initialState,
   reducers: {},

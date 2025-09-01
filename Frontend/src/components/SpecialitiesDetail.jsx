@@ -3,7 +3,7 @@ import { specialities } from "../SpecilitesData.jsx";
 import pattern from "../assets/pattern1.jpg";
 import BreadCumb2 from "./Breadcumb2.jsx";
 import { FaCheck } from "react-icons/fa";
-import AppointmentForm from "./AppointmentForm.jsx";
+import AppointmentForm from "./AppointmentModal.jsx";
 import FAQSection from "./Faq.jsx";
 
 const SpecialtyDetail = () => {

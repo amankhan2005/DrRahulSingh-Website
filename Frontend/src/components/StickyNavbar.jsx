@@ -1,11 +1,12 @@
  import React, { useState, useEffect } from "react";
 import TopNavBar from "./TopNavbar";
 import Header from "./Header";
+import AppointmentModal from "./AppointmentModal";
 
 const StickyNavbar = () => {
   const [showTopBar, setShowTopBar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-
+  const [isOpen, setIsOpen] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
@@ -24,12 +25,13 @@ const StickyNavbar = () => {
 
   return (
     <>
+    {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
        <div
         className={`fixed top-0 left-0 w-full z-50 bg-gray-800 text-white transition-transform duration-300 ${
           showTopBar ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <TopNavBar />
+        <TopNavBar setIsOpen={setIsOpen} isOpen={isOpen}/>
       </div>
 
        <div

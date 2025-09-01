@@ -12,7 +12,7 @@ import Home from "./Pages/Home";
 import Testimonial from "./components/Testimonial"; // Component, not lazy
 
 // ✅ Lazy-loaded pages
-const Appointment = lazy(() => import("./Pages/Appointment"));
+// const Appointment = lazy(() => import("./Pages/Appointment"));
 const OurTeam = lazy(() => import("./Pages/RahulSinghPage"));
 const GalleryPage = lazy(() => import("./Pages/GalleryPage"));
 const ContactUs = lazy(() => import("./Pages/ContactUs"));
@@ -24,7 +24,7 @@ const FacilitiesPage = lazy(() => import("./Pages/FacilitiesPage"));
 const FacilitiesDetail = lazy(() => import("./components/FacilitiesDetail"));
 const BlogDetailPage = lazy(() => import("./components/BlogDetail"));
 const AboutPage = lazy(() => import("./Pages/AboutPage"));
-
+ 
 // ✅ New Speciality Pages
 const Brain = lazy(() => import("./Pages/Brain"));
 const Spine = lazy(() => import("./Pages/Spine"));
@@ -173,14 +173,14 @@ const App = () => {
         {/* Component, not lazy */}
         <Route path="/testimonials" element={<Testimonial />} />
 
-        <Route
+        {/* <Route
           path="/appointment"
           element={
             <Suspense fallback={<LoadingSpinner />}>
               <Appointment />
             </Suspense>
           }
-        />
+        /> */}
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
