@@ -78,7 +78,7 @@ const BlogComponent = () => {
                     src={blog.imageUrl}
                     alt={blog.title}
                     loading="lazy"
-                    className="w-full h-50 object-cover rounded-lg mb-4"
+                    className="w-full h-60 object-cover rounded-lg mb-2"
                   />
                   <p className="text-sm text-gray-500 mb-4 underline underline-offset-4">
                     Published by <span className="text-gray-900">{blog.postedBy}</span> ||{" "}
