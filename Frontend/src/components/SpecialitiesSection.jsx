@@ -43,8 +43,8 @@ export default function ServiceSection() {
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-8 relative overflow-hidden py-10">
       <div className="container mx-auto relative z-10">
         {/* Header Section */}
-        <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-2 leading-tight">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-1 leading-tight">
             Expert Medical Care
           </h2>
           <p

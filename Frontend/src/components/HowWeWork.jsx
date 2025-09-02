@@ -8,12 +8,11 @@ import {
   ChevronDown,
   ChevronUp,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import AppointmentModal from './AppointmentModal';
 
 export default function HowWeWork() {
   const [activeStep, setActiveStep] = useState(null);
-
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false); // Modal state
 
   const steps = [
     {
@@ -62,13 +61,13 @@ export default function HowWeWork() {
 
   return (
     <div className="bg-white py-10 px-4 sm:px-6 lg:px-8">
-      <div className=" container mx-auto">
+      <div className="container mx-auto">
         {/* Header */}
         <div className="lg:mb-16 mb-10 text-center">
-          <h2 className="text-3xl md:text-4xl  text-primary font-bold mb-2">
+          <h2 className="text-3xl md:text-4xl text-primary font-bold mb-2">
             Your Journey to Better Health
           </h2>
-          <p className="text-lg max-w-3xl mx-auto  text-gray-600">
+          <p className="text-lg max-w-3xl mx-auto text-gray-600">
             Dr. Rahul's patient-centered approach ensures a seamless experience from your first call to ongoing care
           </p>
           <div
@@ -174,7 +173,7 @@ export default function HowWeWork() {
             style={{
               background: `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`,
             }}
-            onClick={() => navigate("/contact")}
+            onClick={() => setIsOpen(true)} // Open modal
           >
             Schedule Your Visit
             <Calendar className="ml-2" size={18} />
@@ -183,6 +182,9 @@ export default function HowWeWork() {
             Experience the difference with Dr. Rahul Singh personalized care
           </p>
         </div>
+
+        {/* Appointment Modal */}
+        {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
       </div>
     </div>
   );

@@ -17,7 +17,22 @@ function ContactUsForm() {
   const backendUrl = import.meta.env.VITE_BACKENDURL;
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Real-time restrictions
+    if (name === "name") {
+      // Allow only letters and spaces
+      if (/^[A-Za-z\s]*$/.test(value)) {
+        setFormData({ ...formData, [name]: value });
+      }
+    } else if (name === "phone") {
+      // Allow only digits
+      if (/^\d*$/.test(value)) {
+        setFormData({ ...formData, [name]: value });
+      }
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleDepartmentChange = (e) => {
@@ -28,11 +43,29 @@ function ContactUsForm() {
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.name.trim()) errors.name = "Name is required.";
-    if (!formData.phone.trim()) errors.phone = "Phone number is required.";
-    if (!formData.email.trim()) errors.email = "Email is required.";
+
+    if (!formData.name.trim()) {
+      errors.name = "Name is required.";
+    }
+
+    if (!formData.phone.trim()) {
+      errors.phone = "Phone number is required.";
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      errors.phone = "Phone number must be 10 digits.";
+    }
+
+    if (!formData.email.trim()) {
+      errors.email = "Email is required.";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      errors.email = "Invalid email address.";
+    }
+
     if (!formData.department) errors.department = "Department is required.";
+
     if (!formData.message.trim()) errors.message = "Message is required.";
+
     return errors;
   };
 
@@ -73,7 +106,6 @@ function ContactUsForm() {
       setSelectedDepartment("");
       setFormErrors({});
     } catch (err) {
-      console.error("Error:", err.response?.data || err.message);
       Swal.fire({
         title: "Error!",
         text:
@@ -121,7 +153,6 @@ function ContactUsForm() {
             type="tel"
             name="phone"
             placeholder="10-digit Phone Number"
-            pattern="[0-9]{10}"
             maxLength="10"
             className="w-full p-3 border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition"
             onChange={handleChange}

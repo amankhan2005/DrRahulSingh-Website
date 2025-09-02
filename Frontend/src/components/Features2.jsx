@@ -1,10 +1,13 @@
- import React from "react";
+ import React, { useState } from "react";
 import { FaPhoneAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // <-- Added this import
+import AppointmentModal from "./AppointmentModal";
 
 const Features = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <section className="container mx-auto px-2  md:grid grid-cols-1 md:grid-cols-4 gap-4">
+    <section className="container mx-auto px-2 md:grid grid-cols-1 md:grid-cols-4 gap-4">
       
       {/* Working Time */}
       <div className="bg-primary text-white md:p-6 p-4 mb-4 md:mb-0 rounded-lg border border-gray-200 shadow-md">
@@ -49,12 +52,19 @@ const Features = () => {
             Schedule your appointment with our expert doctors easily and get the best medical care at your convenience.
           </p>
         </div>
-        <Link
-          to="/appointment"
-          className="mt-4 text-center border border-white py-2 px-4 rounded hover:bg-white hover:text-blue-600 transition"
+
+        {/* Button to open modal */}
+        <button
+          onClick={() => setIsOpen(true)}
+          title="Book Appointment"
+          aria-label="Book-Appointment"
+          className="mt-4 text-center border border-white py-2 px-4 rounded hover:bg-white hover:text-blue-600 transition-colors duration-300 ease-in-out"
         >
           Make an Appointment
-        </Link>
+        </button>
+
+        {/* Modal */}
+        {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
       </div>
 
       {/* Emergency Cases */}

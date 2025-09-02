@@ -1,43 +1,53 @@
- import React, { useState } from "react";
+ import React, { useState, useEffect } from "react";
 import TopNavBar from "./TopNavbar";
 import Header from "./Header";
 import AppointmentModal from "./AppointmentModal";
 
 const StickyNavbar = () => {
-  const [isOpen, setIsOpen] = useState(false); // appointment modal
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        // scrolling down → hide header
+        setShowHeader(false);
+      } else {
+        // scrolling up → show header
+        setShowHeader(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
     <>
-      {/* Appointment Modal */}
       {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
 
-      {/* TopNavBar stays normal on top */}
-      <div className="relative z-[110]">
+      {/* TopNavBar always visible */}
+      <div className="fixed top-0 left-0 w-full z-50 bg-gray-800 text-white">
         <TopNavBar setIsOpen={setIsOpen} isOpen={isOpen} />
       </div>
 
-      {/* Header hides if appointment modal is open */}
-      {!isOpen && (
-        <div className="relative z-[100] mt-[3rem]">
-          <Header />
-        </div>
-      )}
+      {/* Header hides/shows on scroll */}
+      <div
+        className={`fixed w-full h-20 bg-white shadow-md z-40 transition-transform duration-300`}
+        style={{ transform: showHeader ? "translateY(0)" : "translateY(-100%)", top: "3rem" }} // adjust 3rem based on TopNavBar height
+      >
+        <Header />
+      </div>
 
-      {/* Optional spacing */}
-      <div className="pt-0"></div>
+      {/* Add padding so content isn’t hidden behind navbars */}
+      <div className="pt-32"></div>
     </>
   );
 };
 
 export default StickyNavbar;
-
-
-
-
-
-
-
-
 
 
 // --sticky-navbar

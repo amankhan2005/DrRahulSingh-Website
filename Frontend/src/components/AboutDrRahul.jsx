@@ -1,11 +1,12 @@
- import React from 'react';
-import { CheckCircle, Phone } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+ import React, { useState } from 'react';
+import { CheckCircle, Phone, Calendar } from 'lucide-react';
+import AppointmentModal from './AppointmentModal';
 
 const AboutDoctor = () => {
   const primaryColor = '#13335b'; // Dark Blue
   const secondaryColor = '#3b628b'; // Light Blue
-  const navigate = useNavigate();
+
+  const [isOpen, setIsOpen] = useState(false); // Modal state
 
   const memberships = [
     "American Association of Neurological Surgeon (USA)",
@@ -23,7 +24,6 @@ const AboutDoctor = () => {
   return (
     <section className="w-full bg-slate-50 py-8 sm:py-12 px-3 sm:px-6 lg:px-8">
       <div className="container mx-auto">
-        {/* Main Content Container */}
         <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:space-x-10">
           {/* Left Side - Image */}
           <div className="w-full md:w-1/2">
@@ -86,9 +86,10 @@ const AboutDoctor = () => {
             {/* Call to Action Buttons */}
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <button
-                className="px-6 py-3 text-white text-sm sm:text-base font-medium rounded-md shadow-md bg-gradient-to-r from-[#13335b] to-[#3b628b]"
-                onClick={() => navigate("/contact")}
+                className="px-6 py-3 text-white text-sm sm:text-base font-medium rounded-md shadow-md bg-gradient-to-r from-[#13335b] to-[#3b628b] flex items-center justify-center"
+                onClick={() => setIsOpen(true)} // Open Appointment Modal
               >
+                <Calendar size={18} className="mr-2" />
                 BOOK APPOINTMENT
               </button>
 
@@ -110,6 +111,9 @@ const AboutDoctor = () => {
             </div>
           </div>
         </div>
+
+        {/* Appointment Modal */}
+        {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
       </div>
     </section>
   );

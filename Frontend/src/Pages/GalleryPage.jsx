@@ -1,5 +1,4 @@
  // GalleryPage.jsx
-
 import React, { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight, FaPlus, FaTimes } from "react-icons/fa";
 import BreadCumb from "../components/BreadCumb";
@@ -36,15 +35,24 @@ function GalleryPage() {
     setCurrentIndex(index);
     setScale(1);
     setModalOpen(true);
+    document.body.style.overflow = "hidden"; // Prevent background scroll
   };
 
-  const closeModal = () => setModalOpen(false);
+  const closeModal = () => {
+    setModalOpen(false);
+    document.body.style.overflow = "auto"; // Restore scroll
+  };
+
   const nextItem = () =>
     setCurrentIndex((prev) => (prev + 1) % filteredData.length);
   const prevItem = () =>
     setCurrentIndex((prev) => (prev - 1 + filteredData.length) % filteredData.length);
   const handleWheel = (e) =>
     setScale((prev) => Math.min(Math.max(prev - e.deltaY * 0.001, 1), 3));
+
+  const handleOverlayClick = (e) => {
+    if (e.target.dataset.modal === "overlay") closeModal();
+  };
 
   return (
     <div>
@@ -57,9 +65,8 @@ function GalleryPage() {
         title="Our Recent Memories"
       />
 
-      {/* Main Content */}
+      {/* Tabs */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Tabs - horizontally scrollable on small screens */}
         <div className="overflow-x-auto scrollbar-hide">
           <div className="flex gap-4 sm:gap-6 min-w-max">
             {["photo", "video", "news", "rewards"].map((tab) => (
@@ -86,142 +93,88 @@ function GalleryPage() {
         {error && <p className="mt-6 text-red-500">{error}</p>}
         {filteredData.length === 0 && <p className="mt-6 text-red-500">No Data Found</p>}
 
-        {/* Photos */}
-        {activeTab === "photo" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
-            {filteredData.map((img, idx) => (
-              <div
-                key={idx}
-                className="relative bg-white rounded-lg shadow-md overflow-hidden cursor-pointer group"
-                onClick={() => openModal(idx)}
-              >
-                <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 bg-black/30 transition">
-                  <FaPlus className="text-white text-3xl" />
-                </div>
-                <img
-                  className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
-                  src={img.src || img.imageUrl}
-                  alt={img.title || "Gallery Image"}
-                />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
+          {filteredData.map((item, idx) => (
+            <div
+              key={idx}
+              className="relative cursor-pointer group rounded-lg overflow-hidden shadow-md"
+              onClick={() => openModal(idx)}
+            >
+              <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 bg-black/30 transition">
+                <FaPlus className="text-white text-3xl" />
               </div>
-            ))}
-          </div>
-        )}
-
-        {/* Videos */}
-        {activeTab === "video" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
-            {filteredData.map((video, idx) => (
-              <div
-                key={idx}
-                className="relative cursor-pointer rounded-lg overflow-hidden shadow-lg group"
-                onClick={() => openModal(idx)}
-              >
+              {activeTab === "video" ? (
                 <video
-                  src={video.videoUrl || video.imageUrl}
+                  src={item.videoUrl || item.imageUrl}
                   className="w-full aspect-video object-cover rounded-lg"
                   muted
                   preload="metadata"
                 />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/25 transition">
-                  <FaPlus className="text-white text-3xl" />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* News */}
-        {activeTab === "news" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
-            {filteredData.map((news, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer group"
-                onClick={() => openModal(idx)}
-              >
-                <div className="w-full aspect-[4/3] overflow-hidden">
-                  <img
-                    src={news.src || news.imageUrl}
-                    alt={news.title || "News Image"}
-                    className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Rewards */}
-        {activeTab === "rewards" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
-            {filteredData.map((reward, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer group"
-                onClick={() => openModal(idx)}
-              >
-                <div className="w-full aspect-[3/4] overflow-hidden">
-                  <img
-                    src={reward.src || reward.imageUrl}
-                    alt={reward.title || "Reward Image"}
-                    className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ) : (
+                <img
+                  src={item.src || item.imageUrl}
+                  alt={item.title || "Gallery Item"}
+                  className="w-full h-48 sm:h-56 md:h-60 lg:h-64 object-cover"
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Modal */}
-      {modalOpen && filteredData[currentIndex] && (
-        <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-50 p-4 sm:p-6"
-          onWheel={activeTab === "photo" ? handleWheel : undefined}
-        >
-          <button
-            className="absolute top-5 right-5 text-white text-3xl cursor-pointer"
-            onClick={closeModal}
-          >
-            <FaTimes />
-          </button>
-          <button
-            className="absolute left-5 text-white text-3xl cursor-pointer"
-            onClick={prevItem}
-          >
-            <FaChevronLeft />
-          </button>
+   {/* Modal */}
+{modalOpen && filteredData[currentIndex] && (
+  <div
+    data-modal="overlay"
+    className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-50 p-4 sm:p-6"
+    onClick={handleOverlayClick}
+    onWheel={activeTab === "photo" ? handleWheel : undefined}
+  >
+    {/* Close Button */}
+    <button
+      className="absolute top-5 right-5 text-white text-4xl cursor-pointer z-60"
+      onClick={closeModal}
+      aria-label="Close Modal"
+    >
+      <FaTimes />
+    </button>
 
-          {activeTab === "video" ? (
-            <video
-              src={
-                filteredData[currentIndex].videoUrl ||
-                filteredData[currentIndex].imageUrl
-              }
-              controls
-              autoPlay
-              className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg"
-            />
-          ) : (
-            <img
-              src={
-                filteredData[currentIndex].src ||
-                filteredData[currentIndex].imageUrl
-              }
-              alt={filteredData[currentIndex].title || "Gallery Item"}
-              className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg"
-            />
-          )}
+    {/* Previous */}
+    <button
+      className="absolute left-5 text-white text-3xl cursor-pointer z-50"
+      onClick={prevItem}
+      aria-label="Previous"
+    >
+      <FaChevronLeft />
+    </button>
 
-          <button
-            className="absolute right-5 text-white text-3xl cursor-pointer"
-            onClick={nextItem}
-          >
-            <FaChevronRight />
-          </button>
-        </div>
-      )}
+    {/* Content */}
+    {activeTab === "video" ? (
+      <video
+        src={filteredData[currentIndex].videoUrl || filteredData[currentIndex].imageUrl}
+        controls
+        autoPlay
+        className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg z-40"
+      />
+    ) : (
+      <img
+        src={filteredData[currentIndex].src || filteredData[currentIndex].imageUrl}
+        alt={filteredData[currentIndex].title || "Gallery Item"}
+        className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg z-40"
+      />
+    )}
+
+    {/* Next */}
+    <button
+      className="absolute right-5 text-white text-3xl cursor-pointer z-50"
+      onClick={nextItem}
+      aria-label="Next"
+    >
+      <FaChevronRight />
+    </button>
+  </div>
+)}
+
     </div>
   );
 }
