@@ -14,7 +14,7 @@ const StickyNavbar = () => {
       </div>
 
       {/* Spacer to avoid content being hidden behind fixed navbar */}
-      <div className="h-[140px] md:h-[160px]"></div>
+      <div className="h-[140px] md:h-[125px]"></div>
     </>
   );
 };

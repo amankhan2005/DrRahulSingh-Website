@@ -19,7 +19,7 @@ export default function Header() {
       role="navigation"
       aria-label="Main Navigation"
     >
-      <div className=" container  mx-auto flex justify-between items-center  px-4 ">
+      <div className=" container  mx-auto flex justify-between items-center  px-5 ">
         {/* Logo */}
         <div className="flex items-center">
           <Link to="/">
