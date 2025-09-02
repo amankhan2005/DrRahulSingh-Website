@@ -1,6 +1,6 @@
 [build]
   base = "AdminPannel"
-  publish = "AdminPannel/dist"
+  publish = "dist"       # <-- relative to base
   command = "npm install && npm run build"
 
 [build.environment]
