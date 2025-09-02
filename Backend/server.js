@@ -146,7 +146,7 @@ const mongoDBUrl = process.env.MONGODB;
 
 app.use(express.json());
 app.use(cors(
-  {origin:["http://localhost:5173","http://localhost:5174","https://landmark-hospitals.netlify.app","https://landmark-hospitals-admin.netlify.app/"]}
+  {origin:["http://localhost:5173","http://localhost:5174","https://landmark-hospitals.netlify.app","https://adminpannel-landmark-hospital.netlify.app"]}
 ));
 
 // ========== Existing Routes ==========
