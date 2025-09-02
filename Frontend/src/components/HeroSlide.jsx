@@ -4,9 +4,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Features from "./Features2";
-import banner1 from "../assets/home/banner3.webp";
-import banner2 from "../assets/home/banner2.webp";
-import banner3 from "../assets/home/banner4.webp";
+import banner1 from "../assets/home/banner3.jpg";
+import banner2 from "../assets/home/banner2.jpg";
+import banner3 from "../assets/home/banner4.jpg";
 
 // Slider data
 const slides = [
