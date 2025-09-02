@@ -44,7 +44,7 @@ const Gallery = () => {
 
   // Slider settings
   const settings = {
-    dots: true,
+    dots: false,
     infinite: galleryData.length > 3,
     speed: 600,
     slidesToShow: 3,
