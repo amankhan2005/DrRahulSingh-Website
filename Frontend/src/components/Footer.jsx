@@ -151,7 +151,7 @@ const Footer = () => {
 
             {/* Quick Links */}
             <nav>
-              <h4 className="text-2xl font-semibold md:mb-4 mb-2 ">
+              <h4 className="text-2xl font-semibold md:mb-4 mb-3 ">
                 Quick Links
               </h4>
               <ul className="space-y-1">
