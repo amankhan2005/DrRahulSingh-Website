@@ -50,3 +50,14 @@ body{
     list-style-type: disc; 
     padding-left: 20px;
   } */
+
+ .scrollbar-hide {
+  -ms-overflow-style: none !important;  /* IE and Edge */
+  scrollbar-width: none !important;     /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;             /* Chrome, Safari, Opera */
+}

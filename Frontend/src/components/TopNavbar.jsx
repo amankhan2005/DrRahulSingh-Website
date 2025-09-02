@@ -1,15 +1,13 @@
- import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
-import { useState } from "react";
+ import { useState } from "react";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import AppointmentModal from "./AppointmentModal";
 
-export default function TopNavBar({setIsOpen , isOpen}) {
-
-  console.log(setIsOpen)
+export default function TopNavBar() {
+  const [isOpen, setIsOpen] = useState(false); // Internal modal state
 
   return (
     <>
-     
-      <header className="bg-primary text-white   w-full  ">
+      <header className="bg-primary text-white w-full">
         <div className="container mx-auto flex justify-between md:gap-0 gap-4 items-center py-2 px-8">
           {/* Left side */}
           <div className="hidden md:flex items-center space-x-6">
@@ -25,7 +23,7 @@ export default function TopNavBar({setIsOpen , isOpen}) {
 
             <a
               href="tel:+91 84001-36465"
-              title="Contact of Landmark Hospital"
+              title="Contact"
               aria-label="Contact"
               className="flex items-center space-x-2 hover:scale-x-105 ease-in-out transition-all duration-500"
             >
@@ -38,7 +36,7 @@ export default function TopNavBar({setIsOpen , isOpen}) {
           <div className="flex-1 flex justify-center md:justify-end gap-6">
             {/* Book Appointment Button */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setIsOpen(true)}
               title="Book Appointment"
               aria-label="Book-Appointment"
               className="flex hover:scale-105 ease-in-out transition-all duration-500 gap-2 shadow-2xl rounded-lg lg:py-1 py-0.5 bg-white lg:px-2 px-1 text-primary md:font-semibold"
@@ -94,7 +92,7 @@ export default function TopNavBar({setIsOpen , isOpen}) {
       </header>
 
       {/* Appointment Modal */}
-     
+      {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
     </>
   );
 }

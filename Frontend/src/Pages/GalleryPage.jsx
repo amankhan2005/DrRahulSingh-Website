@@ -5,6 +5,7 @@ import BreadCumb from "../components/BreadCumb";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGalleryData } from "../redux/slices/dataslice";
 import { useLocation } from "react-router-dom";
+import "../index.css"; // global CSS import
 
 function GalleryPage() {
   const location = useLocation();
@@ -46,7 +47,9 @@ function GalleryPage() {
   const nextItem = () =>
     setCurrentIndex((prev) => (prev + 1) % filteredData.length);
   const prevItem = () =>
-    setCurrentIndex((prev) => (prev - 1 + filteredData.length) % filteredData.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + filteredData.length) % filteredData.length
+    );
 
   const handleWheel = (e) =>
     setScale((prev) => Math.min(Math.max(prev - e.deltaY * 0.001, 1), 3));
@@ -68,7 +71,8 @@ function GalleryPage() {
 
       {/* Tabs */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="overflow-x-auto scrollbar-hide">
+        {/* SCROLLBAR HIDE FIX */}
+        <div className="overflow-x-auto scrollbar-hide pr-2 -mr-2">
           <div className="flex gap-4 sm:gap-6 min-w-max">
             {["photo", "video", "news", "rewards"].map((tab) => (
               <button

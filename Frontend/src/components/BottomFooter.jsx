@@ -1,42 +1,42 @@
-import React from 'react';
+ import React from "react";
 import companyLogo from "../assets/cclogo-MohdSuhel.webp";
 import { FaRegCopyright } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const BottomFooter = () => {
-  // Copyright 2024 Dr. Mamta || All Rights Reserved || Designed By
   return (
-    <div className="bg-primary py-4 ">
-  <div className="flex flex-wrap items-center justify-center text-xs sm:text-sm md:text-[14px]  text-white w-full gap-1 px-4">
-    <div className="flex flex-wrap items-center justify-center gap-1 text-center">
-      <p className="text-white">Copyright</p>
-      <FaRegCopyright className="text-[1rem]" />
-      <p className="text-white">{new Date().getFullYear()}  Landmark Advance Neurospine Care Superspeciality Hospital
- </p>
-      <span className="hidden sm:inline-block">||</span>
-      <p className="text-white">All Rights Reserved</p>
-      <span className="hidden sm:inline-block">||</span>
-    </div>
-    <div className="flex flex-wrap items-center justify-center gap-1 text-center">
-      <span className="text-white">Designed by</span>
-      <Link
-        to="https://www.codecrafter.co.in/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="ml-2"
-      >
-        <img
-          src={companyLogo}
-          alt="Designed by Company"
-          loading='lazy'
-          className="h-auto w-[6rem] md:w-[7rem] lg:w-[8rem] inline-block"
-        />
-      </Link>
-    </div>
-  </div>
-</div>
+    <footer className="bg-primary py-4 px-4">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-3 text-center md:text-left">
+        
+        {/* Left Section */}
+        <div className="flex flex-wrap items-center justify-center gap-1 text-white text-xs sm:text-sm md:text-base">
+          <p>Copyright</p>
+          <FaRegCopyright className="text-[0.9rem]" />
+          <p>{new Date().getFullYear()} Landmark Advance Neurospine Care Superspeciality Hospital</p>
+          <span className="hidden sm:inline-block">|</span>
+          <p>All Rights Reserved</p>
+        </div>
 
+        {/* Right Section */}
+        <div className="flex items-center justify-center gap-2 text-white text-xs sm:text-sm md:text-base">
+          <span>Designed by</span>
+          <Link
+            to="https://www.codecrafter.co.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center"
+          >
+            <img
+              src={companyLogo}
+              alt="Designed by Company"
+              loading="lazy"
+              className="h-6 sm:h-7 md:h-8 lg:h-9 w-auto object-contain transition-transform duration-300 hover:scale-105"
+            />
+          </Link>
+        </div>
+      </div>
+    </footer>
   );
-}
+};
 
 export default BottomFooter;

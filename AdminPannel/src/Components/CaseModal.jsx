@@ -69,7 +69,7 @@ const CaseModal = ({ caseData, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">{caseData ? "Update" : "Add"} Case</h2>
+        <h2 className="text-2xl font-normal mb-4">{caseData ? "Update" : "Add"} Case</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium">Title</label>

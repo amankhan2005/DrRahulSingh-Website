@@ -1,10 +1,8 @@
  import { useState } from "react";
 import { ChevronRight, Brain, Activity, Zap } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 export default function ServiceSection() {
   const [hoveredCard, setHoveredCard] = useState(null);
-  const navigate = useNavigate();
 
   const services = [
     {
@@ -38,6 +36,11 @@ export default function ServiceSection() {
       link: "/peripheral-nerve-surgery",
     },
   ];
+
+  // Function to open route in a new tab
+  const openInNewTab = (link) => {
+    window.open(`${window.location.origin}${link}`, "_blank");
+  };
 
   return (
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-8 relative overflow-hidden py-10">
@@ -105,8 +108,8 @@ export default function ServiceSection() {
                 {/* CTA Button */}
                 <div className="mt-auto">
                   <button
+                    onClick={() => openInNewTab(service.link)}
                     className="px-6 py-2 bg-primary text-white rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-primary/25"
-                    onClick={() => navigate(service.link)}
                   >
                     Know More
                     <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />

@@ -1,4 +1,5 @@
- import React, { useState, useEffect } from "react";
+ // AppointmentModal.jsx
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createAppointment } from "../redux/slices/appointmentSlice";
 import { Listbox } from "@headlessui/react";
@@ -80,6 +81,7 @@ const AppointmentModal = ({ onClose }) => {
     }
   }, [message, onClose]);
 
+  // Lock background scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = "auto");
@@ -89,13 +91,14 @@ const AppointmentModal = ({ onClose }) => {
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 transition-opacity"
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[11000] transition-opacity"
         onClick={onClose}
-      ></div>
+      />
 
       {/* Modal */}
-      <div className="fixed inset-0 z-50 px-4 flex items-center justify-center overflow-auto">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative text-gray-800 mx-auto my-4 max-h-screen overflow-auto">
+      <div className="fixed inset-0 z-[11001] flex items-center justify-center px-4">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg h-screen sm:h-auto sm:max-h-[95vh] p-6 sm:p-8 relative text-gray-800 overflow-y-auto">
+          {/* Close Button */}
           <button
             onClick={onClose}
             className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl transition-colors"
@@ -107,6 +110,7 @@ const AppointmentModal = ({ onClose }) => {
             Book Appointment
           </h2>
 
+          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
@@ -146,13 +150,15 @@ const AppointmentModal = ({ onClose }) => {
             {/* Department Dropdown */}
             <Listbox
               value={form.department}
-              onChange={(value) => setForm((prev) => ({ ...prev, department: value }))}
+              onChange={(value) =>
+                setForm((prev) => ({ ...prev, department: value }))
+              }
             >
               <div className="relative mt-1">
                 <Listbox.Button className="w-full border border-gray-300 bg-white p-3 rounded-xl text-left focus:outline-none focus:ring-2 focus:ring-blue-600 text-gray-800">
                   {form.department}
                 </Listbox.Button>
-                <Listbox.Options className="absolute mt-1 w-full bg-white border border-gray-300 rounded-xl max-h-60 overflow-auto z-50">
+                <Listbox.Options className="absolute mt-1 w-full bg-white border border-gray-300 rounded-xl max-h-60 overflow-auto z-[11002]">
                   {departments.map((dept) => (
                     <Listbox.Option
                       key={dept}
@@ -188,6 +194,7 @@ const AppointmentModal = ({ onClose }) => {
             </button>
           </form>
 
+          {/* Messages */}
           {message && (
             <div
               className={`mt-4 text-center font-medium ${
@@ -202,7 +209,9 @@ const AppointmentModal = ({ onClose }) => {
             </div>
           )}
 
-          {error && <div className="mt-2 text-red-600 text-center">{error}</div>}
+          {error && (
+            <div className="mt-2 text-red-600 text-center">{error}</div>
+          )}
         </div>
       </div>
     </>

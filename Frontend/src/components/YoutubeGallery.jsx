@@ -5,13 +5,13 @@ export default function YouTubePage() {
 
   const scroll = (direction) => {
     if (scrollRef.current) {
-      const scrollAmount = direction === "left" ? -400 : 400;
+      const scrollAmount = direction === "left" ? -300 : 300;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
   const videos = [
-     "https://www.youtube.com/embed/Hl4n09fYu78?si=OLU4MYRKLvUfc1HV",
+    "https://www.youtube.com/embed/Hl4n09fYu78?si=OLU4MYRKLvUfc1HV",
     "https://www.youtube.com/embed/ZJwE5BvPRfE?si=UmIXJhUJORJMa9Yz",
     "https://www.youtube.com/embed/6VJo3CgOpfk?si=ZjS-YrX2uFL99PqE",
     "https://www.youtube.com/embed/vNINyNnYAHo?si=duK6l1suCONSwNei",
@@ -23,7 +23,7 @@ export default function YouTubePage() {
   return (
     <div className="bg-white py-10">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl  lg:text-3xl text-primary font-bold mb-4 text-center">
+        <h2 className="text-2xl lg:text-3xl text-primary font-bold mb-4 text-center">
           Watch Us on YouTube
         </h2>
         <p className="text-gray-600 mb-6 text-center">
@@ -50,12 +50,14 @@ export default function YouTubePage() {
           {/* Video Slider */}
           <div
             ref={scrollRef}
-            className="flex overflow-x-auto gap-4 scroll-smooth pb-4"
+            className="flex overflow-x-auto gap-4 scroll-smooth pb-4 px-2 sm:px-4"
+            style={{ scrollSnapType: "x mandatory" }}
           >
             {videos.map((link, index) => (
               <div
                 key={index}
-                className="min-w-[200px] max-w-[250px] aspect-[9/16] flex-shrink-0 rounded-lg overflow-hidden shadow"
+                className="flex-shrink-0 w-full sm:w-[200px] md:w-[220px] lg:w-[250px] aspect-[9/16] rounded-lg overflow-hidden shadow"
+                style={{ scrollSnapAlign: "center" }}
               >
                 <iframe
                   width="100%"

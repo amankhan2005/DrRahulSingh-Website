@@ -1,5 +1,4 @@
  import React from 'react';
-import { Link } from 'react-router-dom';
 import { facilities } from '../FacilitiesData';
 import { motion } from 'framer-motion';
 
@@ -36,12 +35,14 @@ function FacilitiesComponent({ props }) {
               </p>
             </div>
 
-            <Link
-              to={`/facilities`}
+            <a
+              href={specialty.link || '/facilities'} // replace with real link if available
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-3 block text-center py-2 px-4 rounded-lg text-white bg-primary hover:bg-primary/90 transition-all duration-300"
             >
               View More
-            </Link>
+            </a>
           </div>
         </motion.div>
       ))}

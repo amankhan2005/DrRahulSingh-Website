@@ -1,16 +1,12 @@
  import React, { useState } from "react";
 import TopNavBar from "./TopNavbar";
 import Header from "./Header";
-import AppointmentModal from "./AppointmentModal";
-
+ 
 const StickyNavbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+ 
   return (
     <>
-      {/* Appointment Modal */}
-      {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
-
+ 
       {/* Fixed Top Wrapper */}
       <div className="fixed top-0 left-0 w-full z-[10000]">
         <TopNavBar />
