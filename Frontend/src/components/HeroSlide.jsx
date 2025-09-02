@@ -64,12 +64,12 @@ export default function HeroSlider() {
 
   return (
     <>
-      <div className="w-full  relative">
+      <div className="w-full -z-10  relative">
         <Slider {...settings}>
           {slides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`relative w-full h-auto lg:h-[70vh] ${
+              className={`relative -z-10 w-full h-auto lg:h-[70vh] ${
                 index !== slide ? "inert" : ""
               }`}
             >
@@ -79,7 +79,7 @@ export default function HeroSlider() {
                 title={slide.title}
                 loading="eager" 
                 fetchpriority="high" 
-                className="w-full lg:h-full lg:object-cover object-contain"
+                className="w-full -z-10 lg:h-full lg:object-cover object-contain"
               />
             </div>
           ))}

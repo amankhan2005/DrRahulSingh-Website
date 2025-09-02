@@ -47,6 +47,7 @@ function GalleryPage() {
     setCurrentIndex((prev) => (prev + 1) % filteredData.length);
   const prevItem = () =>
     setCurrentIndex((prev) => (prev - 1 + filteredData.length) % filteredData.length);
+
   const handleWheel = (e) =>
     setScale((prev) => Math.min(Math.max(prev - e.deltaY * 0.001, 1), 3));
 
@@ -91,7 +92,9 @@ function GalleryPage() {
         {/* Tab Content */}
         {status === "loading" && <p className="mt-6">Loading...</p>}
         {error && <p className="mt-6 text-red-500">{error}</p>}
-        {filteredData.length === 0 && <p className="mt-6 text-red-500">No Data Found</p>}
+        {filteredData.length === 0 && (
+          <p className="mt-6 text-red-500">No Data Found</p>
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-6">
           {filteredData.map((item, idx) => (
@@ -122,59 +125,64 @@ function GalleryPage() {
         </div>
       </div>
 
-   {/* Modal */}
-{modalOpen && filteredData[currentIndex] && (
-  <div
-    data-modal="overlay"
-    className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-50 p-4 sm:p-6"
-    onClick={handleOverlayClick}
-    onWheel={activeTab === "photo" ? handleWheel : undefined}
-  >
-    {/* Close Button */}
-    <button
-      className="absolute top-5 right-5 text-white text-4xl cursor-pointer z-60"
-      onClick={closeModal}
-      aria-label="Close Modal"
-    >
-      <FaTimes />
-    </button>
+      {/* Modal */}
+      {modalOpen && filteredData[currentIndex] && (
+        <div
+          data-modal="overlay"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-[11000] p-4 sm:p-6"
+          onClick={handleOverlayClick}
+          onWheel={activeTab === "photo" ? handleWheel : undefined}
+        >
+          {/* Close Button */}
+          <button
+            className="absolute top-5 right-5 text-white text-4xl cursor-pointer"
+            onClick={closeModal}
+            aria-label="Close Modal"
+          >
+            <FaTimes />
+          </button>
 
-    {/* Previous */}
-    <button
-      className="absolute left-5 text-white text-3xl cursor-pointer z-50"
-      onClick={prevItem}
-      aria-label="Previous"
-    >
-      <FaChevronLeft />
-    </button>
+          {/* Previous */}
+          <button
+            className="absolute left-5 text-white text-3xl cursor-pointer"
+            onClick={prevItem}
+            aria-label="Previous"
+          >
+            <FaChevronLeft />
+          </button>
 
-    {/* Content */}
-    {activeTab === "video" ? (
-      <video
-        src={filteredData[currentIndex].videoUrl || filteredData[currentIndex].imageUrl}
-        controls
-        autoPlay
-        className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg z-40"
-      />
-    ) : (
-      <img
-        src={filteredData[currentIndex].src || filteredData[currentIndex].imageUrl}
-        alt={filteredData[currentIndex].title || "Gallery Item"}
-        className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg z-40"
-      />
-    )}
+          {/* Content */}
+          {activeTab === "video" ? (
+            <video
+              src={
+                filteredData[currentIndex].videoUrl ||
+                filteredData[currentIndex].imageUrl
+              }
+              controls
+              autoPlay
+              className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg"
+            />
+          ) : (
+            <img
+              src={
+                filteredData[currentIndex].src ||
+                filteredData[currentIndex].imageUrl
+              }
+              alt={filteredData[currentIndex].title || "Gallery Item"}
+              className="max-w-full max-h-[90vh] sm:max-h-[95vh] object-contain rounded-lg"
+            />
+          )}
 
-    {/* Next */}
-    <button
-      className="absolute right-5 text-white text-3xl cursor-pointer z-50"
-      onClick={nextItem}
-      aria-label="Next"
-    >
-      <FaChevronRight />
-    </button>
-  </div>
-)}
-
+          {/* Next */}
+          <button
+            className="absolute right-5 text-white text-3xl cursor-pointer"
+            onClick={nextItem}
+            aria-label="Next"
+          >
+            <FaChevronRight />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

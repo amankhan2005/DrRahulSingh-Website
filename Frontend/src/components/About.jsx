@@ -43,10 +43,10 @@ const AboutHospital = () => {
             </p>
 
             <p className="font-medium">
-              At LandMark Hospital, under the leadership of{" "}
-              <span className="text-[#13335b] font-semibold">Dr. Rahul Singh</span>, <span className="text-[#13335b] font-semibold">our 
-              mission is clear to heal with expertise, care with compassion, and remain 
-              a trusted partner in every patient’s journey to recovery.</span>
+             At <span className="font-semibold"> LandMark Advance NeuroSpine Care Hospital </span>, under the leadership of{" "}
+              <span className="text-[#13335b] font-semibold">Dr. Rahul Singh</span>,  our 
+              mission is clear to heal with <span className="text-[#13335b] font-semibold"> expertise, care with compassion, </span>and remain 
+              a trusted partner in every patient’s journey to recovery.  
             </p>
           </div>
         </div>

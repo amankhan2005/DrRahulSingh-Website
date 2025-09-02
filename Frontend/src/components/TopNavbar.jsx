@@ -9,7 +9,7 @@ export default function TopNavBar({setIsOpen , isOpen}) {
   return (
     <>
      
-      <header className="bg-primary text-white fixed w-full top-0 z-50">
+      <header className="bg-primary text-white   w-full  ">
         <div className="container mx-auto flex justify-between md:gap-0 gap-4 items-center py-2 px-8">
           {/* Left side */}
           <div className="hidden md:flex items-center space-x-6">
