@@ -139,7 +139,7 @@ const Footer = () => {
               {/* Admin Login Button under Specialities */}
               <div className="mt-4">
                 <a
-                  href="https://hope-adminpannel.netlify.app/"
+                  href="https://adminpannel-landmark-hospital.netlify.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border inline-block border-white py-1 px-4 rounded hover:bg-white hover:text-blue-900 transition duration-200"
