@@ -65,7 +65,7 @@ const BlogPage = () => {
                   src={blog.imageUrl}
                   alt={blog.title}
                   loading="lazy"
-                  className="w-full h-40 object-cover rounded-lg mb-4"
+                  className="w-full h-50 object-cover rounded-lg mb-2"
                 />
 
                 <p className="text-sm text-gray-500 mb-1 underline underline-offset-4">
