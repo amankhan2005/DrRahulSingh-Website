@@ -4,17 +4,18 @@ import Header from "./Header";
 import AppointmentModal from "./AppointmentModal";
 
 const StickyNavbar = () => {
-  const [showTopBar, setShowTopBar] = useState(true);
+  const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
-        // scrolling down → hide topbar
-        setShowTopBar(false);
+        // scrolling down → hide header
+        setShowHeader(false);
       } else {
-        // scrolling up → show topbar
-        setShowTopBar(true);
+        // scrolling up → show header
+        setShowHeader(true);
       }
       setLastScrollY(window.scrollY);
     };
@@ -25,30 +26,29 @@ const StickyNavbar = () => {
 
   return (
     <>
-    {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
-       <div
-        className={`fixed top-0 left-0 w-full z-50 bg-gray-800 text-white transition-transform duration-300 ${
-          showTopBar ? "translate-y-0" : "-translate-y-full"
-        }`}
-      >
-        <TopNavBar setIsOpen={setIsOpen} isOpen={isOpen}/>
+      {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
+
+      {/* TopNavBar always visible */}
+      <div className="fixed top-0 left-0 w-full z-50 bg-gray-800 text-white">
+        <TopNavBar setIsOpen={setIsOpen} isOpen={isOpen} />
       </div>
 
-       <div
-        className={`fixed w-full h-20 bg-white shadow-md z-40 transition-all duration-300 ${
-          showTopBar ? "top-12" : "top-0"
-        }`}
+      {/* Header hides on scroll down */}
+      <div
+        className={`fixed w-full h-21 bg-white shadow-md z-40 transition-transform duration-300`}
+        style={{ transform: showHeader ? "translateY(0)" : "translateY(-100%)", top: "3rem" }} // adjust top based on TopNavBar height
       >
         <Header />
       </div>
 
-       <div className="pt-33">
-       </div>
+      {/* Padding to prevent content from hiding behind navbar */}
+      <div className="pt-32"></div>
     </>
   );
 };
 
 export default StickyNavbar;
+
 
 // --sticky-navbar
 // import React from "react";
