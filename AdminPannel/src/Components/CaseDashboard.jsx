@@ -1,4 +1,3 @@
- 
  import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -62,13 +61,18 @@ const CaseDashboard = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 min-h-screen  bg-gradient-to-br from-blue-50 to-indigo-100 relative">
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none" />
+
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold text-gray-800">Case Management</h2>
+      <div className="flex justify-between items-center mb-8 relative z-10">
+        <h2 className="text-3xl font-bold text-gray-800 drop-shadow">
+          📂 Case Management
+        </h2>
         <button
           onClick={handleAdd}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full shadow transition"
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full shadow-md transition"
         >
           + Add New Case
         </button>
@@ -78,13 +82,13 @@ const CaseDashboard = () => {
       {isFormOpen ? (
         <CaseModal caseData={selectedCase} onClose={handleCloseForm} />
       ) : (
-        <>
+        <div className="relative z-10">
           {cases?.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {cases.map((c) => (
                 <div
                   key={c._id}
-                  className="bg-white rounded-xl shadow hover:shadow-lg transition flex flex-col overflow-hidden"
+                  className="bg-white/90 backdrop-blur rounded-xl shadow hover:shadow-xl transition flex flex-col overflow-hidden border border-gray-200"
                 >
                   <img
                     src={c.imageUrl}
@@ -95,7 +99,7 @@ const CaseDashboard = () => {
                     <h3 className="text-lg font-semibold text-gray-800 mb-1 text-center">
                       {c.title}
                     </h3>
-                    <p className="text-sm text-gray-500 mb-3 text-center">
+                    <p className="text-sm text-gray-600 mb-3 text-center">
                       {c.description?.slice(0, 60)}...
                     </p>
 
@@ -119,11 +123,11 @@ const CaseDashboard = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-10 text-gray-500 text-lg bg-white rounded-xl shadow">
+            <div className="text-center py-12 text-gray-600 text-lg bg-white/90 backdrop-blur rounded-xl shadow-md border border-gray-200">
               No cases uploaded yet 📂
             </div>
           )}
-        </>
+        </div>
       )}
     </div>
   );

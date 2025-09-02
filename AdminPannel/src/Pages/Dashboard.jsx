@@ -10,13 +10,13 @@ import {
   FaAward,
   FaSignOutAlt,
   FaCalendarCheck,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-// Dashboard Components
 import Home from "../Components/Home";
-// import TeamDashboard from "../Components/TeamDashboard";
 import BlogDashboard from "../Components/BlogDashboard";
 import CaseDashboard from "../Components/CaseDashboard";
 import GalleryDashboard from "../Components/GalleryDashboard";
@@ -25,13 +25,14 @@ import NewsDashboard from "../Components/NewsDashboard";
 import AwardsDashboard from "../Components/AwardsDashboard";
 import AppointDashbaord from "../Components/AppointDashbaord";
 
+// Sidebar Item Component
 const SidebarItem = ({ name, icon, active, onClick }) => (
   <div
-    className={`flex items-center space-x-3 cursor-pointer px-4 py-3 rounded-xl mb-2 transition-all duration-200
+    className={`flex items-center space-x-3 cursor-pointer px-4 py-3 rounded-lg mb-1 transition-all duration-200
       ${
         active
           ? "bg-white text-[#2e6294] font-semibold shadow-sm"
-          : "text-gray-300 hover:bg-white/10 hover:text-white"
+          : "text-gray-200 hover:bg-white/10 hover:text-white"
       }`}
     onClick={() => onClick(name)}
   >
@@ -40,12 +41,11 @@ const SidebarItem = ({ name, icon, active, onClick }) => (
   </div>
 );
 
+// Switchable Content
 const DashboardContent = ({ section }) => {
   switch (section) {
     case "Home":
       return <Home />;
-    // case "Team":
-    //   return <TeamDashboard />;
     case "Blog":
       return <BlogDashboard />;
     case "Cases":
@@ -74,6 +74,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [section, setSection] = useState("Home");
   const [user, setUser] = useState("Admin");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { adminData } = location?.state || {};
 
   useEffect(() => {
@@ -103,95 +104,89 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <div className="bg-[#2e6294] text-white sm:w-64 p-6 flex flex-col shadow-xl">
-        <div className="text-2xl font-bold mb-8 text-center tracking-wide">
+      <div
+        className={`fixed inset-y-0 left-0 transform ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } sm:translate-x-0 transition-transform duration-300 ease-in-out
+        bg-[#2e6294] text-white w-64 p-6 flex flex-col z-50 shadow-xl`}
+      >
+        {/* Mobile Close Button */}
+        <div className="flex justify-between items-center mb-8 sm:hidden">
+          <span className="text-xl font-bold tracking-wide">Dashboard</span>
+          <button onClick={() => setSidebarOpen(false)}>
+            <FaTimes size={20} />
+          </button>
+        </div>
+
+        {/* Desktop Title */}
+        <div className="hidden sm:block text-2xl font-bold mb-8 text-center tracking-wide">
           Dashboard
         </div>
-        <SidebarItem
-          name="Home"
-          icon={<FaHome />}
-          active={section === "Home"}
-          onClick={setSection}
-        />
-        {/* <SidebarItem
-          name="Team"
-          icon={<FaUsers />}
-          active={section === "Team"}
-          onClick={setSection}
-        /> */}
-        <SidebarItem
-          name="Blog"
-          icon={<FaBlog />}
-          active={section === "Blog"}
-          onClick={setSection}
-        />
-        <SidebarItem
-          name="Cases"
-          icon={<FaBriefcase />}
-          active={section === "Cases"}
-          onClick={setSection}
-        />
-        <SidebarItem
-          name="Gallery"
-          icon={<FaImage />}
-          active={section === "Gallery"}
-          onClick={setSection}
-        />
-        <SidebarItem
-          name="Video"
-          icon={<FaVideo />}
-          active={section === "Video"}
-          onClick={setSection}
-        />
-        <SidebarItem
-          name="News"
-          icon={<FaNewspaper />}
-          active={section === "News"}
-          onClick={setSection}
-        />
-        <SidebarItem
-          name="Awards"
-          icon={<FaAward />}
-          active={section === "Awards"}
-          onClick={setSection}
-        />
-        <SidebarItem
-          name="Appointment Data"
-          icon={<FaCalendarCheck />}
-          active={section === "Appointment Data"}
-          onClick={setSection}
-        />
+
+        {/* Menu Items */}
+        {[
+          { name: "Home", icon: <FaHome /> },
+          { name: "Blog", icon: <FaBlog /> },
+          { name: "Cases", icon: <FaBriefcase /> },
+          { name: "Gallery", icon: <FaImage /> },
+          { name: "Video", icon: <FaVideo /> },
+          { name: "News", icon: <FaNewspaper /> },
+          { name: "Awards", icon: <FaAward /> },
+          { name: "Appointment Data", icon: <FaCalendarCheck /> },
+        ].map((item) => (
+          <SidebarItem
+            key={item.name}
+            name={item.name}
+            icon={item.icon}
+            active={section === item.name}
+            onClick={(s) => {
+              setSection(s);
+              setSidebarOpen(false);
+            }}
+          />
+        ))}
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col sm:ml-64">
         {/* Header */}
-        <div className="bg-white border-b shadow-sm px-6 py-4 flex justify-between items-center">
-          <div className="text-xl font-semibold text-gray-800">
-            {section}
+        <div className="px-6 py-4 flex justify-between items-center bg-white border-b shadow-sm sticky top-0 z-40">
+          <div className="flex items-center space-x-3">
+            <button
+              className="sm:hidden text-gray-700"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <FaBars size={20} />
+            </button>
+            <span className="text-lg sm:text-xl font-semibold text-gray-800">
+              {section}
+            </span>
           </div>
+
           <div className="flex items-center space-x-4">
             <img
               src="https://www.w3schools.com/w3images/avatar2.png"
               alt="User Avatar"
-              className="w-9 h-9 rounded-full border border-gray-300"
+              className="w-9 h-9 rounded-full border"
             />
-            <span className="text-gray-700 font-medium">{user}</span>
+            <span className="text-gray-700 font-medium hidden sm:block">
+              {user}
+            </span>
             <button
               onClick={logout}
-              className="bg-red-500 text-white px-3 py-1.5 rounded-lg hover:bg-red-600 flex items-center space-x-2 text-sm shadow-md"
+              className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg flex items-center space-x-2 text-sm font-medium transition"
             >
               <FaSignOutAlt />
-              <span>Logout</span>
+              <span className="hidden sm:block">Logout</span>
             </button>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 p-6 overflow-auto">
-          <div className="bg-white shadow-lg rounded-xl p-6 min-h-[80vh]">
+        {/* Dynamic Section */}
+        <div className="flex-1 p-4 sm:p-6 overflow-auto">
+          <div className="min-h-[80vh]">
             <DashboardContent section={section} />
           </div>
         </div>

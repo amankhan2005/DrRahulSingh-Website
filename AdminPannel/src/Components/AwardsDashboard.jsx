@@ -60,7 +60,7 @@ const AwardsDashboard = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6  bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
@@ -81,7 +81,7 @@ const AwardsDashboard = () => {
       )}
 
       {/* Table */}
-      <div className="overflow-x-auto bg-white rounded-lg shadow border border-gray-200">
+      <div className="overflow-x-auto  bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg shadow border border-gray-200">
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="bg-gray-50 text-gray-700 text-sm uppercase tracking-wide">

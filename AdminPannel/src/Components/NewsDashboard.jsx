@@ -61,7 +61,7 @@ const NewsDashboard = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6  bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">📰 News Management</h2>

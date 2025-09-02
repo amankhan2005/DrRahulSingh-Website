@@ -63,7 +63,7 @@ const BlogDashboard = () => {
   const removeHTMLTags = (text) => text.replace(/<[^>]*>/g, "");
 
   return (
-    <div className="p-6 bg-white min-h-screen">
+    <div className="p-6  bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">
