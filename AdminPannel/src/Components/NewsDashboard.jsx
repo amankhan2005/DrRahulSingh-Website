@@ -1,7 +1,7 @@
  import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Plus, Edit, Trash2 } from "lucide-react"; // Modern icons
+import { Plus, Edit, Trash2 } from "lucide-react";
 import NewsModal from "./NewsModal";
 
 const NewsDashboard = () => {
@@ -61,13 +61,15 @@ const NewsDashboard = () => {
   };
 
   return (
-    <div className="p-6  bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="p-4 sm:p-6 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">📰 News Management</h2>
+      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:items-center mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
+          📰 News Management
+        </h2>
         <button
           onClick={handleAdd}
-          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-2 rounded-full shadow"
+          className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-2 rounded-full shadow text-sm sm:text-base"
         >
           <Plus size={18} /> Add News
         </button>
@@ -76,8 +78,8 @@ const NewsDashboard = () => {
       {/* Modal */}
       {isFormOpen && <NewsModal newsData={selectedItem} onClose={handleClose} />}
 
-      {/* Table */}
-      <div className="overflow-x-auto bg-white rounded-xl shadow border border-gray-200">
+      {/* Table for desktop */}
+      <div className="hidden sm:block overflow-x-auto bg-white rounded-xl shadow border border-gray-200">
         <table className="w-full text-left">
           <thead>
             <tr className="bg-gray-50 text-gray-700 text-sm uppercase tracking-wide">
@@ -102,7 +104,9 @@ const NewsDashboard = () => {
                     alt="news"
                   />
                 </td>
-                <td className="px-4 py-3 font-medium text-gray-800">{n.title}</td>
+                <td className="px-4 py-3 font-medium text-gray-800">
+                  {n.title}
+                </td>
                 <td className="px-4 py-3 text-gray-600">{n.postedBy}</td>
                 <td className="px-4 py-3 flex justify-center gap-2">
                   <button
@@ -133,6 +137,46 @@ const NewsDashboard = () => {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Card layout for mobile */}
+      <div className="sm:hidden space-y-4">
+        {news.length === 0 ? (
+          <p className="text-center text-gray-500 italic">No news uploaded yet 📭</p>
+        ) : (
+          news.map((n) => (
+            <div
+              key={n._id}
+              className="bg-white p-4 rounded-xl shadow border border-gray-200 flex flex-col gap-3"
+            >
+              <div className="flex items-center gap-3">
+                <img
+                  src={n.imageUrl}
+                  alt={n.title}
+                  className="w-16 h-16 rounded-lg object-cover border"
+                />
+                <div>
+                  <h3 className="font-semibold text-gray-800">{n.title}</h3>
+                  <p className="text-xs text-gray-500">By {n.postedBy}</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  className="flex items-center gap-1 bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm transition"
+                  onClick={() => handleEdit(n)}
+                >
+                  <Edit size={14} /> Edit
+                </button>
+                <button
+                  className="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm transition"
+                  onClick={() => handleDelete(n._id)}
+                >
+                  <Trash2 size={14} /> Delete
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
