@@ -1,0 +1,8 @@
+[build]
+  base = "AdminPannel"
+  publish = "AdminPannel/dist"
+  command = "npm install && npm run build"
+
+[build.environment]
+  NODE_VERSION = "22"
+  VITE_API_URL = "https://drrahulsingh-website.onrender.com"
