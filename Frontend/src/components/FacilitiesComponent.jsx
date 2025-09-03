@@ -8,11 +8,7 @@ function FacilitiesComponent({ props }) {
       {facilities.map((specialty, index) => (
         <motion.div
           key={specialty.id}
-          data-aos="fade-up"
-          data-aos-delay={index * 200}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={`relative flex flex-col overflow-hidden md:rounded-lg rounded shadow-lg transition-all duration-500 ease-in-out ${
+           className={`relative transition-transform duration-200 hover:scale-110 flex flex-col overflow-hidden md:rounded-lg rounded shadow-lg  ${
             props?.title === specialty?.title ? 'border-t-4 border-primary' : ''
           } bg-white`}
         >
@@ -21,7 +17,7 @@ function FacilitiesComponent({ props }) {
             src={specialty.image}
             alt={specialty.title}
             loading="lazy"
-            className="w-full md:h-56 h-28 object-cover transition-transform duration-300 hover:scale-110"
+            className="w-full md:h-56 h-28 object-cover transition-transform duration-100 hover:scale-110"
           />
 
           {/* Content */}
@@ -36,10 +32,10 @@ function FacilitiesComponent({ props }) {
             </div>
 
             <a
-              href={specialty.link || '/facilities'} // replace with real link if available
+              href={'/facilities'} 
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 block text-center py-2 px-4 rounded-lg text-white bg-primary hover:bg-primary/90 transition-all duration-300"
+              className="mt-3 block text-center py-2 px-4 rounded-lg text-white bg-primary hover:bg-blue-900 transition-all duration-100"
             >
               View More
             </a>

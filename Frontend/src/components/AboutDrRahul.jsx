@@ -1,24 +1,17 @@
- import React, { useState } from 'react';
-import { CheckCircle, Phone, Calendar } from 'lucide-react';
-import AppointmentModal from './AppointmentModal';
+import React, { useState } from "react";
+import { CheckCircle, Phone, Calendar } from "lucide-react";
+import AppointmentModal from "./AppointmentModal";
 
 const AboutDoctor = () => {
-  const primaryColor = '#13335b'; // Dark Blue
-  const secondaryColor = '#3b628b'; // Light Blue
+  const primaryColor = "#13335b"; // Dark Blue
+  const secondaryColor = "#3b628b"; // Light Blue
 
   const [isOpen, setIsOpen] = useState(false); // Modal state
 
   const memberships = [
-    "American Association of Neurological Surgeon (USA)",
-    "Member of Neuroendoscopy Society of India",
-    "Neurological Surgeons' Society of India"
-  ];
-
-  const education = [
-    "MCh Neurosurgery from prestigious Institute of Medical Sciences – Banaras Hindu University, Varanasi, Uttar Pradesh",
-    "MS General Surgery from King Georges' Medical University, Lucknow, Uttar Pradesh",
-    "MBBS from Guwahati Medical College, Guwahati, Assam",
-    "International fellow in American Association of Neurological Surgeon"
+    "American Association of Neurological Surgeons (USA)",
+    "Neuroendoscopy Society of India",
+    "Neurological Surgeons’ Society of India",
   ];
 
   return (
@@ -38,55 +31,86 @@ const AboutDoctor = () => {
 
           {/* Right Side - Content */}
           <div className="w-full md:w-1/2">
-            <h2 className="lg:text-4xl text-2xl font-bold mb-3 text-primary">
-              About Dr. Rahul Singh
+            <h2 className="lg:text-4xl text-2xl font-bold mb-2 text-primary">
+              Meet <span className="font-extrabold">Dr. Rahul Singh</span>
             </h2>
-
             <h3 className="text-lg sm:text-xl font-semibold mb-5 text-gray-600">
-              Experienced Neurosurgeon in Lucknow
+              Leading <span className="font-bold">Brain & Spine Surgeon</span>{" "}
+              in <span className="font-bold">Lucknow</span>
             </h3>
 
             <p className="text-gray-600 mb-5 leading-relaxed text-sm sm:text-base font-medium">
+              <span className="font-bold">Dr. Rahul Singh</span> is a renowned{" "}
+              <span className="font-bold">brain and spine surgeon</span> in{" "}
+              <span className="font-bold">Lucknow</span>, specializing in{" "}
+              <span className="font-bold">neurosurgery, spine surgery</span>,
+              and <span className="font-bold">peripheral nerve care</span>. He
+              completed his{" "}
+              <span className="font-bold">MCh in Neurosurgery</span> from the
+              prestigious{" "}
               <span className="font-bold">
-                Dr. Rahul Singh is an experienced neurosurgeon in Lucknow in the specialties of brain, spine and peripheral nerve surgeries.
-              </span> 
-              He did his MCh Neurosurgery from prestigious Institute of Medical Sciences – Banaras Hindu University, Varanasi, Uttar Pradesh.
+                Institute of Medical Sciences, Banaras Hindu University (BHU)
+              </span>
+              , Varanasi.
             </p>
 
             <p className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base">
-              MS General Surgery from King Georges' Medical University, Lucknow, Uttar Pradesh & MBBS from Guwahati Medical College, Guwahati, Assam. International fellow in American Association of Neurological Surgeon.
+              He also holds an{" "}
+              <span className="font-bold">MS in General Surgery</span> from{" "}
+              <span className="font-bold">
+                King George’s Medical University (KGMU)
+              </span>
+              , Lucknow, and <span className="font-bold">MBBS</span> from{" "}
+              <span className="font-bold">Guwahati Medical College, Assam</span>
+              . <span className="font-bold">Dr. Singh</span> has been an{" "}
+              <span className="font-bold">International Fellow</span> of the{" "}
+              <span className="font-bold">
+                American Association of Neurological Surgeons (USA)
+              </span>{" "}
+              and continuously updates his expertise with global medical
+              standards.
             </p>
 
             {/* Memberships */}
             <div className="mb-8">
-              <h4 className="text-base sm:text-lg font-bold mb-3" style={{ color: primaryColor }}>
-                He is a member of –
+              <h4
+                className="text-base sm:text-lg font-bold mb-3"
+                style={{ color: primaryColor }}
+              >
+                Professional Memberships
               </h4>
               <ul className="space-y-2">
                 {memberships.map((membership, index) => (
                   <li key={index} className="flex items-start">
-                    <CheckCircle size={18} style={{ color: primaryColor }} className="mr-2 mt-1 flex-shrink-0" />
-                    <span className="text-gray-700 text-sm sm:text-base">{membership}</span>
+                    <CheckCircle
+                      size={18}
+                      style={{ color: primaryColor }}
+                      className="mr-2 mt-1 flex-shrink-0"
+                    />
+                    <span className="text-gray-700 text-sm sm:text-base font-medium">
+                      {membership}
+                    </span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Satisfaction Bar */}
-            <div className="mb-8">
-              <div className="flex justify-between mb-2 text-sm sm:text-base">
-                <span className="font-bold text-gray-700">Patient Satisfaction</span>
-                <span className="font-bold" style={{ color: primaryColor }}>100%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div className="h-2.5 rounded-full" style={{ width: '100%', backgroundColor: primaryColor }}></div>
-              </div>
-            </div>
+            <p className="text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
+              With advanced surgical skills, modern techniques, and a
+              patient-first approach,{" "}
+              <span className="font-bold">Dr. Rahul Singh</span> is recognized
+              as one of the best{" "}
+              <span className="font-bold">neurosurgeons in Lucknow</span> with
+              an exceptional{" "}
+              <span className="font-bold">patient satisfaction rate</span>.
+            </p>
 
             {/* Call to Action Buttons */}
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <button
-                className="px-6 py-3 text-white text-sm sm:text-base font-medium rounded-md shadow-md bg-gradient-to-r from-[#13335b] to-[#3b628b] flex items-center justify-center"
+                className="px-6 py-3 text-white text-sm sm:text-base font-medium rounded-full shadow-md 
+             bg-gradient-to-r from-[#13335b] to-[#3b628b] flex items-center justify-center 
+             hover:scale-105 hover:shadow-xl transition-transform duration-300"
                 onClick={() => setIsOpen(true)} // Open Appointment Modal
               >
                 <Calendar size={18} className="mr-2" />
@@ -94,18 +118,26 @@ const AboutDoctor = () => {
               </button>
 
               <div className="flex items-center">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: secondaryColor }}>
+                <div
+                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: secondaryColor }}
+                >
                   <a href="tel:+918400136465">
                     <Phone size={18} className="text-white" />
                   </a>
                 </div>
                 <div className="ml-3">
                   <a href="tel:+918400136465">
-                    <p className="font-bold text-base sm:text-lg" style={{ color: primaryColor }}>
+                    <p
+                      className="font-bold text-base sm:text-lg"
+                      style={{ color: primaryColor }}
+                    >
                       +91 8400136465
                     </p>
                   </a>
-                  <p className="text-gray-600 text-xs sm:text-sm">Call for Consultation</p>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    Call for Consultation
+                  </p>
                 </div>
               </div>
             </div>

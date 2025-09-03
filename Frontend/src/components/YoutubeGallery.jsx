@@ -1,4 +1,4 @@
- import React, { useRef } from "react";
+import React, { useRef } from "react";
 
 export default function YouTubePage() {
   const scrollRef = useRef(null);
@@ -23,11 +23,11 @@ export default function YouTubePage() {
   return (
     <div className="bg-white py-10">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl lg:text-3xl text-primary font-bold mb-4 text-center">
-          Watch Us on YouTube
+        <h2 className="text-2xl lg:text-3xl text-primary font-bold mb-2 text-center">
+          Expert Health Talks on YouTube{" "}
         </h2>
         <p className="text-gray-600 mb-6 text-center">
-          Explore health tips, awareness talks, and expert advice from our doctors.
+         Expert tips on brain, spine, and overall health—stay informed with Landmark Hospital.
         </p>
 
         <div className="relative w-full">

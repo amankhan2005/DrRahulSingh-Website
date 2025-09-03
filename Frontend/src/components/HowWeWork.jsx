@@ -67,11 +67,11 @@ export default function HowWeWork() {
           <h2 className="text-3xl md:text-4xl text-primary font-bold mb-2">
             Your Journey to Better Health
           </h2>
-          <p className="text-lg max-w-3xl mx-auto text-gray-600">
+          <p className="text-lg container mx-auto text-gray-600">
             Dr. Rahul's patient-centered approach ensures a seamless experience from your first call to ongoing care
           </p>
           <div
-            className="mt-4 w-24 h-1 mx-auto rounded-full"
+            className="mt-4  w-24 h-1 mx-auto rounded-full"
             style={{
               background: `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`,
             }}
@@ -79,7 +79,7 @@ export default function HowWeWork() {
         </div>
 
         {/* Desktop Timeline */}
-        <div className="hidden lg:flex justify-between items-start mb-10">
+        <div className="hidden lg:flex  justify-between items-start mb-10">
           {steps.map((step, index) => (
             <div
               key={index}

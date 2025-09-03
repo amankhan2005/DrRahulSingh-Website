@@ -2,9 +2,9 @@
 import { User, Activity, HeartPulse } from "lucide-react";
 
 const statsData = [
-  { label: "HAPPY PATIENTS", target: 10000, icon: User, iconBg: "bg-green-100 text-green-600" },
-  { label: "TOTAL CASES SOLVED", target: 12000, icon: Activity, iconBg: "bg-yellow-100 text-yellow-600" },
-  { label: "SUCCESSFUL SURGERIES", target: 5000, icon: HeartPulse, iconBg: "bg-pink-100 text-pink-600" },
+  { label: "HAPPY PATIENTS", target: 15000, icon: User, iconBg: "bg-green-100 text-green-600" },
+  { label: "TOTAL CASES SOLVED", target: 16000, icon: Activity, iconBg: "bg-yellow-100 text-yellow-600" },
+  { label: "SUCCESSFUL SURGERIES", target: 10000, icon: HeartPulse, iconBg: "bg-pink-100 text-pink-600" },
 ];
 
 const ClinicStats = () => {
@@ -51,7 +51,7 @@ const ClinicStats = () => {
                 </div>
 
                 {/* Number */}
-                <div className="text-2xl md:text-3xl font-bold text-gray-900 ">
+                <div className="text-2xl md:text-3xl  font-bold text-gray-900 ">
                   {Math.floor(counts[index])}+
                 </div>
 

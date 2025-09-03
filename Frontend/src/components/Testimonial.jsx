@@ -22,10 +22,10 @@ export default function GoogleReviews() {
         {/* Heading */}
         <div className="text-center mx-auto mb-2 ">
           <h2 className="text-2xl md:text-5xl font-bold text-primary mb-2">
-            What Our Patients Say
+            Patient Testimonials & Reviews
           </h2>
           <p className="text-gray-600 text-sm md:text-base">
-            See why so many families choose us for their healthcare needs.
+            Hear from our patients and their families about why Landmark Hospital is trusted as one of the best hospitals in Lucknow.
           </p>
         </div>
 

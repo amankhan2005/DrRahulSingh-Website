@@ -6,7 +6,7 @@ const FacilitiesSection = () => {
     <section className="py-10 bg-gray-100">
       <div className="container mx-auto px-4 text-center">
         {/* Heading */}
-        <h1 className="text-2xl md:text-4xl font-bold text-primary mb-4">
+        <h1 className="text-2xl md:text-4xl font-bold text-primary mb-2">
           Our Facilities
         </h1>
 

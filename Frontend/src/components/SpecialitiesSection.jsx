@@ -4,38 +4,49 @@ import { ChevronRight, Brain, Activity, Zap } from "lucide-react";
 export default function ServiceSection() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  const services = [
-    {
-      id: 1,
-      title: "Brain Surgery",
-      subtitle: "Advanced Neurosurgical Excellence",
-      description:
-        "State-of-the-art brain surgery with precision microsurgical techniques, treating tumors, aneurysms, and complex neurological conditions with exceptional outcomes.",
-      icon: <Brain className="w-12 h-12 text-white" />,
-      iconBg: "bg-primary",
-      link: "/brain",
-    },
-    {
-      id: 2,
-      title: "Spine Surgery",
-      subtitle: "Precision Spinal Care",
-      description:
-        "Expert spinal surgery solutions including endoscopic procedures, fusion surgeries, and trauma care with focus on rapid recovery and pain relief.",
-      icon: <Activity className="w-12 h-12 rotate-90 text-white" />,
-      iconBg: "bg-primary",
-      link: "/spine",
-    },
-    {
-      id: 3,
-      title: "Neuro Surgery",
-      subtitle: "Comprehensive Neurological Solutions",
-      description:
-        "Complete neurological surgical care covering complex brain disorders, vascular conditions, and functional neurosurgery with world-class expertise.",
-      icon: <Zap className="w-12 h-12 text-white" />,
-      iconBg: "bg-primary",
-      link: "/peripheral-nerve-surgery",
-    },
-  ];
+ const services = [
+  {
+    id: 1,
+    title: "Brain Surgery",
+    subtitle: "Advanced Neurosurgical Excellence",
+    description: (
+      <>
+        <strong>Dr. Rahul Singh</strong>, one of the <strong>best brain surgeons in Lucknow</strong>, offers advanced brain surgery using modern microsurgical techniques. He treats <strong>brain tumors, aneurysms</strong>, and <strong>other neurological conditions</strong> with safe procedures and successful outcomes.
+      </>
+    ),
+    icon: <Brain className="w-12 h-12 text-white" />,
+    iconBg: "bg-primary",
+    link: "/brain",
+  },
+  {
+    id: 2,
+    title: "Spine Surgery",
+    subtitle: "Precision Spinal Care",
+    description: (
+      <>
+        <strong>Dr. Rahul Singh</strong> provides expert care in <strong>spine surgery in Lucknow</strong>. He specializes in endoscopic spine procedures, fusion surgeries, and trauma care. His focus is on pain relief, faster healing, and long-term results.
+      </>
+    ),
+    icon: <Activity className="w-12 h-12 rotate-90 text-white" />,
+    iconBg: "bg-primary",
+    link: "/spine",
+  },
+  {
+    id: 3,
+    title: "Neuro Surgery",
+    subtitle: "Comprehensive Neurological Solutions",
+    description: (
+      <>
+        With years of expertise, <strong>Dr. Rahul Singh</strong> delivers world-class treatment in <strong>neuro surgery in Lucknow</strong>. He manages complex brain disorders, vascular conditions, and functional neurosurgeries with precision and care.
+      </>
+    ),
+    icon: <Zap className="w-12 h-12 text-white" />,
+    iconBg: "bg-primary",
+    link: "/peripheral-nerve-surgery",
+  },
+];
+
+
 
   // Function to open route in a new tab
   const openInNewTab = (link) => {
