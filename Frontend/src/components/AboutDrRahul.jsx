@@ -34,12 +34,12 @@ const AboutDoctor = () => {
             <h2 className="lg:text-4xl text-2xl font-bold mb-2 text-primary">
               Meet <span className="font-extrabold">Dr. Rahul Singh</span>
             </h2>
-            <h3 className="text-lg sm:text-xl font-semibold mb-5 text-gray-600">
+            <h3 className="text-lg sm:text-xl font-semibold mb-3 text-gray-600">
               Leading <span className="font-bold">Brain & Spine Surgeon</span>{" "}
               in <span className="font-bold">Lucknow</span>
             </h3>
 
-            <p className="text-gray-600 mb-5 leading-relaxed text-sm sm:text-base font-medium">
+            <p className="text-gray-600 mb-2 leading-relaxed text-sm sm:text-base font-medium">
               <span className="font-bold">Dr. Rahul Singh</span> is a renowned{" "}
               <span className="font-bold">brain and spine surgeon</span> in{" "}
               <span className="font-bold">Lucknow</span>, specializing in{" "}
@@ -54,7 +54,7 @@ const AboutDoctor = () => {
               , Varanasi.
             </p>
 
-            <p className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base">
+            <p className="text-gray-600 mb-2 leading-relaxed text-sm sm:text-base">
               He also holds an{" "}
               <span className="font-bold">MS in General Surgery</span> from{" "}
               <span className="font-bold">
@@ -72,7 +72,7 @@ const AboutDoctor = () => {
             </p>
 
             {/* Memberships */}
-            <div className="mb-8">
+            <div className="mb-2">
               <h4
                 className="text-base sm:text-lg font-bold mb-3"
                 style={{ color: primaryColor }}
@@ -95,7 +95,7 @@ const AboutDoctor = () => {
               </ul>
             </div>
 
-            <p className="text-gray-600 mb-8 leading-relaxed text-sm sm:text-base">
+            <p className="text-gray-600 mb-2 leading-relaxed text-sm sm:text-base">
               With advanced surgical skills, modern techniques, and a
               patient-first approach,{" "}
               <span className="font-bold">Dr. Rahul Singh</span> is recognized
