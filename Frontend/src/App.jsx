@@ -24,6 +24,8 @@ const FacilitiesPage = lazy(() => import("./Pages/FacilitiesPage"));
 const FacilitiesDetail = lazy(() => import("./components/FacilitiesDetail"));
 const BlogDetailPage = lazy(() => import("./components/BlogDetail"));
 const AboutPage = lazy(() => import("./Pages/AboutPage"));
+import ScrollToTopButton
+  from "./components/ScrollToTopButton";
  
 // ✅ New Speciality Pages
 const Brain = lazy(() => import("./Pages/Brain"));
@@ -52,6 +54,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <ScrollToTopButton />
+
 
       {/* Global styles */}
       <StickyNavbar />
