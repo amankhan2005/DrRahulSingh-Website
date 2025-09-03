@@ -46,7 +46,7 @@ const Footer = () => {
                 </li>
                 <li className="flex items-center">
                   <a
-                    href="https://maps.app.goo.gl/nt8BVHTHFHfzuJL77"
+                    href="https://maps.app.goo.gl/NySWvTwjmSoAUuBV7"
                     className="flex items-center hover:underline"
                     aria-label="Find us on Google Maps"
                       target="_blank"
