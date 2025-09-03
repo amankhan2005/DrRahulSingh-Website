@@ -8,7 +8,7 @@ import genral from "./assets/Facilities/General-care.jpg";
     id: 1,
     title: "Emergency Care",
     link: "emergency",
-    description: "Our Emergency & Trauma Care Unit provides 24/7 immediate medical attention for critical situations. With expert doctors and advanced equipment, we ensure life-saving treatment when every second counts.",
+    description: "Our Emergency & Trauma Care Unit provides 24/7 immediate medical attention for critical situations. With expert doctors and advanced equipment.",
     image: `${emergency}`,
   },
   {

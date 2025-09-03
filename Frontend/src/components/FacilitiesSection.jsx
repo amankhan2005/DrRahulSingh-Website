@@ -3,7 +3,7 @@ import FacilitiesComponent from "./FacilitiesComponent";
 
 const FacilitiesSection = () => {
   return (
-    <section className="py-10 bg-gray-100">
+    <section className="py-8 bg-gray-100">
       <div className="container mx-auto px-4 text-center">
         {/* Heading */}
         <h1 className="text-2xl md:text-4xl font-bold text-primary mb-2">
@@ -11,7 +11,7 @@ const FacilitiesSection = () => {
         </h1>
 
         {/* Subheading */}
-        <p className="text-gray-600 mb-8 text-sm md:text-base">
+        <p className="text-gray-600 mb-2 text-sm md:text-base">
           State-of-the-art facilities for advanced medical care.
         </p>
 
