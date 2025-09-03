@@ -27,7 +27,7 @@ export default function WhyChooseDrRahul() {
     },
     {
       id: 3,
-      title: "Advanced Technology & Techniques",
+      title: "Advanced Technology",
       subtitle: "Safe & Faster Recovery",
       description:
         "Equipped with modern <strong>neuroendoscopy</strong>, <strong>microsurgery</strong>, and <strong>minimally invasive procedures</strong> ensuring safer and faster recovery.",
@@ -65,7 +65,7 @@ export default function WhyChooseDrRahul() {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {features.map((feature) => (
             <div
               key={feature.id}
@@ -89,10 +89,10 @@ export default function WhyChooseDrRahul() {
               {/* Content */}
               <div className="p-6 flex flex-col items-center text-center">
                 <h3
-                  className="text-lg md:text-xl font-semibold text-[#13335b] mb-2"
+                  className="text-lg md:text-xl font-semibold text-[#13335b] mb-1"
                   dangerouslySetInnerHTML={{ __html: feature.title }}
                 ></h3>
-                <p className="text-sm md:text-base text-[#3b628b] font-medium mb-3">
+                <p className="text-sm md:text-base text-[#3b628b] font-medium mb-1">
                   {feature.subtitle}
                 </p>
                 <p
