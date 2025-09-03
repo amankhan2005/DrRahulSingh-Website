@@ -87,7 +87,7 @@ export default function WhyChooseDrRahul() {
               </div>
 
               {/* Content */}
-              <div className="p-6 flex flex-col items-center text-center">
+              <div className="p-4 flex flex-col items-center text-center">
                 <h3
                   className="text-lg md:text-xl font-semibold text-[#13335b] mb-1"
                   dangerouslySetInnerHTML={{ __html: feature.title }}
