@@ -61,6 +61,8 @@ export default function Header() {
                   href="https://www.facebook.com/share/r/19gTTL6WAb/"
                   className="hover:text-gray-50"
                   title="Facebook"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fab fa-facebook-f"></i>
                 </a>
@@ -68,6 +70,8 @@ export default function Header() {
                   href="https://www.instagram.com/p/DNxe8nHxMqx/"
                   className="hover:text-gray-50"
                   title="Instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fab fa-instagram"></i>
                 </a>
@@ -75,6 +79,8 @@ export default function Header() {
                   href="https://youtube.com/shorts/c5pUr78NOng?feature=share"
                   className="hover:text-gray-50"
                   title="YouTube"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fab fa-youtube"></i>
                 </a>
@@ -82,6 +88,8 @@ export default function Header() {
                   href="https://www.linkedin.com/feed/update/urn:li:activity:7365679710237839360"
                   className="hover:text-gray-50"
                   title="LinkedIn"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <i className="fab fa-linkedin-in"></i>
                 </a>

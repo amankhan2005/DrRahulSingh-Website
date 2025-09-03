@@ -49,6 +49,8 @@ const Footer = () => {
                     href="https://maps.app.goo.gl/nt8BVHTHFHfzuJL77"
                     className="flex items-center hover:underline"
                     aria-label="Find us on Google Maps"
+                      target="_blank"
+              rel="noopener noreferrer"
                   >
                     <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />
                     <span className="text-left">
@@ -65,6 +67,8 @@ const Footer = () => {
                     <a
                       href="https://www.facebook.com/share/r/19gTTL6WAb/"
                       className="hover:text-gray-200 text-xl hover:scale-125"
+                        target="_blank"
+              rel="noopener noreferrer"
                       aria-label="Facebook"
                     >
                       <FaFacebookF />
@@ -74,6 +78,8 @@ const Footer = () => {
                     <a
                       href="https://x.com/"
                       className="hover:text-gray-200 text-xl hover:scale-125"
+                        target="_blank"
+              rel="noopener noreferrer"
                       aria-label="Twitter"
                     >
                       <FaXTwitter />
@@ -83,6 +89,8 @@ const Footer = () => {
                     <a
                       href="https://www.instagram.com/p/DNxe8nHxMqx/"
                       className="hover:text-gray-200 text-xl hover:scale-125"
+                        target="_blank"
+              rel="noopener noreferrer"
                       aria-label="Instagram"
                     >
                       <FaInstagram />
@@ -92,6 +100,8 @@ const Footer = () => {
                     <a
                       href="https://youtube.com/shorts/c5pUr78NOng?feature=share"
                       className="hover:text-gray-200 text-xl hover:scale-125"
+                        target="_blank"
+              rel="noopener noreferrer"
                       aria-label="YouTube"
                     >
                       <FaYoutube />
@@ -190,6 +200,8 @@ const Footer = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                  target="_blank"
+              rel="noopener noreferrer"
                 title="Landmark Advance Neurospine Care Superspeciality Hospital"
               />
             </div>

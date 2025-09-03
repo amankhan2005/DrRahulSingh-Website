@@ -95,6 +95,7 @@ const BlogComponent = () => {
                     }}
                     aria-label={`Read more about ${blog.title}`}
                     title="Read More Blog"
+            
                     className="text-white bg-primary hover:bg-blue-600 cursor-pointer px-3 py-1 rounded"
                   >
                     Read More

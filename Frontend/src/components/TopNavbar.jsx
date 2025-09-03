@@ -1,5 +1,10 @@
- import { useState } from "react";
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
+import { useState } from "react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa";
 import AppointmentModal from "./AppointmentModal";
 
 export default function TopNavBar() {
@@ -15,10 +20,14 @@ export default function TopNavBar() {
               href="https://maps.app.goo.gl/NySWvTwjmSoAUuBV7"
               title="Address"
               aria-label="address"
+              target="_blank"
+              rel="noopener noreferrer"
               className="lg:flex hidden items-center space-x-2 hover:cursor-pointer hover:scale-x-105 ease-in-out transition-all duration-500"
             >
               <i className="fas fa-map-marker-alt"></i>
-              <span>M-II/016, Prabhat Chauraha, Janki Vihar, Lucknow, UP 226021</span>
+              <span>
+                M-II/016, Prabhat Chauraha, Janki Vihar, Lucknow, UP 226021
+              </span>
             </a>
 
             <a
@@ -28,7 +37,9 @@ export default function TopNavBar() {
               className="flex items-center space-x-2 hover:scale-x-105 ease-in-out transition-all duration-500"
             >
               <i className="fa-solid fa-phone-volume text-white"></i>
-              <span className="md:text-base text-xs line-clamp-1">+91 84001-36465</span>
+              <span className="md:text-base text-xs line-clamp-1">
+                +91 84001-36465
+              </span>
             </a>
           </div>
 
@@ -58,6 +69,8 @@ export default function TopNavBar() {
                 href="https://www.facebook.com/share/r/19gTTL6WAb/"
                 aria-label="Facebook"
                 title="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-gray-200 hover:scale-110 transition-all ease-in-out duration-300"
               >
                 <FaFacebookF />
@@ -66,6 +79,8 @@ export default function TopNavBar() {
                 href="https://www.instagram.com/p/DNxe8nHxMqx/"
                 aria-label="Instagram"
                 title="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-gray-200 hover:scale-110 transition-all ease-in-out duration-300"
               >
                 <FaInstagram />
@@ -74,6 +89,8 @@ export default function TopNavBar() {
                 href="https://youtube.com/shorts/c5pUr78NOng?feature=share"
                 aria-label="YouTube"
                 title="YouTube"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-gray-200 hover:scale-110 transition-all ease-in-out duration-300"
               >
                 <FaYoutube />
@@ -82,6 +99,8 @@ export default function TopNavBar() {
                 href="https://www.linkedin.com/feed/update/urn:li:activity:7365679710237839360"
                 aria-label="LinkedIn"
                 title="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-gray-200 hover:scale-110 transition-all ease-in-out duration-300"
               >
                 <FaLinkedinIn />
