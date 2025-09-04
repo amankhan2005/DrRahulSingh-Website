@@ -64,7 +64,7 @@ export default function HowWeWork() {
       <div className="container mx-auto">
         {/* Header */}
         <div className="lg:mb-16 mb-10 text-center">
-          <h2 className="md:text-5xl text-3xl font-bold text-primary font-bold mb-2">
+          <h2 className="md:text-5xl text-3xl font-bold text-primary  mb-2">
             Your Journey to Better Health
           </h2>
           <p className="text-lg container mx-auto text-gray-600">
