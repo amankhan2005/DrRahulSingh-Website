@@ -1,4 +1,4 @@
- import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import femaleAI from "../assets/female-ai.png";
 import AppointmentModal from "./AppointmentModal";
@@ -26,7 +26,7 @@ const ChatWidget = () => {
           <p className="font-semibold">Hospital Address:</p>
           <p>M-II/016, Prabhat Chauraha, Janki Vihar, Lucknow, UP 226021</p>
           <a
-            href=" https://maps.app.goo.gl/NySWvTwjmSoAUuBV7"
+            href="https://maps.app.goo.gl/NySWvTwjmSoAUuBV7"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 underline mt-1 block"
@@ -166,7 +166,7 @@ const ChatWidget = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 50 }}
-              className="h-96 w-80 backdrop-blur-lg bg-white/30 rounded-3xl shadow-xl flex flex-col overflow-hidden relative border border-white/30"
+              className="w-[90vw] sm:w-80 md:w-96 h-[70vh] sm:h-96 md:h-[28rem] backdrop-blur-lg bg-white/30 rounded-3xl shadow-xl flex flex-col overflow-hidden relative border border-white/30"
             >
               {/* Header */}
               <div className="bg-blue-600 text-white p-3 flex items-center justify-between rounded-t-3xl">
@@ -201,7 +201,7 @@ const ChatWidget = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="flex flex-wrap gap-2 mt-2"
+                    className="flex flex-wrap gap-2 mt-2 justify-center"
                   >
                     {predefinedQuestions.map((item, idx) => (
                       <motion.button
@@ -209,7 +209,7 @@ const ChatWidget = () => {
                         onClick={() => handleQuestionClick(item.q, item.a)}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-xs p-2 rounded-lg flex items-center gap-1 whitespace-nowrap shadow-md"
+                        className="bg-gradient-to-r from-blue-500 to-blue-700 text-white text-xs sm:text-sm p-2 rounded-lg flex items-center gap-1 whitespace-nowrap shadow-md"
                       >
                         ➤ {item.q}
                       </motion.button>
@@ -228,13 +228,13 @@ const ChatWidget = () => {
                   type="text"
                   value={userInput}
                   onChange={(e) => setUserInput(e.target.value)}
-                  className="flex-1 border border-white/50 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/30 backdrop-blur-md placeholder-gray-700"
+                  className="flex-1 border border-white/50 rounded-full px-4 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/30 backdrop-blur-md placeholder-gray-700"
                   placeholder="Type a message..."
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 />
                 <button
                   onClick={handleSend}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition-all duration-300"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full shadow-lg font-semibold transition-all duration-300 text-sm sm:text-base"
                 >
                   Send
                 </button>
@@ -247,13 +247,13 @@ const ChatWidget = () => {
         {!isOpen && (
           <button
             onClick={toggleOpen}
-            className="fixed bottom-5 right-5 w-16 h-16 rounded-full shadow-xl flex items-center justify-center
+            className="fixed bottom-5 right-5 w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-xl flex items-center justify-center
                        bg-primary backdrop-blur-sm border border-white/30 hover:bg-white/30 hover:scale-105 transition-all duration-300 z-[11000]"
           >
             <img
               src={femaleAI}
               alt="AI"
-              className="w-12 h-12 rounded-full object-cover shadow-md"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shadow-md"
             />
             {!hasOpenedChat && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full shadow">
