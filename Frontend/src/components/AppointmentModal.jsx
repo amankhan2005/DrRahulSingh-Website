@@ -29,7 +29,6 @@ const AppointmentModal = ({ onClose }) => {
   const [fieldErrors, setFieldErrors] = useState({});
   const [message, setMessage] = useState("");
 
-  // Regex patterns
   const regex = {
     name: /^[A-Za-z\s]{2,}$/,
     number: /^[0-9]{10}$/,
@@ -40,18 +39,15 @@ const AppointmentModal = ({ onClose }) => {
     switch (name) {
       case "name":
         if (!value) return "⚠️ Name is required";
-        if (!regex.name.test(value))
-          return "⚠️ Name must be at least 2 letters";
+        if (!regex.name.test(value)) return "⚠️ Name must be at least 2 letters";
         break;
       case "number":
         if (!value) return "⚠️ Mobile number is required";
-        if (!regex.number.test(value))
-          return "⚠️ Enter a valid 10-digit number";
+        if (!regex.number.test(value)) return "⚠️ Enter a valid 10-digit number";
         break;
       case "email":
         if (!value) return "⚠️ Email is required";
-        if (!regex.email.test(value))
-          return "⚠️ Enter a valid email address";
+        if (!regex.email.test(value)) return "⚠️ Enter a valid email address";
         break;
       case "date":
         if (!value) return "⚠️ Date is required";
@@ -69,20 +65,16 @@ const AppointmentModal = ({ onClose }) => {
     const { name, value } = e.target;
     if (name === "number" && value.length > 10) return;
     setForm((prev) => ({ ...prev, [name]: value }));
-
-    const errorMsg = validateField(name, value);
-    setFieldErrors((prev) => ({ ...prev, [name]: errorMsg }));
+    setFieldErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
   const handleDateChange = (date) => {
     setForm((prev) => ({ ...prev, date }));
-    const errorMsg = validateField("date", date);
-    setFieldErrors((prev) => ({ ...prev, date: errorMsg }));
+    setFieldErrors((prev) => ({ ...prev, date: validateField("date", date) }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newErrors = {};
     Object.keys(form).forEach((key) => {
       const errorMsg = validateField(key, form[key]);
@@ -115,13 +107,12 @@ const AppointmentModal = ({ onClose }) => {
 
   useEffect(() => {
     if (message.startsWith("✅")) {
-      const timer = setTimeout(() => {
-        onClose();
-      }, 2000);
+      const timer = setTimeout(() => onClose(), 2000);
       return () => clearTimeout(timer);
     }
   }, [message, onClose]);
 
+  // Disable body scroll while modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = "auto");
@@ -137,7 +128,7 @@ const AppointmentModal = ({ onClose }) => {
 
       {/* Modal */}
       <div className="fixed inset-0 z-[11001] flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg sm:h-auto max-h-[90vh] p-6 sm:p-8 relative text-gray-800 flex flex-col">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] p-6 sm:p-8 relative text-gray-800 flex flex-col">
           {/* Close Button */}
           <button
             onClick={onClose}
@@ -154,9 +145,9 @@ const AppointmentModal = ({ onClose }) => {
             Fill out the form below to book a consultation with our experts.
           </p>
 
-          {/* Scrollable Content */}
+          {/* Scrollable Form */}
           <div className="overflow-y-auto flex-1 pr-2">
-            <form onSubmit={handleSubmit} className="space-y-5 flex flex-col">
+            <form onSubmit={handleSubmit} className="space-y-5 flex flex-col min-h-[50vh]">
               {/* Name */}
               <div>
                 <input
@@ -280,23 +271,23 @@ const AppointmentModal = ({ onClose }) => {
               >
                 {status === "loading" ? "Booking..." : "Book Appointment"}
               </button>
-            </form>
 
-            {/* Messages */}
-            {message && (
-              <div
-                className={`mt-4 text-center font-medium ${
-                  message.startsWith("✅")
-                    ? "text-green-600"
-                    : message.startsWith("⏳")
-                    ? "text-blue-600"
-                    : "text-red-600"
-                }`}
-              >
-                {message}
-              </div>
-            )}
-            {error && <div className="mt-2 text-red-600 text-center">{error}</div>}
+              {/* Messages */}
+              {message && (
+                <div
+                  className={`mt-4 text-center font-medium ${
+                    message.startsWith("✅")
+                      ? "text-green-600"
+                      : message.startsWith("⏳")
+                      ? "text-blue-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {message}
+                </div>
+              )}
+              {error && <div className="mt-2 text-red-600 text-center">{error}</div>}
+            </form>
           </div>
         </div>
       </div>
