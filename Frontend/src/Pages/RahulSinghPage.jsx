@@ -108,7 +108,7 @@ export default function RahulSinghPage() {
               aria-label="address"
               target="_blank"
               rel="noopener noreferrer"
-              className="lg:flex hidden items-center space-x-2 hover:cursor-pointer "
+              className="  items-center space-x-2 hover:cursor-pointer "
             >
               <span>
                 M-II/016, Prabhat Chauraha, Janki Vihar, Lucknow, UP 226021
