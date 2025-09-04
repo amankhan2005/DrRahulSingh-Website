@@ -3,10 +3,10 @@ import FacilitiesComponent from "./FacilitiesComponent";
 
 const FacilitiesSection = () => {
   return (
-    <section className="py-8 bg-gray-100">
+    <section className="py-10 bg-gray-100">
       <div className="container mx-auto px-4 text-center">
         {/* Heading */}
-        <h1 className="text-2xl md:text-4xl font-bold text-primary mb-2">
+        <h1 className="md:text-5xl text-3xl font-bold  text-primary mb-2">
           Our Facilities
         </h1>
 

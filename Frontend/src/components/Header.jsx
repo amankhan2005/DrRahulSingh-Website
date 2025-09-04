@@ -58,7 +58,7 @@ export default function Header() {
               {/* Social Icons */}
               <div className="flex text-gray-100 justify-around items-center py-2 bg-primary md:text-lg text-sm px-2">
                 <a
-                  href="https://www.facebook.com/share/r/19gTTL6WAb/"
+                  href=" https://www.facebook.com/people/Landmark-Advance-Neurospine-Care-Hospital/61563764256650/"
                   className="hover:text-gray-50"
                   title="Facebook"
                   target="_blank"
@@ -67,7 +67,7 @@ export default function Header() {
                   <i className="fab fa-facebook-f"></i>
                 </a>
                 <a
-                  href="https://www.instagram.com/p/DNxe8nHxMqx/"
+                  href=" https://www.instagram.com/landmarkneurospinehospital/"
                   className="hover:text-gray-50"
                   title="Instagram"
                   target="_blank"
@@ -76,7 +76,7 @@ export default function Header() {
                   <i className="fab fa-instagram"></i>
                 </a>
                 <a
-                  href="https://youtube.com/shorts/c5pUr78NOng?feature=share"
+                  href=" https://www.youtube.com/@landmarkadvanceneurospinecare/videos"
                   className="hover:text-gray-50"
                   title="YouTube"
                   target="_blank"
@@ -85,7 +85,7 @@ export default function Header() {
                   <i className="fab fa-youtube"></i>
                 </a>
                 <a
-                  href="https://www.linkedin.com/feed/update/urn:li:activity:7365679710237839360"
+                  href="https://www.linkedin.com/in/dr-rahul-singh-mbbs-ms-mch-neuro-surgery-021708321/"
                   className="hover:text-gray-50"
                   title="LinkedIn"
                   target="_blank"

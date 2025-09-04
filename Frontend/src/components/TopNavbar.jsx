@@ -66,7 +66,7 @@ export default function TopNavBar() {
               className="hidden md:flex md:space-x-5 space-x-3 md:text-lg text-sm justify-center items-center"
             >
               <a
-                href="https://www.facebook.com/share/r/19gTTL6WAb/"
+                href="https://www.facebook.com/people/Landmark-Advance-Neurospine-Care-Hospital/61563764256650/"
                 aria-label="Facebook"
                 title="Facebook"
                 target="_blank"
@@ -76,7 +76,7 @@ export default function TopNavBar() {
                 <FaFacebookF />
               </a>
               <a
-                href="https://www.instagram.com/p/DNxe8nHxMqx/"
+                href=" https://www.instagram.com/landmarkneurospinehospital/"
                 aria-label="Instagram"
                 title="Instagram"
                 target="_blank"
@@ -86,7 +86,7 @@ export default function TopNavBar() {
                 <FaInstagram />
               </a>
               <a
-                href="https://youtube.com/shorts/c5pUr78NOng?feature=share"
+                href="https://www.youtube.com/@landmarkadvanceneurospinecare/videos"
                 aria-label="YouTube"
                 title="YouTube"
                 target="_blank"
@@ -96,7 +96,7 @@ export default function TopNavBar() {
                 <FaYoutube />
               </a>
               <a
-                href="https://www.linkedin.com/feed/update/urn:li:activity:7365679710237839360"
+                href="https://www.linkedin.com/in/dr-rahul-singh-mbbs-ms-mch-neuro-surgery-021708321/"
                 aria-label="LinkedIn"
                 title="LinkedIn"
                 target="_blank"

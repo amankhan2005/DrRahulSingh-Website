@@ -4,7 +4,7 @@ import { createAppointment } from "../redux/slices/appointmentSlice";
 import { Listbox } from "@headlessui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaTimes, FaChevronDown } from 'react-icons/fa';
+import { FaTimes, FaChevronDown } from "react-icons/fa";
 
 const departments = [
   "General",
@@ -26,32 +26,76 @@ const AppointmentModal = ({ onClose }) => {
     time: "09:00",
   });
 
+  const [fieldErrors, setFieldErrors] = useState({});
   const [message, setMessage] = useState("");
 
-  const handleChange = (e) => {
-    if (e.target.name === "number" && e.target.value.length > 10) return;
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  // Regex patterns
+  const regex = {
+    name: /^[A-Za-z\s]{2,}$/,
+    number: /^[0-9]{10}$/,
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   };
 
-  const validateForm = () => {
-    const nameRegex = /^[A-Za-z\s]{2,}$/;
-    const numberRegex = /^[0-9]{10}$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!form.name || !form.number || !form.email || !form.date || !form.time)
-      return "⚠️ Please fill all fields";
-    if (!nameRegex.test(form.name)) return "⚠️ Name must be at least 2 letters";
-    if (!numberRegex.test(form.number)) return "⚠️ Enter a valid 10-digit number";
-    if (!emailRegex.test(form.email)) return "⚠️ Enter a valid email address";
-
+  const validateField = (name, value) => {
+    switch (name) {
+      case "name":
+        if (!value) return "⚠️ Name is required";
+        if (!regex.name.test(value))
+          return "⚠️ Name must be at least 2 letters";
+        break;
+      case "number":
+        if (!value) return "⚠️ Mobile number is required";
+        if (!regex.number.test(value))
+          return "⚠️ Enter a valid 10-digit number";
+        break;
+      case "email":
+        if (!value) return "⚠️ Email is required";
+        if (!regex.email.test(value))
+          return "⚠️ Enter a valid email address";
+        break;
+      case "date":
+        if (!value) return "⚠️ Date is required";
+        break;
+      case "time":
+        if (!value) return "⚠️ Time is required";
+        break;
+      default:
+        return null;
+    }
     return null;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "number" && value.length > 10) return;
+
+    setForm((prev) => ({ ...prev, [name]: value }));
+
+    // validate while typing
+    const errorMsg = validateField(name, value);
+    setFieldErrors((prev) => ({ ...prev, [name]: errorMsg }));
+  };
+
+  const handleDateChange = (date) => {
+    setForm((prev) => ({ ...prev, date }));
+    const errorMsg = validateField("date", date);
+    setFieldErrors((prev) => ({ ...prev, date: errorMsg }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const errorMsg = validateForm();
-    if (errorMsg) {
-      setMessage(errorMsg);
+
+    // Final validation for all fields
+    const newErrors = {};
+    Object.keys(form).forEach((key) => {
+      const errorMsg = validateField(key, form[key]);
+      if (errorMsg) newErrors[key] = errorMsg;
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setFieldErrors(newErrors);
+      setMessage("⚠️ Please fix errors before submitting");
       return;
     }
 
@@ -68,6 +112,7 @@ const AppointmentModal = ({ onClose }) => {
           date: null,
           time: "09:00",
         });
+        setFieldErrors({});
       })
       .catch(() => setMessage("❌ Failed to book appointment"));
   };
@@ -115,52 +160,96 @@ const AppointmentModal = ({ onClose }) => {
           </p>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-5 flex-grow flex flex-col">
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Enter Full Name"
-              className="w-full border border-gray-300 bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400 transition"
-            />
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-5 flex-grow flex flex-col"
+          >
+            <div>
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                placeholder="Enter Full Name"
+                className={`w-full border ${
+                  fieldErrors.name ? "border-red-500" : "border-gray-300"
+                } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400 transition`}
+              />
+              {fieldErrors.name && (
+                <p className="text-red-500 text-sm mt-1">{fieldErrors.name}</p>
+              )}
+            </div>
 
-            <input
-              type="text"
-              name="number"
-              value={form.number}
-              onChange={handleChange}
-              placeholder="Enter Mobile Number"
-              className="w-full border border-gray-300 bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400 transition"
-            />
+            <div>
+              <input
+                type="text"
+                name="number"
+                value={form.number}
+                onChange={handleChange}
+                placeholder="Enter Mobile Number"
+                className={`w-full border ${
+                  fieldErrors.number ? "border-red-500" : "border-gray-300"
+                } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400 transition`}
+              />
+              {fieldErrors.number && (
+                <p className="text-red-500 text-sm mt-1">
+                  {fieldErrors.number}
+                </p>
+              )}
+            </div>
 
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="Enter Email Address"
-              className="w-full border border-gray-300 bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400 transition"
-            />
+            <div>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="Enter Email Address"
+                className={`w-full border ${
+                  fieldErrors.email ? "border-red-500" : "border-gray-300"
+                } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400 transition`}
+              />
+              {fieldErrors.email && (
+                <p className="text-red-500 text-sm mt-1">{fieldErrors.email}</p>
+              )}
+            </div>
 
             {/* Date and Time Pickers */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <DatePicker
-                selected={form.date}
-                onChange={(date) => setForm((prev) => ({ ...prev, date }))}
-                className="w-full border border-gray-300 bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 transition"
-                placeholderText="Select Date"
-                dateFormat="dd/MM/yyyy"
-              />
-              <input
-                type="time"
-                name="time"
-                value={form.time}
-                onChange={handleChange}
-                className="w-full border border-gray-300 bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 transition"
-              />
+              <div>
+                <DatePicker
+                  selected={form.date}
+                  onChange={handleDateChange}
+                  className={`w-full border ${
+                    fieldErrors.date ? "border-red-500" : "border-gray-300"
+                  } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 transition`}
+                  placeholderText="Select Date"
+                  dateFormat="dd/MM/yyyy"
+                />
+                {fieldErrors.date && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {fieldErrors.date}
+                  </p>
+                )}
+              </div>
+              <div>
+                <input
+                  type="time"
+                  name="time"
+                  value={form.time}
+                  onChange={handleChange}
+                  className={`w-full border ${
+                    fieldErrors.time ? "border-red-500" : "border-gray-300"
+                  } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 transition`}
+                />
+                {fieldErrors.time && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {fieldErrors.time}
+                  </p>
+                )}
+              </div>
             </div>
-            
+
             {/* Department Dropdown */}
             <Listbox
               value={form.department}

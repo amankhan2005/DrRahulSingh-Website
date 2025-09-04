@@ -3,7 +3,7 @@ import nerveImg from "../assets/home/peripheral-nerve-surgery.jpg";
 export default function PeripheralNerveSurgery() {
   return (
     <section className="bg-white py-8">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4">
         {/* Heading + Subheading */}
         {/* <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-primary">Peripheral Nerve Surgery</h2>
@@ -13,7 +13,7 @@ export default function PeripheralNerveSurgery() {
         </div> */}
 
         {/* Content + Image */}
-        <div className="flex flex-col md:flex-row gap-8 bg-white rounded-lg shadow-2xs p-6">
+        <div className="flex flex-col md:flex-row gap-8 bg-white rounded-lg shadow-2xs p-4">
           {/* Left Content */}
           <div className="flex-1 flex items-center">
            <p className="text-gray-800 text-left md:text-justify leading-snug md:leading-relaxed">

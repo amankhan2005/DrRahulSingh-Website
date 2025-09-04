@@ -1,4 +1,4 @@
- import React, { useEffect, memo, useState } from "react";
+import React, { useEffect, memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogData } from "../redux/slices/dataslice";
@@ -39,16 +39,16 @@ const BlogComponent = () => {
   };
 
   return (
-    <div className="lg:py-10 md:py-10 py-10 relative">
-      <h1 className="md:text-4xl text-2xl font-bold text-primary text-center">
-        Our Recent Blog
+    <div className="lg:py-10 md:py-10 py-10 bg-gray-50 relative">
+      <h1 className="md:text-5xl text-3xl font-bold text-primary text-center mb-2">
+        Our Recent Blogs
       </h1>
-      <p className="text-gray-600 md:mb-6 mb-2 text-center text-sm md:text-base">
+      <p className="text-gray-600 text-sm mb-4 md:text-base text-center">
         Latest updates, tips, and insights from our team.
       </p>
 
       <div className="px-4 relative container mx-auto">
-        {status === "loading" && <p className="text-center">Loading Blog Data...</p>}
+        {status === "loading" && <p className="text-center text-gray-400">Loading Blog Data...</p>}
         {error && <p className="text-center text-red-500">{error}</p>}
         {blogData.length === 0 && status !== "loading" && (
           <p className="text-center text-red-500">No Data Found</p>
@@ -60,46 +60,50 @@ const BlogComponent = () => {
             {startIndex > 0 && (
               <button
                 onClick={handlePrev}
-                className="absolute -left-6 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hover:bg-gray-100"
+                className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg p-3 rounded-full hover:bg-gray-100 transition"
+                aria-label="Previous Blogs"
               >
-                <ChevronLeft size={24} />
+                <ChevronLeft size={28} />
               </button>
             )}
 
-            {/* Blogs Grid (3 fixed cards) */}
+            {/* Blogs Grid */}
             <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
               {visibleBlogs.map((blog) => (
                 <div
                   key={blog._id}
-                  className="rounded-lg shadow-2xl hover:shadow-none p-4 transition cursor-pointer bg-white"
+                  className="rounded-xl shadow-lg hover:shadow-2xl bg-white overflow-hidden transition transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
                   onClick={() => handleNavigate(blog._id)}
                 >
-                  <img
-                    src={blog.imageUrl}
-                    alt={blog.title}
-                    loading="lazy"
-                    className="w-full h-60 object-cover rounded-lg mb-2"
-                  />
-                  <p className="text-sm text-gray-500 mb-4 underline underline-offset-4">
-                    Published by <span className="text-gray-900">{blog.postedBy}</span> ||{" "}
-                    <span>on {formatDate(blog.createdAt)}</span>
-                  </p>
-                  <h3 className="text-lg font-medium line-clamp-1 mb-2">{blog.title}</h3>
-                  <p className="text-gray-700 mb-2 line-clamp-2">
-                    {blog.description.replace(/<\/?[^>]+(>|$)/g, "")}
-                  </p>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleNavigate(blog._id);
-                    }}
-                    aria-label={`Read more about ${blog.title}`}
-                    title="Read More Blog"
-            
-                    className="text-white bg-primary hover:bg-blue-600 cursor-pointer px-3 py-1 rounded"
-                  >
-                    Read More
-                  </button>
+                  <div className="overflow-hidden">
+                    <img
+                      src={blog.imageUrl}
+                      alt={blog.title}
+                      loading="lazy"
+                      className="w-full h-54 object-cover rounded-t-xl transition-transform duration-500 hover:scale-110"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <p className="text-sm text-gray-400 mb-3">
+                      By <span className="text-gray-900 font-medium">{blog.postedBy}</span> on{" "}
+                      {formatDate(blog.createdAt)}
+                    </p>
+                    <h3 className="text-xl font-semibold mb-3 line-clamp-2 text-gray-900">
+                      {blog.title}
+                    </h3>
+                    <p className="text-gray-600 mb-5 line-clamp-3">
+                      {blog.description.replace(/<\/?[^>]+(>|$)/g, "")}
+                    </p>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNavigate(blog._id);
+                      }}
+                      className="px-5 py-2 rounded-full bg-primary text-white font-medium shadow-md hover:from-indigo-500 hover:to-blue-500 transition"
+                    >
+                      Read More
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -108,9 +112,10 @@ const BlogComponent = () => {
             {startIndex + 3 < blogData.length && (
               <button
                 onClick={handleNext}
-                className="absolute -right-6 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hover:bg-gray-100"
+                className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg p-3 rounded-full hover:bg-gray-100 transition"
+                aria-label="Next Blogs"
               >
-                <ChevronRight size={24} />
+                <ChevronRight size={28} />
               </button>
             )}
           </div>

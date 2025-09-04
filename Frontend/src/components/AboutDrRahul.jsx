@@ -30,8 +30,8 @@ const AboutDoctor = () => {
           </div>
 
           {/* Right Side - Content */}
-          <div className="w-full md:w-1/2">
-            <h2 className="lg:text-4xl text-2xl font-bold mb-2 text-primary">
+          <div className="w-full md:w-1/2  ">
+            <h2 className="  text-3xl md:text-5xl font-bold text-primary mb-2">
               Meet <span className="font-extrabold">Dr. Rahul Singh</span>
             </h2>
             <h3 className="text-lg sm:text-xl font-semibold mb-3 text-gray-600">
@@ -39,7 +39,7 @@ const AboutDoctor = () => {
               in <span className="font-bold">Lucknow</span>
             </h3>
 
-            <p className="text-gray-600 mb-2 leading-relaxed text-sm sm:text-base font-medium">
+            <p className="text-gray-600 mb-3 leading-relaxed text-sm sm:text-base font-medium">
               <span className="font-bold">Dr. Rahul Singh</span> is a renowned{" "}
               <span className="font-bold">brain and spine surgeon</span> in{" "}
               <span className="font-bold">Lucknow</span>, specializing in{" "}
@@ -54,7 +54,7 @@ const AboutDoctor = () => {
               , Varanasi.
             </p>
 
-            <p className="text-gray-600 mb-2 leading-relaxed text-sm sm:text-base">
+            <p className="text-gray-600 mb-3 leading-relaxed text-sm sm:text-base">
               He also holds an{" "}
               <span className="font-bold">MS in General Surgery</span> from{" "}
               <span className="font-bold">

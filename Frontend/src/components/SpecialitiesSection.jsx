@@ -1,64 +1,70 @@
  import { useState } from "react";
 import { ChevronRight, Brain, Activity, Zap } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // ✅ React Router navigation
 
 export default function ServiceSection() {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const navigate = useNavigate(); // ✅ navigation hook
 
- const services = [
-  {
-    id: 1,
-    title: "Brain Surgery",
-    subtitle: "Advanced Neurosurgical Excellence",
-    description: (
-      <>
-        <strong>Dr. Rahul Singh</strong>, one of the <strong>best brain surgeons in Lucknow</strong>, offers advanced brain surgery using modern microsurgical techniques. He treats <strong>brain tumors, aneurysms</strong>, and <strong>other neurological conditions</strong> with safe procedures and successful outcomes.
-      </>
-    ),
-    icon: <Brain className="w-12 h-12 text-white" />,
-    iconBg: "bg-primary",
-    link: "/brain",
-  },
-  {
-    id: 2,
-    title: "Spine Surgery",
-    subtitle: "Precision Spinal Care",
-    description: (
-      <>
-        <strong>Dr. Rahul Singh</strong> provides expert care in <strong>spine surgery in Lucknow</strong>. He specializes in endoscopic spine procedures, fusion surgeries, and trauma care. His focus is on pain relief, faster healing, and long-term results.
-      </>
-    ),
-    icon: <Activity className="w-12 h-12 rotate-90 text-white" />,
-    iconBg: "bg-primary",
-    link: "/spine",
-  },
-  {
-    id: 3,
-    title: "Neuro Surgery",
-    subtitle: "Comprehensive Neurological Solutions",
-    description: (
-      <>
-        With years of expertise, <strong>Dr. Rahul Singh</strong> delivers world-class treatment in <strong>neuro surgery in Lucknow</strong>. He manages complex brain disorders, vascular conditions, and functional neurosurgeries with precision and care.
-      </>
-    ),
-    icon: <Zap className="w-12 h-12 text-white" />,
-    iconBg: "bg-primary",
-    link: "/peripheral-nerve-surgery",
-  },
-];
-
-
-
-  // Function to open route in a new tab
-  const openInNewTab = (link) => {
-    window.open(`${window.location.origin}${link}`, "_blank");
-  };
+  const services = [
+    {
+      id: 1,
+      title: "Brain Surgery",
+      subtitle: "Advanced Neurosurgical Excellence",
+      description: (
+        <>
+          <strong>Dr. Rahul Singh</strong>, one of the{" "}
+          <strong>best brain surgeons in Lucknow</strong>, offers advanced brain
+          surgery using modern microsurgical techniques. He treats{" "}
+          <strong>brain tumors, aneurysms</strong>, and{" "}
+          <strong>other neurological conditions</strong> with safe procedures
+          and successful outcomes.
+        </>
+      ),
+      icon: <Brain className="w-12 h-12 text-white" />,
+      iconBg: "bg-primary",
+      link: "/brain",
+    },
+    {
+      id: 2,
+      title: "Spine Surgery",
+      subtitle: "Precision Spinal Care",
+      description: (
+        <>
+          <strong>Dr. Rahul Singh</strong> provides expert care in{" "}
+          <strong>spine surgery in Lucknow</strong>. He specializes in endoscopic
+          spine procedures, fusion surgeries, and trauma care. His focus is on
+          pain relief, faster healing, and long-term results.
+        </>
+      ),
+      icon: <Activity className="w-12 h-12 rotate-90 text-white" />,
+      iconBg: "bg-primary",
+      link: "/spine",
+    },
+    {
+      id: 3,
+      title: "Neuro Surgery",
+      subtitle: "Comprehensive Neurological Solutions",
+      description: (
+        <>
+          With years of expertise, <strong>Dr. Rahul Singh</strong> delivers
+          world-class treatment in <strong>neuro surgery in Lucknow</strong>. He
+          manages complex brain disorders, vascular conditions, and functional
+          neurosurgeries with precision and care.
+        </>
+      ),
+      icon: <Zap className="w-12 h-12 text-white" />,
+      iconBg: "bg-primary",
+      link: "/peripheral-nerve-surgery",
+    },
+  ];
 
   return (
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-8 relative overflow-hidden py-10">
       <div className="container mx-auto relative z-10">
         {/* Header Section */}
         <div className="text-center mb-6">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary mb-1 leading-tight">
+          <h2 className=" md:text-5xl text-3xl font-bold text-primary leading-tight">
             Expert Medical Care
           </h2>
           <p
@@ -119,7 +125,7 @@ export default function ServiceSection() {
                 {/* CTA Button */}
                 <div className="mt-auto">
                   <button
-                    onClick={() => openInNewTab(service.link)}
+                    onClick={() => navigate(service.link)} // ✅ same page navigation
                     className="px-6 py-2 bg-primary text-white rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-primary/25"
                   >
                     Know More

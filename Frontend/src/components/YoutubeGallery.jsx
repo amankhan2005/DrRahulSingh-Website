@@ -23,7 +23,7 @@ export default function YouTubePage() {
   return (
     <div className="bg-white py-10">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl lg:text-3xl text-primary font-bold mb-2 text-center">
+        <h2 className="md:text-5xl text-3xl text-primary font-bold mb-2 text-center">
           Expert Health Talks on YouTube{" "}
         </h2>
         <p className="text-gray-600 mb-6 text-center">

@@ -8,7 +8,7 @@ const AboutHospital = () => {
         
         {/* Heading Top */}
         <div className="text-center mb-4">
-          <h2 className="lg:text-4xl text-2xl font-bold text-primary leading-snug">
+          <h2 className="md:text-5xl text-3xl font-bold text-primary leading-snug">
             Advanced Brain, Spine & Nerve Care in Lucknow,<br /> led by Dr. Rahul Singh
           </h2>
           <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto leading-relaxed">

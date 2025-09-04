@@ -108,7 +108,7 @@ function FacilitiesPage() {
           return (
             <section
               key={index}
-              className={`shadow-lg rounded-2xl overflow-hidden flex flex-col md:flex-row items-center ${
+              className={`shadow-lg rounded-2xl h-86 overflow-hidden flex flex-col md:flex-row items-center ${
                 isOdd ? "bg-primary text-white" : "bg-white text-gray-800"
               }`}
             >

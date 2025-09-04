@@ -17,8 +17,7 @@ export default function ContactUs() {
           </p>
           <Link
             to="/contact"
-              target="_blank"
-              rel="noopener noreferrer"
+          
             className="mt-6 inline-block rounded-xl bg-white px-6 py-3 text-primary font-semibold shadow-lg hover:bg-gray-100 transition duration-300 text-base md:text-lg md:px-8 md:py-4"
           >
             Contact Us Now

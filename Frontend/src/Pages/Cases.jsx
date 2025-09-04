@@ -1,5 +1,5 @@
  import React, { useEffect, useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCasesData } from "../redux/slices/dataslice";
 import BreadCumb from "../components/BreadCumb";
@@ -20,12 +20,12 @@ const Cases = () => {
   const openModal = (index) => {
     setCurrentImageIndex(index);
     setIsModalOpen(true);
-    document.body.style.overflow = "hidden"; // prevent background scroll
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    document.body.style.overflow = "auto"; // restore scroll
+    document.body.style.overflow = "auto";
   };
 
   const nextImage = () => {
@@ -42,7 +42,7 @@ const Cases = () => {
     }
   };
 
-  // Close modal on ESC key
+  // Close modal on ESC
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") closeModal();
@@ -100,14 +100,14 @@ const Cases = () => {
 
       {/* Modal */}
       {isModalOpen && casesData?.length > 0 && (
-        <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/80 flex justify-center items-center z-[11000] p-4">
           <div className="relative bg-white rounded-xl max-w-4xl w-full shadow-2xl overflow-hidden">
-            {/* Close Button */}
+            {/* Close Icon on top-right over image */}
             <button
               onClick={closeModal}
-              className="absolute top-3 right-3 text-black bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 text-2xl flex items-center justify-center transition"
+              className="absolute top-3 right-3 text-white bg-black/60 hover:bg-black/80 rounded-full w-10 h-10 flex items-center justify-center z-[11001] transition"
             >
-              ×
+              <FaTimes className="text-xl" />
             </button>
 
             {/* Image & Navigation */}
@@ -124,7 +124,7 @@ const Cases = () => {
               <img
                 src={casesData[currentImageIndex]?.imageUrl}
                 alt={casesData[currentImageIndex]?.title}
-                className="max-h-[70vh] w-auto mx-auto object-contain rounded-lg"
+                className="max-h-[70vh] w-auto mx-auto object-contain rounded-lg z-[11000]"
               />
 
               {/* Next */}

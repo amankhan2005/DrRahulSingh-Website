@@ -81,11 +81,11 @@ const Gallery = () => {
   };
 
   return (
-    <div className="bg-gray-50 py-10">
+    <div className="bg-gray-50 py-8">
       <div className="container mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl md:text-4xl font-bold text-primary mb-3">
+          <h1 className="md:text-5xl text-3xl font-bold text-primary mb-3">
             Our Recent Memories
           </h1>
           <p className="text-gray-600 text-sm md:text-base">
