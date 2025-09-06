@@ -18,7 +18,7 @@ const BottomFooter = () => {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center justify-center gap-2 text-white text-xs sm:text-sm md:text-base">
+        {/* <div className="flex items-center justify-center gap-2 text-white text-xs sm:text-sm md:text-base">
           <span>Designed by</span>
           <Link
             to="https://www.codecrafter.co.in/"
@@ -33,7 +33,7 @@ const BottomFooter = () => {
               className="h-6 sm:h-7 md:h-8 lg:h-9 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
           </Link>
-        </div>
+        </div> */}
       </div>
     </footer>
   );
