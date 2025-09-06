@@ -91,7 +91,7 @@ const BlogPage = () => {
                         e.stopPropagation();
                         navigate(`/blog/${blog._id}`);
                       }}
-                      className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-indigo-600 hover:to-blue-500 transition"
+                      className=" bg-primary text-white px-4 py-2 rounded-lg hover:from-indigo-600 hover:to-blue-500 transition"
                     >
                       Read More
                     </button>
