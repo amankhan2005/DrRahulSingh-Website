@@ -38,7 +38,7 @@ export default function RahulSinghPage() {
       />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#0a2a4a] to-[#1f4c78] text-white overflow-hidden py-12">
+      <section className="relative bg-gradient-to-r from-[#2e6294] via-[#3597e0] to-[#2e6294] text-white overflow-hidden py-12">
         <div className="container mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center gap-8">
           {/* Left Content */}
           <div className="flex-1 flex flex-col justify-center gap-6 text-center md:text-left">

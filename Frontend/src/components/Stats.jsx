@@ -2,9 +2,9 @@
 import { User, Activity, HeartPulse } from "lucide-react";
 
 const statsData = [
-  { label: "HAPPY PATIENTS", target: 15000, icon: User, iconBg: "bg-green-100 text-green-600" },
-  { label: "TOTAL CASES SOLVED", target: 16000, icon: Activity, iconBg: "bg-yellow-100 text-yellow-600" },
-  { label: "SUCCESSFUL SURGERIES", target: 10000, icon: HeartPulse, iconBg: "bg-pink-100 text-pink-600" },
+  { label: "HAPPY PATIENTS", target: 15000, icon: User },
+  { label: "TOTAL CASES SOLVED", target: 16000, icon: Activity },
+  { label: "SUCCESSFUL SURGERIES", target: 10000, icon: HeartPulse },
 ];
 
 const ClinicStats = () => {
@@ -12,51 +12,42 @@ const ClinicStats = () => {
 
   useEffect(() => {
     const duration = 2000;
-    const intervalTime = 20;
-    const steps = duration / intervalTime;
+    const startTime = performance.now();
 
-    const intervals = statsData.map((stat, index) => {
-      const increment = stat.target / steps;
-      return setInterval(() => {
-        setCounts((prev) => {
-          const next = [...prev];
-          if (next[index] < stat.target) {
-            next[index] = Math.min(next[index] + increment, stat.target);
-          }
-          return next;
-        });
-      }, intervalTime);
-    });
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      setCounts(statsData.map(stat => stat.target * progress));
 
-    return () => intervals.forEach((i) => clearInterval(i));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+
+    requestAnimationFrame(animate);
   }, []);
 
   return (
-    // 👇 hidden on small screens, visible from md onwards
-    <section className="hidden md:block py-10 mb-8 bg-gradient-to-r from-[#7da4c4] via-[#2e6294] to-[#588dc0]">
+    <section className="py-12 mb-8 bg-gradient-to-r from-[#2e6294] via-[#3597e0] to-[#2e6294]">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center">
           {statsData.map((stat, index) => {
             const Icon = stat.icon;
             return (
               <div
                 key={index}
-                className="bg-white rounded-xl shadow-md py-8 flex flex-col items-center hover:scale-105 transition-transform duration-300 max-w-xs w-full"
+                className="bg-white rounded-2xl shadow-2xl py-8 px-6 flex flex-col items-center transform transition-all duration-500 hover:-translate-y-3 hover:shadow-3xl w-full max-w-xs"
               >
-                {/* Icon Circle */}
-                <div
-                  className={`p-2 rounded-full ${stat.iconBg} flex items-center justify-center shadow-sm`}
-                >
-                  <Icon className="h-8 w-8" />
+                {/* Icon */}
+                <div className="p-5 rounded-full bg-[#2e6294] flex items-center justify-center shadow-lg mb-4">
+                  <Icon className="h-10 w-10 text-white" />
                 </div>
 
-                {/* Number */}
-                <div className="text-2xl md:text-3xl  font-bold text-gray-900 ">
-                  {Math.floor(counts[index])}+
+                {/* Animated Number */}
+                <div className="text-3xl md:text-4xl font-extrabold text-[#2e6294] mb-2">
+                  {Math.floor(counts[index]).toLocaleString()}+
                 </div>
 
                 {/* Label */}
-                <div className="text-gray-600 font-semibold text-center text-xs md:text-sm tracking-wide uppercase">
+                <div className="text-gray-800 font-semibold text-center text-sm md:text-base tracking-wide uppercase">
                   {stat.label}
                 </div>
               </div>

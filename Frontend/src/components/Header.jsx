@@ -1,477 +1,206 @@
-import { useState } from "react";
+ import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FaChevronDown, FaTimes, FaBars } from "react-icons/fa";
 import landmarkLogo from "../assets/Landmark Dr rahul singh.png";
-import { specialities } from "../SpecilitesData";
-import TestimonialSection from "./Testimonial";
-import { FaXTwitter } from "react-icons/fa6";
+
+const menuItems = [
+  { label: "Home", link: "/" },
+  {
+    label: "About Us",
+    link: "/about",
+    subItems: [
+      { label: "About Landmark Hospital", link: "/about" },
+      { label: "About Dr. Rahul Singh", link: "/our-team" },
+    ],
+  },
+  {
+    label: "Our Specialities",
+    link: "/brain",
+    subItems: [
+      { label: "Brain Surgery", link: "/brain" },
+      { label: "Spine Surgery", link: "/spine" },
+      { label: "Peripheral Nerve Surgery", link: "/peripheral-nerve-surgery" },
+    ],
+  },
+  { label: "Facilities", link: "/facilities" },
+  { label: "Cases", link: "/cases" },
+  { label: "Blog", link: "/blog" },
+  {
+    label: "Gallery",
+    link: "/gallery",
+    subItems: [
+      { label: "Photo Gallery", link: "/gallery?tab=photo" },
+      { label: "Video Gallery", link: "/gallery?tab=video" },
+      { label: "News & Media", link: "/gallery?tab=news" },
+      { label: "Rewards & Recognition", link: "/gallery?tab=rewards" },
+    ],
+  },
+  { label: "Testimonials", link: "/testimonials" },
+  { label: "Contact", link: "/contact" },
+];
+
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
   const location = useLocation();
+  const menuRef = useRef();
 
-  const handleDropdown = (menu) => {
-    setOpenDropdown(openDropdown === menu ? null : menu);
-  };
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsMobileMenuOpen(false);
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const toggleDropdown = (label) =>
+    setOpenDropdown(openDropdown === label ? null : label);
 
   return (
-    <nav
-      className="bg-white   shadow-md"
-      role="navigation"
-      aria-label="Main Navigation"
-    >
-      <div className=" container  mx-auto flex justify-between items-center  px-5 ">
+    <nav className="bg-white shadow-md fixed w-full z-50">
+      <div className="container mx-auto flex justify-between items-center px-4 py-3 md:py-4">
         {/* Logo */}
-        <div className="flex items-center">
-          <Link to="/">
-            <img
-              src={landmarkLogo}
-              alt="Landmark Hospital Logo"
-              title="Landmark Logo"
-              className="w-30 h-full"
-            />
-          </Link>
-        </div>
+        <Link to="/">
+          <img
+            src={landmarkLogo}
+            alt="Landmark Logo"
+            title="Landmark Hospital"
+            className="h-16 md:h-20 w-auto"
+            loading="lazy"
+          />
+        </Link>
 
-        {/* Hamburger Icon for Mobile */}
-        <div className="">
-          {/* Mobile Menu Toggle */}
-          <div
-            className="lg:hidden text-gray-800 text-2xl cursor-pointer"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <i className="fas fa-times"></i>
-            ) : (
-              <i className="fas fa-bars"></i>
-            )}
-          </div>
+        {/* Desktop Menu */}
+        <ul className="hidden lg:flex space-x-8 font-semibold text-gray-800">
+          {menuItems.map((item) => (
+            <li key={item.label} className="relative group">
+              <div className="flex items-center gap-1">
+                <Link
+                  to={item.link}
+                  className={`flex items-center gap-1 hover:text-primary transition-colors duration-300 ${
+                    location.pathname === item.link ? "text-primary" : ""
+                  }`}
+                  onClick={(e) => item.subItems && e.preventDefault()}
+                >
+                  {item.label}
+                  {item.subItems && (
+                    <FaChevronDown className="ml-1 transition-transform duration-300 group-hover:rotate-180" />
+                  )}
+                </Link>
 
-          {/* Mobile Menu */}
-          <div className="">
-            <div
-              className={`fixed top-0 right-0 h-full w-60 bg-white transform ${
-                isMobileMenuOpen
-                  ? "translate-x-0 overflow-hidden"
-                  : "translate-x-full overflow-hidden"
-              } transition-transform duration-300 ease-in-out lg:hidden`}
-            >
-              {/* Social Icons */}
-              <div className="flex text-gray-100 justify-around items-center py-2 bg-primary md:text-lg text-sm px-2">
-                <a
-                  href=" https://www.facebook.com/people/Landmark-Advance-Neurospine-Care-Hospital/61563764256650/"
-                  className="hover:text-gray-50"
-                  title="Facebook"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a
-                  href=" https://www.instagram.com/landmarkneurospinehospital/"
-                  className="hover:text-gray-50"
-                  title="Instagram"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-instagram"></i>
-                </a>
-                <a
-                  href=" https://www.youtube.com/@landmarkadvanceneurospinecare/videos"
-                  className="hover:text-gray-50"
-                  title="YouTube"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-youtube"></i>
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/dr-rahul-singh-mbbs-ms-mch-neuro-surgery-021708321/"
-                  className="hover:text-gray-50"
-                  title="LinkedIn"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
+                {openDropdown === item.label && item.subItems && (
+                  <button
+                    onClick={() => setOpenDropdown(null)}
+                    className="ml-2 text-gray-400 hover:text-red-500 transition-colors p-1 rounded-full"
+                    aria-label="Close dropdown"
+                  >
+                    <FaTimes size={14} />
+                  </button>
+                )}
               </div>
 
-              {/* Close Button */}
-              <button
-                aria-label="Close Menu"
-                title="Close Menu"
-                className="absolute top-10 right-2 text-gray-100 text-xl font-bold bg-primary h-8 w-8 rounded-full cursor-pointer"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                ✕
-              </button>
+              {item.subItems && (
+                <ul className="absolute top-full left-0 bg-white shadow-xl rounded-lg py-3 w-60 text-sm divide-y divide-gray-200 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-300 z-50 border border-gray-200">
+                  {item.subItems.map((sub) => (
+                    <li key={sub.label}>
+                      <Link
+                        to={sub.link}
+                        className="block px-5 py-2 hover:bg-blue-50 hover:text-primary transition-colors duration-200"
+                      >
+                        {sub.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
 
-              {/* Menu Items */}
-              <ul className="text-gray-800 font-semibold space-y-4 px-2 ps-6 mt-5">
-                {/* Home */}
-                <li
-                  className={`${
-                    location.pathname === "/" ? "text-primary" : ""
-                  }`}
-                >
-                  <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-                    Home
-                  </Link>
-                </li>
+        {/* Mobile Hamburger */}
+        <div className="lg:hidden">
+          <button
+            aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-2xl text-gray-800 p-3 rounded-full bg-gray-100 hover:bg-gray-200 shadow-md transition-all"
+          >
+            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
+      </div>
 
-                {/* About Us Dropdown */}
-                <li className="relative">
-                  <button
-                    onClick={() => handleDropdown("about")}
-                    className="w-full text-left hover:text-primary"
-                  >
-                    About Us ▾
-                  </button>
-                  {openDropdown === "about" && (
-                    <ul className="block bg-white rounded-md py-2 w-full text-sm border border-gray-100 divide-y divide-gray-100">
-                      <li className="px-4 py-2 hover:bg-blue-50">
-                        <Link
-                          to="/about"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          About LandMark Hospital
-                        </Link>
-                      </li>
-                      <li className="px-4 py-2 hover:bg-blue-50">
-                        <Link
-                          to="/our-team"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          About Dr. Rahul Singh
-                        </Link>
-                      </li>
-                    </ul>
-                  )}
-                </li>
-
-                {/* Our Specialities Dropdown */}
-                <li className="relative">
-                  <button
-                    onClick={() => handleDropdown("specialities")}
-                    className="w-full text-left hover:text-primary"
-                  >
-                    Our Specialities ▾
-                  </button>
-                  {openDropdown === "specialities" && (
-                    <ul className="block bg-white rounded-md py-2 w-full text-sm border border-gray-100 divide-y divide-gray-100">
-                      <li className="px-4 py-2 hover:bg-blue-50">
-                        <Link
-                          to="/brain"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          Brain Surgery
-                        </Link>
-                      </li>
-                      <li className="px-4 py-2 hover:bg-blue-50">
-                        <Link
-                          to="/spine"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          Spine Surgery
-                        </Link>
-                      </li>
-                      <li className="px-4 py-2 hover:bg-blue-50">
-                        <Link
-                          to="/peripheral-nerve-surgery"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          Peripheral Nerve Surgery
-                        </Link>
-                      </li>
-                    </ul>
-                  )}
-                </li>
-
-                {/* Facilities */}
-                <li
-                  className={`${
-                    location.pathname === "/facilities" ? "text-primary" : ""
-                  }`}
-                >
-                  <Link
-                    to="/facilities"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Facilities
-                  </Link>
-                </li>
-
-                {/* Cases */}
-                <li
-                  className={`${
-                    location.pathname === "/cases" ? "text-primary" : ""
-                  }`}
-                >
-                  <Link to="/cases" onClick={() => setIsMobileMenuOpen(false)}>
-                    Cases
-                  </Link>
-                </li>
-
-                {/* Blog */}
-                <li
-                  className={`${
-                    location.pathname.startsWith("/blog") ? "text-primary" : ""
-                  }`}
-                >
-                  <Link to="/blog" onClick={() => setIsMobileMenuOpen(false)}>
-                    Blog
-                  </Link>
-                </li>
-
-                {/* Gallery Dropdown */}
-                <li className="relative">
-                  <button
-                    onClick={() => handleDropdown("gallery")}
-                    className="w-full text-left hover:text-primary"
-                  >
-                    Gallery ▾
-                  </button>
-                  {openDropdown === "gallery" && (
-                    <ul className="block bg-white rounded-md py-2 w-full text-sm border border-gray-100 divide-y divide-gray-100">
-                      <li className="px-4 py-2 hover:bg-blue-50">
-                        <Link
-                          to="/gallery?tab=photo"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          Photo Gallery
-                        </Link>
-                      </li>
-                      <li className="px-4 py-2 hover:bg-blue-50">
-                        <Link
-                          to="/gallery?tab=video"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          Video Gallery
-                        </Link>
-                      </li>
-                      <li className="px-4 py-2 hover:bg-blue-50">
-                        <Link
-                          to="/gallery?tab=news"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          News & Media
-                        </Link>
-                      </li>
-                      <li className="px-4 py-2 hover:bg-blue-50">
-                        <Link
-                          to="/gallery?tab=rewards"
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          Rewards & Recognition
-                        </Link>
-                      </li>
-                    </ul>
-                  )}
-                </li>
-
-                {/* Testimonials */}
-                <li
-                  className={`${
-                    location.pathname === "/testimonials" ? "text-primary" : ""
-                  }`}
-                >
-                  <Link
-                    to="/testimonials"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Testimonials
-                  </Link>
-                </li>
-
-                {/* Contact */}
-                <li
-                  className={`${
-                    location.pathname === "/contact" ? "text-primary" : ""
-                  }`}
-                >
-                  <Link
-                    to="/contact"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Contact Us
-                  </Link>
-                </li>
-              </ul>
-            </div>
+      {/* Mobile Sidebar */}
+      <div
+        ref={menuRef}
+        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl z-40 transform transition-transform duration-300 ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Sidebar Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-white">
+          <div className="flex items-center gap-3">
+            <img src={landmarkLogo} alt="Landmark Logo" className="h-10 w-auto" />
+            <span className="font-semibold text-lg text-gray-800">Menu</span>
           </div>
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-gray-600 hover:text-red-500"
+          >
+            <FaTimes size={20} />
+          </button>
         </div>
 
-        {/* Navigation Items for Desktop */}
-        <ul className="hidden lg:flex  text-gray-800 font-semibold">
-          <li
-            className={`px-4 hover-text-primary ${
-              location.pathname === "/" ? " text-primary" : ""
-            }`}
-          >
-            <Link to="/" title="Home">
-              Home
-            </Link>
-          </li>
-
-          <li
-            className="relative cursor-pointer px-4"
-            onMouseEnter={() => handleDropdown("about")}
-            onMouseLeave={() => handleDropdown(null)}
-          >
-            <Link to="/about" title="About Us" className="hover-text-primary">
-              About Us ▾
-            </Link>
-            {openDropdown === "about" && (
-              <ul className="absolute z-50 left-0 bg-white shadow-md rounded-md py-2 w-64 transition-all duration-300 text-sm divide-y divide-gray-200">
-                <li>
-                  <Link
-                    to="/about"
-                    className="block px-4 py-2 hover:bg-blue-100"
+        {/* Sidebar Menu Items */}
+        <ul className="px-4 py-6 space-y-2 font-medium text-gray-800">
+          {menuItems.map((item) => (
+            <li key={item.label}>
+              {item.subItems ? (
+                <div>
+                  <button
+                    className="flex justify-between items-center w-full px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors"
+                    onClick={() => toggleDropdown(item.label)}
                   >
-                    About LandMark Hospital
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/our-team"
-                    className="block px-4 py-2 hover:bg-blue-100"
-                  >
-                    About Dr. Rahul Singh
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
-
-          <li
-            className="relative cursor-pointer px-4"
-            onMouseEnter={() => handleDropdown("specialities")}
-            onMouseLeave={() => handleDropdown(null)}
-          >
-            <Link
-              to="/brain"
-              title="Our Specialities"
-              className="hover-text-primary"
-            >
-              Our Specialities ▾
-            </Link>
-            {openDropdown === "specialities" && (
-              <ul className="absolute z-50 left-0 bg-white shadow-md rounded-md py-2 w-64 transition-all duration-300 text-sm divide-y divide-gray-200">
-                <li>
-                  <Link
-                    to="/brain"
-                    className="block px-4 py-2 hover:bg-blue-100"
-                  >
-                    Brain Surgery
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/spine"
-                    className="block px-4 py-2 hover:bg-blue-100"
-                  >
-                    Spine Surgery
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/peripheral-nerve-surgery"
-                    className="block px-4 py-2 hover:bg-blue-100"
-                  >
-                    Peripheral Nerve Surgery
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
-
-          <li
-            className={`px-4 hover-text-primary ${
-              location.pathname === "/facilities" ? "text-primary" : ""
-            }`}
-          >
-            <Link to="/facilities">Facilities</Link>
-          </li>
-
-          <li
-            className={`px-4 hover-text-primary ${
-              location.pathname === "/cases" ? "text-primary" : ""
-            }`}
-          >
-            <Link to="/cases">Cases</Link>
-          </li>
-
-          <li
-            className={`px-4 hover:text-primary ${
-              location.pathname.startsWith("/blog")
-                ? "text-primary font-semibold"
-                : ""
-            }`}
-          >
-            <Link to="/blog">Blog</Link>
-          </li>
-
-          <li
-            className="relative cursor-pointer px-4"
-            onMouseEnter={() => handleDropdown("gallery")}
-            onMouseLeave={() => handleDropdown(null)}
-          >
-            <Link to="/gallery" title="Gallery" className="hover-text-primary">
-              Gallery ▾
-            </Link>
-
-            {openDropdown === "gallery" && (
-              <ul className="absolute z-50 left-0 bg-white shadow-md rounded-md py-2 w-52 transition-all duration-300 text-sm divide-y divide-gray-200">
-                <li>
-                  <Link
-                    to="/gallery?tab=photo"
-                    className="block px-4 py-2 hover:bg-blue-100"
-                  >
-                    Photo Gallery
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/gallery?tab=video"
-                    className="block px-4 py-2 hover:bg-blue-100"
-                  >
-                    Video Gallery
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/gallery?tab=news"
-                    className="block px-4 py-2 hover:bg-blue-100"
-                  >
-                    News & Media
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/gallery?tab=rewards"
-                    className="block px-4 py-2 hover:bg-blue-100"
-                  >
-                    Rewards & Recognition
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
-
-          <li
-            className={`px-4 hover-text-primary ${
-              location.pathname === "/testimonials" ? "text-primary" : ""
-            }`}
-          >
-            <Link to="/testimonials">Testimonials</Link>
-          </li>
-
-          <li
-            className={`px-4 hover-text-primary ${
-              location.pathname === "/contact" ? "text-primary" : ""
-            }`}
-          >
-            <Link to="/contact">Contact Us</Link>
-          </li>
+                    {item.label}
+                    <FaChevronDown
+                      className={`transition-transform duration-300 ${
+                        openDropdown === item.label ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {openDropdown === item.label && (
+                    <ul className="mt-2 pl-6 space-y-1 border-l border-gray-200">
+                      {item.subItems.map((sub) => (
+                        <li key={sub.label}>
+                          <Link
+                            to={sub.link}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className={`block py-2 hover:text-primary hover:underline transition-colors ${
+                              location.pathname === sub.link ? "text-primary font-semibold" : ""
+                            }`}
+                          >
+                            {sub.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  to={item.link}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors ${
+                    location.pathname === item.link ? "border-l-4 border-primary bg-blue-50" : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )}
+            </li>
+          ))}
         </ul>
       </div>
     </nav>

@@ -1,9 +1,11 @@
-import React from "react";
+ import React, { useCallback, useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   FaFacebookF,
   FaInstagram,
   FaYoutube,
   FaLinkedinIn,
+  FaChevronCircleRight,
 } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,25 +13,44 @@ import {
   faPhone,
   faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 import BottomFooter from "./BottomFooter";
-import { FaChevronCircleRight } from "react-icons/fa";
-
-const handletop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
 
 const Footer = () => {
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const specialities = useMemo(
+    () => [
+      { name: "Brain Surgery", path: "/brain" },
+      { name: "Spine Surgery", path: "/spine" },
+      { name: "Peripheral Nerve Surgery", path: "/peripheral-nerve-surgery" },
+    ],
+    []
+  );
+
+  const quickLinks = useMemo(
+    () => [
+      { name: "Home", path: "/" },
+      { name: "About Us", path: "/about" },
+      { name: "Cases", path: "/cases" },
+      { name: "Testimonials", path: "/testimonials" },
+      { name: "Blog", path: "/blog" },
+      { name: "Gallery", path: "/gallery" },
+      { name: "Contact Us", path: "/contact" },
+    ],
+    []
+  );
+
   return (
     <>
       <footer className="bg-primary text-white py-10 border-b overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-6 gap-8">
+
             {/* Contact Section */}
             <address className="not-italic break-words">
-              <div className="text-2xl font-semibold md:mb-4 mb-2">
-                Contact Us
-              </div>
+              <h4 className="text-2xl font-semibold md:mb-4 mb-2">Contact Us</h4>
               <ul className="space-y-2">
                 <li className="flex items-start">
                   <FontAwesomeIcon icon={faEnvelope} className="mr-2 mt-1" />
@@ -47,20 +68,14 @@ const Footer = () => {
                   </a>
                 </li>
                 <li className="flex items-start">
-                  <FontAwesomeIcon
-                    icon={faMapMarkerAlt}
-                    className="mr-2 mt-1"
-                  />
+                  <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2 mt-1" />
                   <a
                     href="https://maps.app.goo.gl/NySWvTwjmSoAUuBV7"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline flex-1"
+                    className="hover:underline flex-1 break-words"
                   >
-                    <span className="break-words">
-                      M-II/016, Prabhat Chauraha, Janki Vihar, Lucknow, UP
-                      226021
-                    </span>
+                    M-II/016, Prabhat Chauraha, Janki Vihar, Lucknow, UP 226021
                   </a>
                 </li>
               </ul>
@@ -68,81 +83,38 @@ const Footer = () => {
               {/* Social Media */}
               <nav className="mt-4">
                 <ul className="flex flex-wrap gap-4">
-                  <li>
-                    <a
-                      href="https://www.facebook.com/people/Landmark-Advance-Neurospine-Care-Hospital/61563764256650/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Facebook"
-                      className="hover:text-gray-200 text-xl hover:scale-125 transition"
-                    >
-                      <FaFacebookF />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.instagram.com/landmarkneurospinehospital/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Instagram"
-                      className="hover:text-gray-200 text-xl hover:scale-125 transition"
-                    >
-                      <FaInstagram />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.youtube.com/@landmarkadvanceneurospinecare/videos"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="YouTube"
-                      className="hover:text-gray-200 text-xl hover:scale-125 transition"
-                    >
-                      <FaYoutube />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.linkedin.com/in/dr-rahul-singh-mbbs-ms-mch-neuro-surgery-021708321/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="LinkedIn"
-                      className="hover:text-gray-200 text-xl hover:scale-125 transition"
-                    >
-                      <FaLinkedinIn />
-                    </a>
-                  </li>
+                  {[
+                    { icon: <FaFacebookF />, href: "https://www.facebook.com/people/Landmark-Advance-Neurospine-Care-Hospital/61563764256650/" },
+                    { icon: <FaInstagram />, href: "https://www.instagram.com/landmarkneurospinehospital/" },
+                    { icon: <FaYoutube />, href: "https://www.youtube.com/@landmarkadvanceneurospinecare/videos" },
+                    { icon: <FaLinkedinIn />, href: "https://www.linkedin.com/in/dr-rahul-singh-mbbs-ms-mch-neuro-surgery-021708321/" },
+                  ].map((social, idx) => (
+                    <li key={idx}>
+                      <a
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Social Media"
+                        className="hover:text-gray-200 text-xl hover:scale-125 transition"
+                      >
+                        {social.icon}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </nav>
             </address>
 
             {/* Specialities */}
             <div>
-              <h4 className="text-2xl font-semibold md:mb-4 mb-2">
-                Our Specialities
-              </h4>
+              <h4 className="text-2xl font-semibold md:mb-4 mb-2">Our Specialities</h4>
               <ul className="space-y-2">
-                <li>
-                  <FaChevronCircleRight className="inline-block mr-2" />
-                  <Link to="/brain" className="hover:underline">
-                    Brain Surgery
-                  </Link>
-                </li>
-                <li>
-                  <FaChevronCircleRight className="inline-block mr-2" />
-                  <Link to="/spine" className="hover:underline">
-                    Spine Surgery
-                  </Link>
-                </li>
-                <li>
-                  <FaChevronCircleRight className="inline-block mr-2" />
-                  <Link
-                    to="/peripheral-nerve-surgery"
-                    className="hover:underline"
-                  >
-                    Peripheral Nerve Surgery
-                  </Link>
-                </li>
+                {specialities.map((item, idx) => (
+                  <li key={idx}>
+                    <FaChevronCircleRight className="inline-block mr-2" />
+                    <Link to={item.path} className="hover:underline">{item.name}</Link>
+                  </li>
+                ))}
               </ul>
               <div className="mt-4">
                 <a
@@ -158,26 +130,12 @@ const Footer = () => {
 
             {/* Quick Links */}
             <nav>
-              <h4 className="text-2xl font-semibold md:mb-4 mb-2">
-                Quick Links
-              </h4>
+              <h4 className="text-2xl font-semibold md:mb-4 mb-2">Quick Links</h4>
               <ul className="space-y-2">
-                {[
-                  { name: "Home", path: "/" },
-                  { name: "About Us", path: "/about" },
-                  { name: "Cases", path: "/cases" },
-                  { name: "Testimonials", path: "/testimonials" },
-                  { name: "Blog", path: "/blog" },
-                  { name: "Gallery", path: "/gallery" },
-                  { name: "Contact Us", path: "/contact" },
-                ].map((link, idx) => (
+                {quickLinks.map((link, idx) => (
                   <li key={idx}>
                     <FaChevronCircleRight className="inline-block mr-2" />
-                    <Link
-                      to={link.path}
-                      className="hover:underline"
-                      onClick={handletop}
-                    >
+                    <Link to={link.path} className="hover:underline" onClick={scrollToTop}>
                       {link.name}
                     </Link>
                   </li>
@@ -186,7 +144,7 @@ const Footer = () => {
             </nav>
 
             {/* Google Map */}
-             <div>
+            <div>
               <h4 className="text-2xl font-semibold md:mb-4 mb-2">Visit Us</h4>
               <div className="w-full aspect-video rounded-lg overflow-hidden">
                 <iframe
@@ -200,9 +158,11 @@ const Footer = () => {
                 />
               </div>
             </div>
+
           </div>
         </div>
       </footer>
+
       <BottomFooter />
     </>
   );

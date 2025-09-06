@@ -2,7 +2,8 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import banner1 from "../assets/home/banner3.webp";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+ import banner1 from "../assets/home/banner3.webp";
 import banner2 from "../assets/home/banner2.webp";
 import banner3 from "../assets/home/banner4.webp";
 
@@ -22,7 +23,8 @@ export default function HeroSlider() {
     autoplaySpeed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: false,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
     responsive: [
       { breakpoint: 1024, settings: { arrows: false } },
       { breakpoint: 600, settings: { arrows: false } },
@@ -31,20 +33,44 @@ export default function HeroSlider() {
   };
 
   return (
-    <div className="w-full relative -z-10">
-      <Slider {...settings}>
-        {slides.map((slide) => (
-          <div key={slide.id} className="relative w-full h-[70vh] lg:h-[70vh]">
-            <img
-              src={slide.image}
-              alt={slide.title}
-              title={slide.title}
-              loading="lazy"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ))}
-      </Slider>
-    </div>
+    <>
+      <div className="w-full relative">
+        <Slider {...settings}>
+          {slides.map((slide) => (
+            <div key={slide.id} className="relative w-full h-auto lg:h-[70vh]">
+              <img
+                src={slide.image}
+                alt={slide.title}
+                title={slide.title}
+                loading="lazy"
+                className="w-full lg:h-full object-cover"
+              />
+            </div>
+          ))}
+        </Slider>
+      </div>
+     </>
   );
 }
+
+const SampleNextArrow = ({ onClick }) => (
+  <button
+    aria-label="Next"
+    title="Next"
+    className="absolute top-1/2 right-6 -translate-y-1/2 bg-primary text-white rounded-full p-3 hover:bg-primary cursor-pointer z-10"
+    onClick={onClick}
+  >
+    <FaArrowRight size={20} />
+  </button>
+);
+
+const SamplePrevArrow = ({ onClick }) => (
+  <button
+    aria-label="Previous"
+    title="Previous"
+    className="absolute top-1/2 left-6 -translate-y-1/2 bg-primary text-white rounded-full p-3 hover:bg-primary cursor-pointer z-10"
+    onClick={onClick}
+  >
+    <FaArrowLeft size={20} />
+  </button>
+);
