@@ -11,7 +11,7 @@ const FacilitiesSection = () => {
         </h1>
 
         {/* Subheading */}
-        <p className="text-gray-600 mb-2 text-sm md:text-base">
+        <p className="text-gray-600 mb-6 text-sm md:text-base">
           State-of-the-art facilities for advanced medical care.
         </p>
 

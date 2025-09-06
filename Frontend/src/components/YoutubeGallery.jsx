@@ -5,7 +5,7 @@ export default function YouTubePage() {
 
   const scroll = (direction) => {
     if (scrollRef.current) {
-      const scrollAmount = direction === "left" ? -300 : 300;
+      const scrollAmount = direction === "left" ? -280 : 280;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
@@ -23,26 +23,34 @@ export default function YouTubePage() {
   return (
     <div className="bg-white py-10">
       <div className="container mx-auto px-4">
+        {/* Heading */}
         <h2 className="md:text-5xl text-3xl text-primary font-bold mb-2 text-center">
-          Expert Health Talks on YouTube{" "}
+          Expert Health Talks on YouTube
         </h2>
-        <p className="text-gray-600 mb-6 text-center">
-         Expert tips on brain, spine, and overall health—stay informed with Landmark Hospital.
+        <p className="text-gray-600 mb-4 text-center max-w-3xl mx-auto">
+          Expert tips on brain, spine, and overall health—stay informed with
+          Landmark Hospital.
         </p>
 
         <div className="relative w-full">
           {/* Left Scroll Button */}
           <button
             onClick={() => scroll("left")}
-            className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full shadow bg-white hover:bg-gray-200 z-10"
+            aria-label="Scroll Left"
+            className="absolute left-2 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-md 
+                    bg-white text-primary border border-gray-300    
+                      hover:scale-105 transition-transform duration-300 z-10"
           >
             &#8592;
           </button>
-
+  
           {/* Right Scroll Button */}
           <button
             onClick={() => scroll("right")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full shadow bg-white hover:bg-gray-200 z-10"
+            aria-label="Scroll Right"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-md 
+                       bg-white text-primary border border-gray-300
+                       hover:scale-105 transition-transform duration-300 z-10"
           >
             &#8594;
           </button>
@@ -50,13 +58,15 @@ export default function YouTubePage() {
           {/* Video Slider */}
           <div
             ref={scrollRef}
-            className="flex overflow-x-auto gap-4 scroll-smooth pb-4 px-2 sm:px-4"
+            className="flex overflow-x-auto gap-5 scroll-smooth pb-4 px-2 sm:px-4 no-scrollbar"
             style={{ scrollSnapType: "x mandatory" }}
           >
             {videos.map((link, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-full sm:w-[200px] md:w-[220px] lg:w-[250px] aspect-[9/16] rounded-lg overflow-hidden shadow"
+                className="flex-shrink-0 w-[70%] sm:w-[220px] md:w-[250px] lg:w-[280px] 
+                           aspect-[9/16] rounded-xl overflow-hidden shadow-lg 
+                           hover:scale-105 transition-transform duration-300"
                 style={{ scrollSnapAlign: "center" }}
               >
                 <iframe
@@ -67,7 +77,8 @@ export default function YouTubePage() {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
-                  className="rounded-lg"
+                  className="rounded-xl"
+                  loading="lazy"
                 ></iframe>
               </div>
             ))}

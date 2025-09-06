@@ -1,18 +1,19 @@
-import React, { Suspense, lazy, useEffect } from "react";
+ import React, { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import StickyNavbar from "./components/StickyNavbar";
-import Footer from "./components/Footer";
+// ✅ Lazy Components
+const StickyNavbar = lazy(() => import("./components/StickyNavbar"));
+const Footer = lazy(() => import("./components/Footer"));
+const ChatWidget = lazy(() => import("./components/ChatWidget"));
+const Testimonial = lazy(() => import("./components/Testimonial"));
 
 // ✅ Pages
-import Home from "./Pages/Home";
-import Testimonial from "./components/Testimonial"; // Component, not lazy
+import Home from "./Pages/Home"; // Home ko eager load rakha for speed
 
-// ✅ Lazy-loaded pages
-// const Appointment = lazy(() => import("./Pages/Appointment"));
+// ✅ Lazy-loaded Pages
 const OurTeam = lazy(() => import("./Pages/RahulSinghPage"));
 const GalleryPage = lazy(() => import("./Pages/GalleryPage"));
 const ContactUs = lazy(() => import("./Pages/ContactUs"));
@@ -24,8 +25,7 @@ const FacilitiesPage = lazy(() => import("./Pages/FacilitiesPage"));
 const FacilitiesDetail = lazy(() => import("./components/FacilitiesDetail"));
 const BlogDetailPage = lazy(() => import("./components/BlogDetail"));
 const AboutPage = lazy(() => import("./Pages/AboutPage"));
- import ChatWidget from "./components/ChatWidget";
- 
+
 // ✅ New Speciality Pages
 const Brain = lazy(() => import("./Pages/Brain"));
 const Spine = lazy(() => import("./Pages/Spine"));
@@ -33,10 +33,11 @@ const PeripheralNerveSurgery = lazy(() =>
   import("./Pages/PeripheralNerveSurgery")
 );
 
-// ✅ Loading fallback for lazy pages
+// ✅ Loading fallback
 const LoadingSpinner = () => (
   <div className="flex justify-center flex-col items-center h-screen">
     <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-blue-800"></div>
+    <p className="mt-4 text-blue-800">Loading...</p>
   </div>
 );
 
@@ -50,147 +51,47 @@ const App = () => {
     });
   }, []);
 
+  // ✅ Prefetch important pages in background
+  useEffect(() => {
+    import("./Pages/AboutPage");
+    import("./Pages/ContactUs");
+  }, []);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
+
+      <Suspense fallback={<LoadingSpinner />}>
         <ChatWidget />
-      
+        <StickyNavbar />
 
+        <Routes>
+          <Route path="/" element={<Home />} />
 
-      {/* Global styles */}
-      <StickyNavbar />
+          {/* Lazy-loaded routes */}
+          <Route path="/our-team" element={<OurTeam />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/cases" element={<Cases />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<BlogDetailPage />} />
+          <Route path="/specialities/:specialtyName" element={<SpecialtyDetail />} />
+          <Route path="/facilities" element={<FacilitiesPage />} />
+          <Route path="/facilities/:facilitiesName" element={<FacilitiesDetail />} />
+          <Route path="/brain" element={<Brain />} />
+          <Route path="/spine" element={<Spine />} />
+          <Route path="/peripheral-nerve-surgery" element={<PeripheralNerveSurgery />} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
+          {/* Testimonials (lazy component) */}
+          <Route path="/testimonials" element={<Testimonial />} />
 
-        {/* Lazy-loaded pages */}
-        <Route
-          path="/our-team"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <OurTeam />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/gallery"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <GalleryPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/contact"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <ContactUs />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AboutPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/cases"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <Cases />
-            </Suspense>
-          }
-        />
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
 
-        <Route
-          path="/blog"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <BlogPage />
-            </Suspense>
-          }
-        />
-
-        {/* Blog detail */}
-        <Route
-          path="/blog/:id"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <BlogDetailPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/specialities/:specialtyName"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <SpecialtyDetail />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/facilities"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <FacilitiesPage />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/facilities/:facilitiesName"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <FacilitiesDetail />
-            </Suspense>
-          }
-        />
-
-        {/* New Specialities Pages */}
-        <Route
-          path="/brain"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <Brain />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/spine"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <Spine />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/peripheral-nerve-surgery"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <PeripheralNerveSurgery />
-            </Suspense>
-          }
-        />
-
-        {/* Component, not lazy */}
-        <Route path="/testimonials" element={<Testimonial />} />
-
-        {/* <Route
-          path="/appointment"
-          element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <Appointment />
-            </Suspense>
-          }
-        /> */}
-
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-      
-
-      <Footer />
+        <Footer />
+      </Suspense>
     </BrowserRouter>
   );
 };

@@ -1,10 +1,9 @@
-import React, { useEffect, memo, useState } from "react";
+ import React, { useEffect, memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogData } from "../redux/slices/dataslice";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Format date to DD-MMM-YYYY
 const formatDate = (dateString) => {
   if (!dateString) return "";
   return new Date(dateString).toLocaleDateString("en-GB", {
@@ -17,81 +16,77 @@ const formatDate = (dateString) => {
 const BlogComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { blogData, status, error } = useSelector((state) => state.data);
-
-  const [startIndex, setStartIndex] = useState(0);
+  const { blogData = [], status, error } = useSelector((state) => state.data);
 
   useEffect(() => {
-    dispatch(fetchBlogData());
-  }, [dispatch]);
+    if (!blogData.length) dispatch(fetchBlogData());
+  }, [dispatch, blogData.length]);
 
   const handleNavigate = (id) => navigate(`/blog/${id}`);
 
-  // Show only 3 blogs at a time
-  const visibleBlogs = blogData.slice(startIndex, startIndex + 3);
+  // Scroll state
+  const [scrollRef, setScrollRef] = useState(null);
 
-  const handlePrev = () => {
-    if (startIndex > 0) setStartIndex(startIndex - 3);
+  const scrollLeft = () => {
+    if (scrollRef) scrollRef.scrollBy({ left: -300, behavior: "smooth" });
   };
-
-  const handleNext = () => {
-    if (startIndex + 3 < blogData.length) setStartIndex(startIndex + 3);
+  const scrollRight = () => {
+    if (scrollRef) scrollRef.scrollBy({ left: 300, behavior: "smooth" });
   };
 
   return (
-    <div className="lg:py-10 md:py-10 py-10 bg-gray-50 relative">
-      <h1 className="md:text-5xl text-3xl font-bold text-primary text-center mb-2">
+    <section className="py-10 bg-gray-50 relative">
+      <h1 className="md:text-4xl text-2xl font-bold text-primary text-center mb-2">
         Our Recent Blogs
       </h1>
       <p className="text-gray-600 text-sm mb-4 md:text-base text-center">
         Latest updates, tips, and insights from our team.
       </p>
 
-      <div className="px-4 relative container mx-auto">
+      <div className="relative container mx-auto px-4">
         {status === "loading" && <p className="text-center text-gray-400">Loading Blog Data...</p>}
         {error && <p className="text-center text-red-500">{error}</p>}
         {blogData.length === 0 && status !== "loading" && (
           <p className="text-center text-red-500">No Data Found</p>
         )}
 
-        {visibleBlogs.length > 0 && (
+        {blogData.length > 0 && (
           <div className="relative">
             {/* Left Button */}
-            {startIndex > 0 && (
-              <button
-                onClick={handlePrev}
-                className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg p-3 rounded-full hover:bg-gray-100 transition"
-                aria-label="Previous Blogs"
-              >
-                <ChevronLeft size={28} />
-              </button>
-            )}
+            <button
+              onClick={scrollLeft}
+              className="absolute -left-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hover:bg-gray-100 transition"
+              aria-label="Scroll Left"
+            >
+              <ChevronLeft size={24} />
+            </button>
 
-            {/* Blogs Grid */}
-            <div className="grid md:grid-cols-3 grid-cols-1 gap-6">
-              {visibleBlogs.map((blog) => (
-                <div
+            {/* Horizontal Scrollable Row */}
+            <div
+              ref={setScrollRef}
+              className="flex space-x-4 overflow-x-auto scrollbar-hide py-2"
+            >
+              {blogData.map((blog) => (
+                <article
                   key={blog._id}
-                  className="rounded-xl shadow-lg hover:shadow-2xl bg-white overflow-hidden transition transform hover:-translate-y-1 hover:scale-105 cursor-pointer"
+                  className="flex-shrink-0 w-[90%] sm:w-[300px] md:w-[320px] rounded-lg shadow-md hover:shadow-xl bg-white overflow-hidden transition transform hover:-translate-y-0.5 hover:scale-102 cursor-pointer"
                   onClick={() => handleNavigate(blog._id)}
                 >
-                  <div className="overflow-hidden">
+                  <div className="overflow-hidden h-40 md:h-48 w-full">
                     <img
                       src={blog.imageUrl}
                       alt={blog.title}
                       loading="lazy"
-                      className="w-full h-54 object-cover rounded-t-xl transition-transform duration-500 hover:scale-110"
+                      className="w-full h-full object-cover rounded-t-lg transition-transform duration-500 hover:scale-105"
                     />
                   </div>
-                  <div className="p-5">
-                    <p className="text-sm text-gray-400 mb-3">
+                  <div className="p-4 flex flex-col justify-between flex-1">
+                    <p className="text-xs text-gray-400 mb-1">
                       By <span className="text-gray-900 font-medium">{blog.postedBy}</span> on{" "}
                       {formatDate(blog.createdAt)}
                     </p>
-                    <h3 className="text-xl font-semibold mb-3 line-clamp-2 text-gray-900">
-                      {blog.title}
-                    </h3>
-                    <p className="text-gray-600 mb-5 line-clamp-3">
+                    <h3 className="text-lg font-semibold mb-2 line-clamp-2 text-gray-900">{blog.title}</h3>
+                    <p className="text-gray-600 mb-3 text-sm line-clamp-2">
                       {blog.description.replace(/<\/?[^>]+(>|$)/g, "")}
                     </p>
                     <button
@@ -99,29 +94,27 @@ const BlogComponent = () => {
                         e.stopPropagation();
                         handleNavigate(blog._id);
                       }}
-                      className="px-5 py-2 rounded-full bg-primary text-white font-medium shadow-md hover:from-indigo-500 hover:to-blue-500 transition"
+                      className="px-4 py-1.5 rounded-full bg-primary text-white font-medium shadow-sm hover:from-indigo-500 hover:to-blue-500 transition text-sm"
                     >
                       Read More
                     </button>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
 
             {/* Right Button */}
-            {startIndex + 3 < blogData.length && (
-              <button
-                onClick={handleNext}
-                className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg p-3 rounded-full hover:bg-gray-100 transition"
-                aria-label="Next Blogs"
-              >
-                <ChevronRight size={28} />
-              </button>
-            )}
+            <button
+              onClick={scrollRight}
+              className="absolute -right-2 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md p-2 rounded-full hover:bg-gray-100 transition"
+              aria-label="Scroll Right"
+            >
+              <ChevronRight size={24} />
+            </button>
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

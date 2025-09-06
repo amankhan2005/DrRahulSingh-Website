@@ -1,5 +1,7 @@
- import React from "react";
-import Features from "../components/Features2";
+ import React, { lazy, Suspense } from "react";
+
+// ✅ Lazy load Features component
+const Features = lazy(() => import("../components/Features2"));
 
 const AboutHospital = () => {
   return (
@@ -11,50 +13,41 @@ const AboutHospital = () => {
           <h2 className="md:text-5xl text-3xl font-bold text-primary leading-snug">
             Advanced Brain, Spine & Nerve Care in Lucknow,<br /> led by Dr. Rahul Singh
           </h2>
-          <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto leading-relaxed">
-          </p>
+          <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto leading-relaxed"></p>
         </div>
 
         {/* Content Section */}
         <div className="flex flex-col md:flex-row items-start gap-10">
-          
-          {/* Right Side - Content */}
           <div className="w-full text-gray-700 leading-relaxed space-y-6 text-center">
             <p>
-              At <span className="font-semibold"> LandMark Advance NeuroSpine Care Hospital </span>, we believe every patient deserves care that combines{" "}
+              At <span className="font-semibold">LandMark Advance NeuroSpine Care Hospital</span>, we believe every patient deserves care that combines{" "}
               <span className="font-semibold">trust</span>,{" "}
               <span className="font-semibold">precision</span>, and{" "}
               <span className="font-semibold">compassion</span>. Guided by the expertise of{" "}
               <span className="text-[#13335b] font-semibold">Dr. Rahul Singh</span> — 
-              a gold medalist neurosurgeon known for his dedication to <span className="font-semibold">Brain, Spine, and 
-              Peripheral Nerve Surgery </span>— we provide treatment that is both advanced and 
-              patient-centered.
+              a gold medalist neurosurgeon known for his dedication to <span className="font-semibold">Brain, Spine, and Peripheral Nerve Surgery</span> — we provide treatment that is both advanced and patient-centered.
             </p>
 
             <p className="text-center leading-relaxed">
-              His team combine modern technology with years of Surgical experience to 
-              manage everything from life-saving emergency care to highly complex neuro 
-              and spine procedures. Each treatment plan is tailored individually, ensuring 
-              patients receive not only the best medical solutions but also complete 
-              emotional support throughout their recovery.
-              Beyond Surgery, our dedicated rehabilitation team helps patients restore 
-              mobility, independence, and confidence — enabling them to return to their 
-              daily lives with renewed strength and hope.
+              His team combine modern technology with years of surgical experience to manage everything from life-saving emergency care to highly complex neuro and spine procedures. Each treatment plan is tailored individually, ensuring patients receive not only the best medical solutions but also complete emotional support throughout their recovery.
+              Beyond Surgery, our dedicated rehabilitation team helps patients restore mobility, independence, and confidence — enabling them to return to their daily lives with renewed strength and hope.
             </p>
 
             <p className="font-medium">
-             At <span className="font-semibold"> LandMark Advance NeuroSpine Care Hospital </span>, under the leadership of{" "}
-              <span className="text-[#13335b] font-semibold">Dr. Rahul Singh</span>,  our 
-              mission is clear to heal with <span className="text-[#13335b] font-semibold"> expertise, care with compassion, </span>and remain 
-              a trusted partner in every patient’s journey to recovery.  
+              At <span className="font-semibold">LandMark Advance NeuroSpine Care Hospital</span>, under the leadership of{" "}
+              <span className="text-[#13335b] font-semibold">Dr. Rahul Singh</span>, our mission is clear — to heal with{" "}
+              <span className="text-[#13335b] font-semibold">expertise</span>, care with <span className="text-[#13335b] font-semibold">compassion</span>, and remain a trusted partner in every patient’s journey to recovery.
             </p>
           </div>
         </div>
       </div>
+
+      {/* ✅ Lazy load Features Section */}
       <div className="mt-5">
-<Features />
+        <Suspense fallback={<div className="text-center text-gray-500">Loading Features...</div>}>
+          <Features />
+        </Suspense>
       </div>
-       
     </section>
   );
 };

@@ -1,10 +1,15 @@
- import { useState } from "react";
-import { ChevronRight, Brain, Activity, Zap } from "lucide-react";
-import { useNavigate } from "react-router-dom"; // ✅ React Router navigation
+ import { useState, lazy, Suspense } from "react";
+import { ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
+// ✅ Lazy load icons
+const BrainIcon = lazy(() => import("lucide-react").then(m => ({ default: m.Brain })));
+const ActivityIcon = lazy(() => import("lucide-react").then(m => ({ default: m.Activity })));
+const ZapIcon = lazy(() => import("lucide-react").then(m => ({ default: m.Zap })));
 
 export default function ServiceSection() {
   const [hoveredCard, setHoveredCard] = useState(null);
-  const navigate = useNavigate(); // ✅ navigation hook
+  const navigate = useNavigate();
 
   const services = [
     {
@@ -21,7 +26,7 @@ export default function ServiceSection() {
           and successful outcomes.
         </>
       ),
-      icon: <Brain className="w-12 h-12 text-white" />,
+      icon: <BrainIcon className="w-12 h-12 text-white" />,
       iconBg: "bg-primary",
       link: "/brain",
     },
@@ -37,7 +42,7 @@ export default function ServiceSection() {
           pain relief, faster healing, and long-term results.
         </>
       ),
-      icon: <Activity className="w-12 h-12 rotate-90 text-white" />,
+      icon: <ActivityIcon className="w-12 h-12 rotate-90 text-white" />,
       iconBg: "bg-primary",
       link: "/spine",
     },
@@ -53,7 +58,7 @@ export default function ServiceSection() {
           neurosurgeries with precision and care.
         </>
       ),
-      icon: <Zap className="w-12 h-12 text-white" />,
+      icon: <ZapIcon className="w-12 h-12 text-white" />,
       iconBg: "bg-primary",
       link: "/peripheral-nerve-surgery",
     },
@@ -62,9 +67,9 @@ export default function ServiceSection() {
   return (
     <section className="w-full bg-slate-50 px-4 sm:px-6 lg:px-8 relative overflow-hidden py-10">
       <div className="container mx-auto relative z-10">
-        {/* Header Section */}
+        {/* Header */}
         <div className="text-center mb-6">
-          <h2 className=" md:text-5xl text-3xl font-bold text-primary leading-tight">
+          <h2 className="md:text-5xl text-3xl font-bold text-primary leading-tight">
             Expert Medical Care
           </h2>
           <p
@@ -88,9 +93,10 @@ export default function ServiceSection() {
               } border border-gray-100 hover:border-primary/20 py-8`}
               onMouseEnter={() => setHoveredCard(service.id)}
               onMouseLeave={() => setHoveredCard(null)}
+              onClick={() => setHoveredCard(service.id)} // ✅ mobile support
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              {/* Hover overlay */}
+              {/* Overlay */}
               <div
                 className={`absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/5 transition-opacity duration-300 rounded-2xl ${
                   hoveredCard === service.id ? "opacity-100" : "opacity-0"
@@ -105,7 +111,9 @@ export default function ServiceSection() {
                       hoveredCard === service.id ? "scale-110" : ""
                     }`}
                   >
-                    {service.icon}
+                    <Suspense fallback={<div className="w-12 h-12 bg-gray-200 animate-pulse rounded"></div>}>
+                      {service.icon}
+                    </Suspense>
                   </div>
                 </div>
 
@@ -122,10 +130,11 @@ export default function ServiceSection() {
                   </p>
                 </div>
 
-                {/* CTA Button */}
+                {/* CTA */}
                 <div className="mt-auto">
                   <button
-                    onClick={() => navigate(service.link)} // ✅ same page navigation
+                    onClick={() => navigate(service.link)}
+                    aria-label={`Know more about ${service.title}`}
                     className="px-6 py-2 bg-primary text-white rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-primary/25"
                   >
                     Know More
