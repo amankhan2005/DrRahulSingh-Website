@@ -37,12 +37,12 @@ const ClinicStats = () => {
                 className="bg-white rounded-2xl shadow-2xl py-8 px-6 flex flex-col items-center transform transition-all duration-500 hover:-translate-y-3 hover:shadow-3xl w-full max-w-xs"
               >
                 {/* Icon */}
-                <div className="p-5 rounded-full bg-[#2e6294] flex items-center justify-center shadow-lg mb-4">
+                <div className="p-5 rounded-full bg-[#2e6294] flex items-center justify-center shadow-lg mb-2">
                   <Icon className="h-10 w-10 text-white" />
                 </div>
 
                 {/* Animated Number */}
-                <div className="text-3xl md:text-4xl font-extrabold text-[#2e6294] mb-2">
+                <div className="text-3xl md:text-4xl font-extrabold text-[#2e6294] ">
                   {Math.floor(counts[index]).toLocaleString()}+
                 </div>
 
