@@ -40,9 +40,11 @@ const Home = () => {
           </p>
 
           {/* Stats Badge */}
-          <div className="mt-4 sm:mt-6 inline-block bg-blue-50 border border-blue-200 text-blue-700 font-medium px-4 sm:px-6 py-2 rounded-full shadow-sm text-sm sm:text-base">
+          {/* <div className="mt-4 sm:mt-6 inline-block bg-blue-50 border border-blue-200 text-blue-700 font-medium px-4 sm:px-6 py-2 rounded-full shadow-sm text-sm sm:text-base">
             {inquiryCount} Total Inquiries
-          </div>
+          </div> */}
+
+          
         </div>
       </div>
 
