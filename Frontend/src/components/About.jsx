@@ -18,28 +18,38 @@ const AboutHospital = () => {
 
         {/* Content Section */}
         <div className="flex flex-col md:flex-row items-start gap-10">
-          <div className="w-full text-gray-700 leading-relaxed space-y-6 text-center">
-            <p>
-              At <span className="font-semibold">LandMark Advance NeuroSpine Care Hospital</span>, we believe every patient deserves care that combines{" "}
-              <span className="font-semibold">trust</span>,{" "}
-              <span className="font-semibold">precision</span>, and{" "}
-              <span className="font-semibold">compassion</span>. Guided by the expertise of{" "}
-              <span className="text-[#13335b] font-semibold">Dr. Rahul Singh</span> — 
-              a gold medalist neurosurgeon known for his dedication to <span className="font-semibold">Brain, Spine, and Peripheral Nerve Surgery</span> — we provide treatment that is both advanced and patient-centered.
-            </p>
+  <div className="w-full text-gray-700 leading-relaxed space-y-6 text-center">
+    <p>
+      Welcome to <span className="font-semibold">LandMark Advance NeuroSpine Care Hospital</span> — 
+      a trusted center for <span className="font-semibold">Brain, Spine, and Nerve Treatment</span> in Lucknow. 
+      Led by <span className="text-[#13335b] font-semibold">Dr. Rahul Singh</span>, a gold medalist and one of the best 
+      <span className="font-semibold"> neurosurgeons in Lucknow</span>, our hospital is committed to delivering 
+      <span className="font-semibold"> advanced, precise, and compassionate neurological care</span>.
+    </p>
 
-            <p className="text-center leading-relaxed">
-              His team combine modern technology with years of surgical experience to manage everything from life-saving emergency care to highly complex neuro and spine procedures. Each treatment plan is tailored individually, ensuring patients receive not only the best medical solutions but also complete emotional support throughout their recovery.
-              Beyond Surgery, our dedicated rehabilitation team helps patients restore mobility, independence, and confidence — enabling them to return to their daily lives with renewed strength and hope.
-            </p>
+    <p className="text-center leading-relaxed">
+      At LandMark, we combine modern medical technology with expert surgical experience to manage 
+      everything from <span className="font-semibold">emergency brain surgeries</span> to 
+      <span className="font-semibold"> complex spine and nerve procedures</span>. 
+      Every treatment plan is personalized — ensuring patients receive the most effective care 
+      along with continuous emotional support throughout their recovery journey.
+    </p>
 
-            <p className="font-medium">
-              At <span className="font-semibold">LandMark Advance NeuroSpine Care Hospital</span>, under the leadership of{" "}
-              <span className="text-[#13335b] font-semibold">Dr. Rahul Singh</span>, our mission is clear — to heal with{" "}
-              <span className="text-[#13335b] font-semibold">expertise</span>, care with <span className="text-[#13335b] font-semibold">compassion</span>, and remain a trusted partner in every patient’s journey to recovery.
-            </p>
-          </div>
-        </div>
+    <p className="text-center leading-relaxed">
+      Beyond surgical excellence, our <span className="font-semibold">rehabilitation team</span> helps patients regain 
+      strength, confidence, and independence. From physiotherapy to post-operative care, 
+      we make sure every patient returns to their daily life healthier and stronger.
+    </p>
+
+    <p className="font-medium">
+      At <span className="font-semibold">LandMark Advance NeuroSpine Care Hospital</span>, 
+      under the guidance of <span className="text-[#13335b] font-semibold">Dr. Rahul Singh</span>, 
+      our mission is simple — <span className="text-[#13335b] font-semibold">to heal with expertise, care with compassion,</span> 
+      and be your most trusted partner in brain and spine recovery.
+    </p>
+  </div>
+</div>
+
       </div>
 
       {/* ✅ Lazy load Features Section */}

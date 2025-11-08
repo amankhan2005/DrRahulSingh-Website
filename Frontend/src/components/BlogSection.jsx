@@ -36,9 +36,9 @@ const BlogComponent = () => {
 
   return (
     <section className="py-10 bg-gray-50 relative">
-      <h1 className="md:text-4xl text-2xl font-bold text-primary text-center mb-2">
+          <h2 className="md:text-5xl text-3xl font-bold text-center text-primary leading-tight">
         Our Recent Blogs
-      </h1>
+      </h2>
       <p className="text-gray-600 text-sm mb-4 md:text-base text-center">
         Latest updates, tips, and insights from our team.
       </p>

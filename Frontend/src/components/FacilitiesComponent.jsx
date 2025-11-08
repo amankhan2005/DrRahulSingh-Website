@@ -1,14 +1,12 @@
  import React, { memo } from "react";
 import { facilities } from "../FacilitiesData";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom"; // ✅ Use Link for better navigation (no full reload)
 
 const FacilitiesComponent = ({ props }) => {
   return (
-    <section className="w-full   px-4 md:px-8 lg:px-12 ">
+    <section className="w-full px-4 md:px-8 lg:px-12">
       <div className="container mx-auto">
-        {/* Section Heading */}
-     
-
         {/* Facilities Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {facilities.map((facility) => (
@@ -40,13 +38,14 @@ const FacilitiesComponent = ({ props }) => {
                   </p>
                 </div>
 
-                <a
-                  href={`/${facility.link}`}
+                {/* ✅ Fixed Link */}
+                <Link
+                  to="/facilities"
                   className="mt-6 inline-block w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-[#13335b] to-[#3b628b] hover:shadow-lg hover:scale-105 transition-all duration-300"
                   aria-label={`View more about ${facility.title}`}
                 >
                   View More
-                </a>
+                </Link>
               </div>
             </motion.article>
           ))}
@@ -56,5 +55,4 @@ const FacilitiesComponent = ({ props }) => {
   );
 };
 
-// Memoization to avoid unnecessary re-renders
 export default memo(FacilitiesComponent);

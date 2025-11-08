@@ -1,4 +1,4 @@
-import { useState } from "react";
+ import { useState } from "react";
 import { FaUserMd, FaStethoscope, FaBrain, FaThumbsUp } from "react-icons/fa";
 
 export default function WhyChooseDrRahul() {

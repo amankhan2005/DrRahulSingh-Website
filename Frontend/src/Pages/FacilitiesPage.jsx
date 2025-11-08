@@ -17,80 +17,87 @@ import neurosurgery from "../assets/Facilities/neurosurgery.jpg";
 
 function FacilitiesPage() {
   const facilities = [
-    {
-      title: "Emergency Care",
-      img: emergency,
-      desc: `Our 24/7 Emergency Care department is designed to provide immediate 
-             medical attention in cases of accidents, trauma, strokes, cardiac 
-             arrests, and other life-threatening situations. With cutting-edge 
-             diagnostic equipment, a fully equipped ambulance service, and 
-             advanced resuscitation units, we ensure patients receive the best 
-             possible care from the very first minute.`,
-    },
-    {
-      title: "Intensive Care Unit (ICU)",
-      img: icu,
-      desc: `Our state-of-the-art Intensive Care Unit is equipped with advanced 
-             ventilators, cardiac monitors, dialysis machines, and life-support 
-             systems to manage critically ill patients. The ICU team consists of 
-             intensivists, critical care nurses, respiratory therapists, and 
-             technicians working round the clock.`,
-    },
-    {
-      title: "General Care",
-      img: general,
-      desc: `Our General Care facility provides a wide range of medical services 
-             including regular checkups, vaccinations, preventive screenings, and 
-             disease management. From common illnesses like fever and infections 
-             to chronic conditions like diabetes and hypertension, our doctors 
-             deliver personalized care for patients of all age groups.`,
-    },
-    {
-      title: "Private Care",
-      img: privateRoom,
-      desc: `Our Private Care rooms are designed to provide comfort, privacy, and 
-             personalized attention for patients who prefer a calm healing 
-             environment. Each room is fully air-conditioned, equipped with 
-             modern amenities, attached washrooms, and dedicated nursing support.`,
-    },
-    {
-      title: "Ambulance Service",
-      img: ambulance,
-      desc: `Our quick-response Ambulance Service ensures patients receive 
-             emergency transport without delay. Equipped with advanced life 
-             support systems, our ambulances are staffed with trained paramedics.`,
-    },
-    {
-      title: "Pharmacy",
-      img: pharmacy,
-      desc: `Our in-house Pharmacy is open 24/7 to provide patients and attendants 
-             with genuine medicines at affordable rates. Stocked with all major 
-             brands and life-saving drugs, it ensures seamless availability of 
-             prescribed medicines immediately after consultation.`,
-    },
-    {
-      title: "Neuropathology",
-      img: neuropathology,
-      desc: `Our Neuropathology department offers specialized diagnostic facilities 
-             for brain, spinal cord, and nerve disorders. Equipped with modern 
-             laboratories, we provide precise evaluations essential for neurosurgery.`,
-    },
-    {
-      title: "Neuro ICU",
-      img: neuroicu,
-      desc: `We have a dedicated Neuro ICU for critically ill patients suffering 
-             from brain, spine, and nerve emergencies. It is equipped with 
-             advanced monitoring systems, ventilators, and neuro-specialists available 24/7.`,
-    },
-    {
-      title: "Dedicated Neurosurgical Operation Suite",
-      img: neurosurgery,
-      desc: `Our hospital is endowed with a specialized Neurosurgical Operation Suite 
-             that includes a fully equipped neuroendoscopy suite, C-arm, and 
-             neurosurgical microscope. These advanced tools allow state-of-the-art 
-             surgeries for brain, spine, and nerve ailments with high precision.`,
-    },
-  ];
+  {
+    title: "24/7 Emergency Care",
+    img: emergency,
+    desc: `Our 24/7 Emergency Care department is always ready to handle all kinds of 
+           medical emergencies — including accidents, trauma, strokes, heart attacks, 
+           and other critical conditions. With a rapid response team, advanced 
+           diagnostic tools, and life-saving equipment, our emergency unit ensures 
+           patients receive immediate and expert care when every second counts.`,
+  },
+  {
+    title: "Advanced Intensive Care Unit (ICU)",
+    img: icu,
+    desc: `Our Advanced ICU is designed to deliver world-class critical care for 
+           patients in life-threatening conditions. Equipped with modern ventilators, 
+           cardiac monitors, dialysis units, and 24/7 surveillance systems, our ICU 
+           team — comprising experienced intensivists, nurses, and respiratory 
+           therapists — ensures round-the-clock monitoring and compassionate care.`,
+  },
+  {
+    title: "Comprehensive General Care",
+    img: general,
+    desc: `Our General Care department focuses on preventive, diagnostic, and 
+           therapeutic services for individuals and families. From routine 
+           health checkups and vaccinations to managing chronic diseases like 
+           diabetes, hypertension, and asthma — our skilled doctors offer 
+           personalized treatment plans to promote long-term wellness.`,
+  },
+  {
+    title: "Premium Private Rooms",
+    img: privateRoom,
+    desc: `Our Private Care rooms are designed to provide a peaceful and 
+           patient-friendly recovery experience. Each private room includes 
+           comfortable bedding, attached washrooms, modern medical support, 
+           and dedicated nursing assistance — ensuring privacy, hygiene, and 
+           personalized attention throughout your stay.`,
+  },
+  {
+    title: "Emergency Ambulance Service",
+    img: ambulance,
+    desc: `Our fully-equipped Ambulance Service provides fast and safe emergency 
+           transport for patients in need of urgent medical attention. Each 
+           ambulance is fitted with advanced life-support systems and staffed 
+           with trained paramedics to ensure immediate on-the-spot treatment 
+           and seamless transfer to the hospital.`,
+  },
+  {
+    title: "24-Hour Pharmacy",
+    img: pharmacy,
+    desc: `Our in-house 24-Hour Pharmacy provides genuine and affordable medicines 
+           around the clock. Stocked with all essential drugs, surgical supplies, 
+           and life-saving medications, it ensures patients can easily access 
+           prescribed medicines immediately after consultation or discharge.`,
+  },
+  {
+    title: "Specialized Neuropathology Services",
+    img: neuropathology,
+    desc: `Our Neuropathology department specializes in the diagnosis of brain, 
+           spinal cord, and nerve disorders. Using advanced laboratory 
+           technologies and precision diagnostic tools, we support neurosurgeons 
+           in identifying complex neurological conditions with high accuracy.`,
+  },
+  {
+    title: "Dedicated Neuro ICU",
+    img: neuroicu,
+    desc: `Our dedicated Neuro ICU provides expert care for patients with critical 
+           brain and spine injuries, strokes, and neurological emergencies. 
+           Equipped with advanced neuro-monitoring systems, ventilators, and 
+           a team of neurospecialists available 24/7, we ensure continuous, 
+           high-quality neurological care.`,
+  },
+  {
+    title: "Neurosurgical Operation Suite",
+    img: neurosurgery,
+    desc: `Our hospital features a state-of-the-art Neurosurgical Operation Suite, 
+           equipped with a high-precision neuroendoscopy unit, C-arm imaging, and 
+           microsurgical tools. These advanced facilities enable our neurosurgeons 
+           to perform complex brain, spine, and nerve surgeries with exceptional 
+           accuracy and safety.`,
+  },
+];
+
 
   return (
     <div>
@@ -124,7 +131,7 @@ function FacilitiesPage() {
                     <h2 className="text-2xl font-bold mb-4">{item.title}</h2>
                     <p className="leading-relaxed mb-6">{item.desc}</p>
                     <Link
-                      to="/contact"
+                      to="/Contact-us"
                       className={`px-6 py-2 rounded-lg shadow transition inline-block ${
                         isOdd
                           ? "bg-white text-primary hover:bg-gray-100"
@@ -141,7 +148,7 @@ function FacilitiesPage() {
                     <h2 className="text-2xl font-bold mb-4">{item.title}</h2>
                     <p className="leading-relaxed mb-6">{item.desc}</p>
                     <Link
-                      to="/contact"
+                      to="/Contact-us"
                       className={`px-6 py-2 rounded-lg shadow transition inline-block ${
                         isOdd
                           ? "bg-white text-primary hover:bg-gray-100"

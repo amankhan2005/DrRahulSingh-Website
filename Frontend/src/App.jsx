@@ -69,9 +69,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
 
           {/* Lazy-loaded routes */}
-          <Route path="/our-team" element={<OurTeam />} />
+          <Route path="/about-rahulsingh" element={<OurTeam />} />
           <Route path="/gallery" element={<GalleryPage />} />
-          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/cases" element={<Cases />} />
           <Route path="/blog" element={<BlogPage />} />

@@ -1,4 +1,4 @@
-// src/pages/BrainPage.jsx
+ // src/pages/BrainPage.jsx
 
 // -- keep your actual image imports / paths here --
 
@@ -16,79 +16,93 @@ import ImgFunctional from "../assets/brain/functional-neurosurgery.jpeg";
 import BrainSurgery from "../components/BrainSurgery"
 
 const topics = [
-  {
-    id: "brain-tumor",
-    title: "Brain Tumor",
-    image: ImgBrainTumor,
-    content: `
-      <h3><strong>What are Brain Tumors?</strong></h3>
-      <p>
-        Brain tumors are abnormal growths of cells within the cranial vault or central nervous system. 
-        They may arise primarily in the brain (primary brain tumors) or migrate from cancers elsewhere 
-        in the body (metastatic tumors). Tumor behavior ranges from slowly enlarging benign lesions to 
-        highly aggressive malignant tumors that require multidisciplinary therapy. Regardless of histology, 
-        a space-occupying lesion in the skull can compromise brain tissue, cerebrospinal fluid dynamics, 
-        and intracranial pressure — producing symptoms that often prompt evaluation.
-      </p>
+ {
+  id: "brain-tumor",
+  title: "Brain Tumor",
+  image: ImgBrainTumor,
+  content: `
+    <h2><strong>Brain Tumor – Symptoms, Causes & Treatment</strong></h2>
+    <p>
+      A <strong>brain tumor</strong> is an abnormal growth of cells within the brain or central nervous system. 
+      These tumors can be <strong>benign (non-cancerous)</strong> or <strong>malignant (cancerous)</strong>. 
+      They may originate in the brain itself (primary brain tumors) or spread from other parts of the body 
+      (secondary or metastatic tumors). Regardless of the type, any growing mass inside the skull can 
+      affect brain function, increase pressure, and cause various neurological symptoms.
+    </p>
 
-      <h3><strong>Causes & Risk Factors</strong></h3>
-      <p>
-        While exact causes are often unknown, risk factors include genetic syndromes (e.g., neurofibromatosis, 
-        Li-Fraumeni), prior radiation exposure to the head, and certain hereditary predispositions. Age, 
-        tumor location, and molecular markers (such as IDH mutation, 1p/19q codeletion) influence prognosis 
-        and therapeutic choices more than many classical epidemiologic risk factors.
-      </p>
+    <h3><strong>Causes and Risk Factors of Brain Tumor</strong></h3>
+    <p>
+      The exact cause of <strong>brain tumors</strong> is still not fully understood. However, several 
+      risk factors can increase the chances of developing one:
+    </p>
+    <ul>
+      <li>Genetic disorders such as <em>Neurofibromatosis</em> or <em>Li-Fraumeni syndrome</em></li>
+      <li>Previous exposure to radiation therapy to the head or neck</li>
+      <li>Family history of brain or spinal cord tumors</li>
+      <li>Advancing age or exposure to certain chemicals</li>
+    </ul>
 
-      <h3><strong>Common Symptoms</strong></h3>
-      <ul>
-        <li>Headache that may worsen in the morning or with Valsalva maneuvers</li>
-        <li>New-onset seizures</li>
-        <li>Focal neurologic deficits such as limb weakness, speech disturbance, or sensory changes</li>
-        <li>Visual or hearing disturbances</li>
-        <li>Cognitive decline, personality changes, nausea or vomiting from raised intracranial pressure</li>
-      </ul>
+    <h3><strong>Common Symptoms of Brain Tumor</strong></h3>
+    <p>
+      Symptoms vary depending on the tumor's size, type, and location. 
+      Common <strong>brain tumor symptoms</strong> include:
+    </p>
+    <ul>
+      <li>Severe or persistent headaches, especially in the morning</li>
+      <li>Unexplained nausea or vomiting</li>
+      <li>Seizures or sudden fits</li>
+      <li>Weakness or numbness in limbs</li>
+      <li>Difficulty speaking, confusion, or memory loss</li>
+      <li>Vision, hearing, or balance problems</li>
+      <li>Personality or behavior changes</li>
+    </ul>
 
-      <h3><strong>Diagnostic Evaluation</strong></h3>
-      <p>
-        Diagnosis starts with a detailed neurologic exam and high-quality neuroimaging. Contrast-enhanced 
-        MRI with dedicated sequences is the investigation of choice; CT can be useful in emergency settings 
-        to detect hemorrhage or calcification. Advanced imaging (MR spectroscopy, diffusion, perfusion, PET) 
-        can provide biological clues. Definitive diagnosis usually requires histopathological and molecular 
-        characterization obtained via biopsy or resection.
-      </p>
+    <h3><strong>How is a Brain Tumor Diagnosed?</strong></h3>
+    <p>
+      Early and accurate diagnosis is essential for effective <strong>brain tumor treatment</strong>. 
+      The diagnostic process usually includes:
+    </p>
+    <ul>
+      <li>Neurological examination to check brain and nerve functions</li>
+      <li>Imaging tests like <strong>MRI</strong> or <strong>CT scans</strong> to identify the tumor's location and size</li>
+      <li>Advanced scans such as MR spectroscopy or PET for detailed assessment</li>
+      <li>Biopsy to confirm tumor type and grade</li>
+    </ul>
 
-      <h3><strong>Treatment Principles</strong></h3>
-      <p>
-        Management is individualized by tumor type, size, location, patient performance status, and molecular profile:
-      </p>
-      <ul>
-        <li><strong>Surgery:</strong> Maximal safe resection while preserving neurologic function.</li>
-        <li><strong>Radiation therapy:</strong> Fractionated radiotherapy or stereotactic radiosurgery.</li>
-        <li><strong>Chemotherapy & Targeted Therapy:</strong> Temozolomide and molecularly targeted agents.</li>
-        <li><strong>Supportive care:</strong> Steroids, antiepileptic drugs, VTE prophylaxis, rehabilitation.</li>
-      </ul>
+    <h3><strong>Brain Tumor Treatment Options</strong></h3>
+    <p>
+      Treatment depends on the tumor type, stage, and overall health of the patient. 
+      Common <strong>treatment options for brain tumors</strong> include:
+    </p>
+    <ul>
+      <li><strong>Surgery:</strong> Removal of as much of the tumor as safely possible.</li>
+      <li><strong>Radiation Therapy:</strong> Targeted radiation to destroy remaining cancer cells.</li>
+      <li><strong>Chemotherapy:</strong> Drugs like Temozolomide used to kill or control tumor growth.</li>
+      <li><strong>Targeted Therapy:</strong> Modern drugs aimed at specific molecular changes in tumor cells.</li>
+      <li><strong>Supportive Care:</strong> Steroids for swelling, anti-seizure medications, and rehabilitation support.</li>
+    </ul>
 
-      <h3><strong>Rehabilitation & Survivorship</strong></h3>
-      <p>
-        Recovery often requires coordinated rehabilitation — physiotherapy, occupational therapy, speech 
-        therapy, and neuropsychological support. Long-term follow-up with serial imaging and clinical 
-        assessment is essential for recognizing recurrence and addressing functional needs.
-      </p>
+    <h3><strong>Rehabilitation and Recovery</strong></h3>
+    <p>
+      Post-treatment care involves physical, occupational, and speech therapy to help patients regain strength 
+      and cognitive abilities. Regular follow-ups with MRI scans help detect recurrence early. Emotional and 
+      psychological support also play a crucial role in recovery.
+    </p>
 
-      <h3><strong>Outlook</strong></h3>
-      <p>
-        Prognosis varies considerably. Low-grade tumors (e.g., pilocytic astrocytoma, meningioma) often 
-        have favorable outcomes with appropriate treatment. High-grade gliomas carry higher morbidity and 
-        mortality; however, advances in molecular profiling and multimodality therapy have improved survival 
-        and quality of life in many patients. Early diagnosis and treatment at a specialized center with a 
-        multidisciplinary team provide the best chance for optimal results.
-      </p>
+    <h3><strong>Prognosis and Outlook</strong></h3>
+    <p>
+      The outlook for <strong>brain tumor patients</strong> depends on the tumor type and how early it is detected. 
+      Benign tumors often have excellent outcomes after surgery, while high-grade malignant tumors may require 
+      ongoing therapy. Advances in <strong>neurosurgery</strong> and <strong>neuro-oncology</strong> have 
+      significantly improved both survival rates and quality of life.
+    </p>
 
-      <p><em>
-        For personalized assessment and to discuss treatment options, please consult a neurosurgeon or neuro-oncology team.
-      </em></p>
-    `,
-  },
+    <p><em>
+      If you or a loved one is experiencing symptoms of a brain tumor, consult an experienced 
+      <strong>neurosurgeon or neuro-oncologist</strong> for personalized diagnosis and treatment options.
+    </em></p>
+  `},
+
   {
     id: "pediatric",
     title: "Pediatric Brain Disorders",
@@ -97,7 +111,7 @@ const topics = [
 <p>
   Pediatric brain disorders include congenital malformations, developmental disorders, epilepsy, 
   pediatric brain tumors, and conditions acquired early in life such as infections, hemorrhage, or trauma. 
-  Because the child’s brain develops rapidly during infancy and childhood, early identification and 
+  Because the child's brain develops rapidly during infancy and childhood, early identification and 
   tailored interventions are critical to optimize long-term functional outcomes.
 </p>
 
@@ -118,7 +132,7 @@ const topics = [
 <p>
   In children, presentation varies by age: infants may show poor feeding, irritability, increasing head 
   circumference, or developmental delay. Older children commonly present with headaches, vomiting, behavior 
-  changes, seizures, or focal neurologic signs. Parents’ observations about milestones and behavior are often 
+  changes, seizures, or focal neurologic signs. Parents' observations about milestones and behavior are often 
   the first clue.
 </p>
 
@@ -170,7 +184,7 @@ const topics = [
 <p>
   Pathogens include bacteria (e.g., Streptococcus pneumoniae, Neisseria meningitidis), viruses 
   (Herpes simplex virus, enteroviruses), fungi (in immunocompromised patients), Mycobacterium tuberculosis, 
-  and parasites. The patient’s immune status, recent surgeries, trauma, or systemic infections often guide 
+  and parasites. The patient's immune status, recent surgeries, trauma, or systemic infections often guide 
   the likely causative organisms.
 </p>
 
@@ -399,10 +413,10 @@ const topics = [
     content: `<h3><strong>Scope</strong></h3>
 <p>
   Geriatric brain disorders comprise a broad set of conditions that commonly affect older adults 
-  including Alzheimer’s disease and other dementias, Parkinson’s disease and parkinsonian syndromes, 
+  including Alzheimer's disease and other dementias, Parkinson's disease and parkinsonian syndromes, 
   vascular cognitive impairment, normal pressure hydrocephalus, and increased susceptibility to stroke 
   and subdural hematomas. Managing these conditions requires a blend of neurology, neurosurgery, geriatrics, 
-  and rehabilitation care tailored to the patient’s goals and comorbidities.
+  and rehabilitation care tailored to the patient's goals and comorbidities.
 </p>
 
 <h3><strong>Common Presentations</strong></h3>
@@ -424,7 +438,7 @@ const topics = [
 <h3><strong>Management Strategies</strong></h3>
 <ul>
   <li><strong>Medication optimization:</strong> Cholinesterase inhibitors for selected dementias, levodopa for 
-      Parkinson’s symptoms, and secondary prevention after stroke (antiplatelet or anticoagulation as indicated).</li>
+      Parkinson's symptoms, and secondary prevention after stroke (antiplatelet or anticoagulation as indicated).</li>
   <li><strong>Surgical interventions:</strong> VP shunting for NPH, evacuation of chronic subdural hematoma, 
       or tumor removal when appropriate.</li>
   <li><strong>Rehabilitation:</strong> Multidisciplinary physiotherapy, occupational therapy, and speech therapy 
@@ -568,7 +582,7 @@ const topics = [
 
 <h3><strong>Common Indications</strong></h3>
 <ul>
-  <li><strong>Parkinson’s disease:</strong> DBS targeting subthalamic nucleus or globus pallidus interna 
+  <li><strong>Parkinson's disease:</strong> DBS targeting subthalamic nucleus or globus pallidus interna 
       to improve bradykinesia, rigidity, and tremor.</li>
   <li><strong>Essential tremor & dystonia:</strong> DBS is effective for disabling tremor and certain 
       forms of dystonia.</li>
@@ -591,7 +605,7 @@ const topics = [
 <h3><strong>Outcomes & Patient Selection</strong></h3>
 <p>
   Success depends on careful patient selection, realistic expectations, and multidisciplinary follow-up. 
-  For Parkinson’s disease and essential tremor, DBS frequently produces dramatic improvement in motor 
+  For Parkinson's disease and essential tremor, DBS frequently produces dramatic improvement in motor 
   symptoms and quality of life. Epilepsy surgery can be curative for selected patients with focal 
   epileptogenic lesions.
 </p>
@@ -611,8 +625,8 @@ const topics = [
   },
 ];
 
-import { useState, useEffect } from "react";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { ChevronRight, ChevronLeft, Play, Pause, SkipBack, SkipForward } from "lucide-react";
 import { Link } from "react-router-dom";
 import BreadCumb from "../components/BreadCumb"; // adjust path
 
@@ -630,151 +644,255 @@ const shortsVideos = [
 export default function BrainPage() {
   const [activeTopic, setActiveTopic] = useState(topics[0]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const mainContentRef = useRef(null);
 
   // Shorts slideshow state
   const [current, setCurrent] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % shortsVideos.length);
-    }, 30000);
+    let interval;
+    if (isPlaying) {
+      interval = setInterval(() => {
+        setCurrent((prev) => (prev + 1) % shortsVideos.length);
+      }, 30000);
+    }
     return () => clearInterval(interval);
-  }, []);
+  }, [isPlaying]);
+
+  const handlePrev = () => {
+    setCurrent((prev) => (prev - 1 + shortsVideos.length) % shortsVideos.length);
+  };
+
+  const handleNext = () => {
+    setCurrent((prev) => (prev + 1) % shortsVideos.length);
+  };
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
 
   return (
-    <section className=" bg-white min-h-screen">
+    <section className="bg-gradient-to-b from-blue-50 to-white min-h-screen">
       {/* Breadcrumb */}
       <BreadCumb
         title="Brain Surgery"
         items={[
           { label: "Home", link: "/" },
-          { label: "Our Specialities " },
+          { label: "Our Specialities" },
           { label: "Brain Surgery" },
         ]}
       />
+      
       <BrainSurgery/>
 
-        <div className="container mx-auto px-4">
-         {/* Header */}
-         <div className="text-center">
-           <h2 className="text-3xl font-bold text-primary">
-             Common Spinal Diseases and Anomalies
-           </h2>
-           <p className="mt-2 text-lg text-gray-600">
-             Comprehensive treatment for spine disorders.
-           </p>
-         </div>
-       
-         <div className="flex flex-col md:flex-row gap-6 mt-6">
-           {/* Sidebar Column */}
-        <div className="flex flex-col gap-4 w-full md:w-1/4">
-         {/* Toggle button for mobile with tooltip */}
-         <div className="flex justify-end md:hidden mb-2 relative group">
-           <button
-             className="p-2 rounded bg-slate-100 hover:bg-slate-200"
-             onClick={() => setSidebarOpen(!sidebarOpen)}
-             aria-label="Toggle Topics"
-           >
-             {sidebarOpen ? <ChevronLeft /> : <ChevronRight />}
-           </button>
-       
-           {/* Tooltip */}
-           <span className="absolute top-0 right-full mr-2 w-56 bg-gray-800 text-white text-xs rounded px-3 py-1 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-             Press this to read more about spine-related diseases
-           </span>
-         </div>
-       
-         {/* Topics Aside */}
-         <aside
-           className={`bg-slate-100 rounded-lg shadow md:sticky md:top-24 md:self-start transition-all ${
-             sidebarOpen ? "block" : "hidden md:block"
-           }`}
-         >
-           <div className="p-6">
-             <ul className="space-y-2">
-               {topics.map((topic) => (
-                 <li
-                   key={topic.id}
-                   onClick={() => {
-                     setActiveTopic(topic);
-                     setSidebarOpen(false); // hide on mobile after click
-                     mainContentRef.current?.scrollIntoView({ behavior: "smooth" });
-                   }}
-                   className={`flex items-center justify-between cursor-pointer px-4 py-3 rounded-lg border transition-colors ${
-                     activeTopic.id === topic.id
-                       ? "bg-primary text-white border-blue-600 shadow"
-                       : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200"
-                   }`}
-                 >
-                   <span className="text-sm font-medium">{topic.title}</span>
-                   <ChevronRight
-                     className={`w-4 h-4 ${
-                       activeTopic.id === topic.id ? "text-white" : "text-slate-400"
-                     }`}
-                   />
-                 </li>
-               ))}
-             </ul>
-           </div>
-         </aside>
-       
-         {/* Second Aside (Desktop only) */}
-         <aside className="hidden md:block bg-[#285f91] text-white rounded-lg shadow p-10 text-center">
-           <h4 className="text-sm font-semibold uppercase mb-2">Need Emergency?</h4>
-           <h2 className="text-xl font-bold mb-3 leading-snug">
-             Looking For The Best <br /> Medical Solutions?
-           </h2>
-           <p className="text-sm opacity-90 mb-4">
-             Get reliable healthcare support from our expert team of doctors and staff.
-           </p>
-           <Link
-             to="/contact"
-             className="mt-2 inline-block rounded-xl bg-white px-6 py-3 text-primary font-semibold shadow-lg hover:bg-gray-100 transition duration-300 text-base md:text-lg"
-           >
-             Contact With Us
-           </Link>
-         </aside>
-       
-         {/* Third Aside - Shorts (Desktop only) */}
-         <aside className="hidden md:block bg-slate-100 rounded-lg shadow-lg p-3">
-           <h3 className="text-lg font-bold text-gray-700 text-center mb-2">Our Latest Shorts</h3>
-           <div
-             className="relative w-full overflow-hidden rounded-xl shadow-md"
-             style={{ paddingTop: "177.78%" }}
-           >
-             <iframe
-               src={shortsVideos[current]}
-               title="YouTube Shorts"
-               frameBorder="0"
-               style={{ border: "none" }}
-               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-               allowFullScreen
-               className="absolute top-0 left-0 w-full h-full"
-             />
-           </div>
-         </aside>
-       </div>
-       
-           {/* Main Content */}
-           <main className="flex-1 bg-white rounded-lg shadow p-6">
-             <div className="mb-4">
-               <img
-                 src={activeTopic.image}
-                 alt={activeTopic.title}
-                 className="w-full h-80 object-cover rounded-lg shadow-sm mb-4"
-               />
-               <div className="flex items-center justify-center">
-                 <h2 className="text-4xl font-bold text-primary">{activeTopic.title}</h2>
-               </div>
-             </div>
-       
-             <article
-               className="prose prose-lg max-w-none text-slate-700 leading-relaxed space-y-2"
-               dangerouslySetInnerHTML={{ __html: activeTopic.content }}
-             />
-           </main>
-         </div>
-       </div>
-       
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="text-center mb-10">
+          <h2 className="text-4xl font-bold text-primary mb-4">
+            Brain Conditions & Treatments
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Expert care for neurological conditions with advanced treatment options and compassionate patient-centered approach.
+          </p>
+        </div>
+      
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar Column */}
+          <div className="flex flex-col gap-6 w-full lg:w-1/4">
+            {/* Toggle button for mobile */}
+            <div className="flex justify-between items-center lg:hidden mb-2 bg-white p-3 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-primary">Brain Conditions</h3>
+              <button
+                className="p-2 rounded-full bg-primary text-white hover:bg-blue-700 transition-colors"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                aria-label="Toggle Topics"
+              >
+                {sidebarOpen ? <ChevronLeft /> : <ChevronRight />}
+              </button>
+            </div>
+      
+            {/* Topics Aside */}
+            <aside
+              className={`bg-white rounded-xl shadow-lg transition-all duration-300 ${
+                sidebarOpen ? "block" : "hidden lg:block"
+              }`}
+            >
+              <div className="p-5">
+                <h3 className="text-xl font-bold text-primary mb-4 border-b pb-2">Explore Topics</h3>
+                <ul className="space-y-2">
+                  {topics.map((topic) => (
+                    <li
+                      key={topic.id}
+                      onClick={() => {
+                        setActiveTopic(topic);
+                        setSidebarOpen(false); // hide on mobile after click
+                        mainContentRef.current?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className={`flex items-center justify-between cursor-pointer px-4 py-3 rounded-lg border transition-all duration-200 ${
+                        activeTopic.id === topic.id
+                          ? "bg-primary text-white border-blue-600 shadow-md transform -translate-y-0.5"
+                          : "bg-white text-slate-700 hover:bg-blue-50 border-slate-200 hover:border-blue-300"
+                      }`}
+                    >
+                      <span className="text-sm font-medium">{topic.title}</span>
+                      <ChevronRight
+                        className={`w-4 h-4 transition-transform ${
+                          activeTopic.id === topic.id ? "text-white" : "text-slate-400"
+                        }`}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
+      
+            {/* Emergency Contact Card */}
+            <aside className="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl shadow-lg p-6 text-center transform transition-transform hover:scale-[1.02]">
+              <div className="mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/20 mb-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <h4 className="text-lg font-bold uppercase mb-2">Need Emergency Care?</h4>
+                <h2 className="text-xl font-bold mb-3 leading-snug">
+                  Looking For The Best <br /> Medical Solutions?
+                </h2>
+              </div>
+              <p className="text-sm opacity-90 mb-5">
+                Get reliable healthcare support from our expert team of doctors and staff.
+              </p>
+              <Link
+                to="/contact-us"
+                className="inline-block rounded-lg bg-white px-6 py-3 text-primary font-bold shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105"
+              >
+                Contact With Us
+              </Link>
+            </aside>
+      
+            {/* Shorts Section */}
+            <aside className="bg-white rounded-xl shadow-lg overflow-hidden">
+              <div className="p-4 bg-gradient-to-r from-blue-500 to-blue-700 text-white">
+                <h3 className="text-lg font-bold flex items-center gap-2">
+                  <Play className="w-5 h-5" />
+                  Our Latest Shorts
+                </h3>
+              </div>
+              <div className="p-4">
+                <div
+                  className="relative w-full overflow-hidden rounded-lg shadow-md"
+                  style={{ paddingTop: "177.78%" }}
+                >
+                  <iframe
+                    src={shortsVideos[current]}
+                    title="YouTube Shorts"
+                    frameBorder="0"
+                    style={{ border: "none" }}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute top-0 left-0 w-full h-full"
+                  />
+                </div>
+                
+                {/* Video Controls */}
+                <div className="flex items-center justify-between mt-4">
+                  <button 
+                    onClick={handlePrev}
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                    aria-label="Previous video"
+                  >
+                    <SkipBack className="w-5 h-5 text-gray-700" />
+                  </button>
+                  
+                  <button 
+                    onClick={togglePlay}
+                    className="p-3 rounded-full bg-primary hover:bg-blue-700 text-white transition-colors"
+                    aria-label={isPlaying ? "Pause" : "Play"}
+                  >
+                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                  </button>
+                  
+                  <button 
+                    onClick={handleNext}
+                    className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                    aria-label="Next video"
+                  >
+                    <SkipForward className="w-5 h-5 text-gray-700" />
+                  </button>
+                </div>
+                
+                {/* Video Progress */}
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="text-xs text-gray-500">Video {current + 1} of {shortsVideos.length}</span>
+                  <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-primary rounded-full"
+                      style={{ width: `${((current + 1) / shortsVideos.length) * 100}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+      
+          {/* Main Content */}
+          <main ref={mainContentRef} className="flex-1 bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300">
+            <div className="relative">
+              <img
+                src={activeTopic.image}
+                alt={activeTopic.title}
+                className="w-full h-80 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                <div className="p-6 text-white">
+                  <h2 className="text-4xl font-bold drop-shadow-lg">{activeTopic.title}</h2>
+                </div>
+              </div>
+            </div>
+            
+            <div className="p-6 md:p-8">
+              <article
+                className="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-4"
+                dangerouslySetInnerHTML={{ __html: activeTopic.content }}
+              />
+              
+              {/* Related Topics */}
+              <div className="mt-10 pt-6 border-t border-gray-200">
+                <h3 className="text-xl font-bold text-primary mb-4">Related Topics</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {topics
+                    .filter(topic => topic.id !== activeTopic.id)
+                    .slice(0, 2)
+                    .map(topic => (
+                      <div 
+                        key={topic.id}
+                        onClick={() => {
+                          setActiveTopic(topic);
+                          mainContentRef.current?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg cursor-pointer hover:bg-blue-100 transition-colors"
+                      >
+                        <img 
+                          src={topic.image} 
+                          alt={topic.title}
+                          className="w-16 h-16 object-cover rounded-lg"
+                        />
+                        <div>
+                          <h4 className="font-semibold text-primary">{topic.title}</h4>
+                          <p className="text-sm text-gray-600 line-clamp-2">
+                            Learn more about {topic.title.toLowerCase()}
+                          </p>
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
     </section>
   );
 }

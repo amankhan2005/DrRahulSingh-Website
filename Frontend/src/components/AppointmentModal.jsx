@@ -36,29 +36,14 @@ const AppointmentModal = ({ onClose }) => {
   };
 
   const validateField = (name, value) => {
-    switch (name) {
-      case "name":
-        if (!value) return "⚠️ Name is required";
-        if (!regex.name.test(value)) return "⚠️ Name must be at least 2 letters";
-        break;
-      case "number":
-        if (!value) return "⚠️ Mobile number is required";
-        if (!regex.number.test(value)) return "⚠️ Enter a valid 10-digit number";
-        break;
-      case "email":
-        if (!value) return "⚠️ Email is required";
-        if (!regex.email.test(value)) return "⚠️ Enter a valid email address";
-        break;
-      case "date":
-        if (!value) return "⚠️ Date is required";
-        break;
-      case "time":
-        if (!value) return "⚠️ Time is required";
-        break;
-      default:
-        return null;
-    }
-    return null;
+    const errors = {
+      name: !value ? "Name required" : !regex.name.test(value) ? "Min 2 letters" : null,
+      number: !value ? "Number required" : !regex.number.test(value) ? "10 digits only" : null,
+      email: !value ? "Email required" : !regex.email.test(value) ? "Invalid email" : null,
+      date: !value ? "Date required" : null,
+      time: !value ? "Time required" : null,
+    };
+    return errors[name];
   };
 
   const handleChange = (e) => {
@@ -83,15 +68,15 @@ const AppointmentModal = ({ onClose }) => {
 
     if (Object.keys(newErrors).length > 0) {
       setFieldErrors(newErrors);
-      setMessage("⚠️ Please fix errors before submitting");
+      setMessage("⚠️ Fix errors to continue");
       return;
     }
 
-    setMessage("⏳ Booking your appointment...");
+    setMessage("⏳ Booking...");
     dispatch(createAppointment(form))
       .unwrap()
       .then(() => {
-        setMessage("✅ Appointment booked successfully!");
+        setMessage("✅ Appointment booked!");
         setForm({
           name: "",
           number: "",
@@ -102,7 +87,7 @@ const AppointmentModal = ({ onClose }) => {
         });
         setFieldErrors({});
       })
-      .catch(() => setMessage("❌ Failed to book appointment"));
+      .catch(() => setMessage("❌ Booking failed"));
   };
 
   useEffect(() => {
@@ -112,7 +97,6 @@ const AppointmentModal = ({ onClose }) => {
     }
   }, [message, onClose]);
 
-  // Disable body scroll while modal is open
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = "auto");
@@ -120,34 +104,22 @@ const AppointmentModal = ({ onClose }) => {
 
   return (
     <>
-      {/* Overlay */}
-      <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[11000] transition-opacity"
-        onClick={onClose}
-      />
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[11000]" onClick={onClose} />
 
-      {/* Modal */}
-      <div className="fixed inset-0 z-[11001] flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] p-6 sm:p-8 relative text-gray-800 flex flex-col">
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 transition-colors z-[11002]"
-            aria-label="Close Modal"
-          >
-            <FaTimes className="text-2xl" />
-          </button>
+      <div className="fixed inset-0 z-[11001] flex items-center justify-center p-3">
+        <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md max-h-[85vh] relative overflow-hidden">
+          {/* Header */}
+          <div className="bg-primary p-6 relative">
+            <button onClick={onClose} className="absolute top-4 right-4 text-white/90 hover:text-white transition-colors" aria-label="Close">
+              <FaTimes className="text-xl" />
+            </button>
+            <h2 className="text-2xl font-bold text-white mb-1">Book Appointment</h2>
+            <p className="text-white/80 text-sm">Quick and easy consultation booking</p>
+          </div>
 
-          <h2 className="text-3xl font-bold mb-2 text-center text-gray-800">
-            Book an Appointment
-          </h2>
-          <p className="text-center text-gray-500 mb-6 text-sm md:text-base">
-            Fill out the form below to book a consultation with our experts.
-          </p>
-
-          {/* Scrollable Form */}
-          <div className="overflow-y-auto flex-1 pr-2">
-            <form onSubmit={handleSubmit} className="space-y-5 flex flex-col min-h-[50vh]">
+          {/* Form Container */}
+          <div className="overflow-y-auto max-h-[calc(85vh-120px)] p-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name */}
               <div>
                 <input
@@ -155,31 +127,23 @@ const AppointmentModal = ({ onClose }) => {
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  placeholder="Enter Full Name"
-                  className={`w-full border ${
-                    fieldErrors.name ? "border-red-500" : "border-gray-300"
-                  } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400 transition`}
+                  placeholder="Full Name"
+                  className={`w-full border-2 ${fieldErrors.name ? "border-red-400" : "border-gray-200"} bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary focus:bg-white transition`}
                 />
-                {fieldErrors.name && (
-                  <p className="text-red-500 text-sm mt-1">{fieldErrors.name}</p>
-                )}
+                {fieldErrors.name && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.name}</p>}
               </div>
 
-              {/* Mobile Number */}
+              {/* Mobile */}
               <div>
                 <input
                   type="text"
                   name="number"
                   value={form.number}
                   onChange={handleChange}
-                  placeholder="Enter Mobile Number"
-                  className={`w-full border ${
-                    fieldErrors.number ? "border-red-500" : "border-gray-300"
-                  } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400 transition`}
+                  placeholder="Mobile Number"
+                  className={`w-full border-2 ${fieldErrors.number ? "border-red-400" : "border-gray-200"} bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary focus:bg-white transition`}
                 />
-                {fieldErrors.number && (
-                  <p className="text-red-500 text-sm mt-1">{fieldErrors.number}</p>
-                )}
+                {fieldErrors.number && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.number}</p>}
               </div>
 
               {/* Email */}
@@ -189,31 +153,23 @@ const AppointmentModal = ({ onClose }) => {
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  placeholder="Enter Email Address"
-                  className={`w-full border ${
-                    fieldErrors.email ? "border-red-500" : "border-gray-300"
-                  } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400 transition`}
+                  placeholder="Email Address"
+                  className={`w-full border-2 ${fieldErrors.email ? "border-red-400" : "border-gray-200"} bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary focus:bg-white transition`}
                 />
-                {fieldErrors.email && (
-                  <p className="text-red-500 text-sm mt-1">{fieldErrors.email}</p>
-                )}
+                {fieldErrors.email && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.email}</p>}
               </div>
 
-              {/* Date & Time */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {/* Date & Time Grid */}
+              <div className="grid grid-cols-2 gap-3">
                 <div>
                   <DatePicker
                     selected={form.date}
                     onChange={handleDateChange}
-                    className={`w-full border ${
-                      fieldErrors.date ? "border-red-500" : "border-gray-300"
-                    } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 transition`}
+                    className={`w-full border-2 ${fieldErrors.date ? "border-red-400" : "border-gray-200"} bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary focus:bg-white transition`}
                     placeholderText="Select Date"
                     dateFormat="dd/MM/yyyy"
                   />
-                  {fieldErrors.date && (
-                    <p className="text-red-500 text-sm mt-1">{fieldErrors.date}</p>
-                  )}
+                  {fieldErrors.date && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.date}</p>}
                 </div>
                 <div>
                   <input
@@ -221,40 +177,27 @@ const AppointmentModal = ({ onClose }) => {
                     name="time"
                     value={form.time}
                     onChange={handleChange}
-                    className={`w-full border ${
-                      fieldErrors.time ? "border-red-500" : "border-gray-300"
-                    } bg-gray-50 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 transition`}
+                    className={`w-full border-2 ${fieldErrors.time ? "border-red-400" : "border-gray-200"} bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary focus:bg-white transition`}
                   />
-                  {fieldErrors.time && (
-                    <p className="text-red-500 text-sm mt-1">{fieldErrors.time}</p>
-                  )}
+                  {fieldErrors.time && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.time}</p>}
                 </div>
               </div>
 
-              {/* Department Dropdown */}
-              <Listbox
-                value={form.department}
-                onChange={(value) =>
-                  setForm((prev) => ({ ...prev, department: value }))
-                }
-              >
+              {/* Department */}
+              <Listbox value={form.department} onChange={(value) => setForm((prev) => ({ ...prev, department: value }))}>
                 <div className="relative">
-                  <Listbox.Button className="relative w-full border border-gray-300 bg-gray-50 p-3 rounded-lg text-left focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 transition cursor-pointer">
-                    {form.department}
+                  <Listbox.Button className="relative w-full border-2 border-gray-200 bg-gray-50 px-4 py-2.5 rounded-xl text-left focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary focus:bg-white transition cursor-pointer">
+                    <span className="block truncate">{form.department}</span>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <FaChevronDown className="text-gray-400" />
+                      <FaChevronDown className="text-gray-400 text-sm" />
                     </span>
                   </Listbox.Button>
-                  <Listbox.Options className="absolute mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-auto z-[11002] focus:outline-none">
+                  <Listbox.Options className="absolute mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-xl max-h-48 overflow-auto z-[11002] focus:outline-none">
                     {departments.map((dept) => (
                       <Listbox.Option
                         key={dept}
                         value={dept}
-                        className={({ active }) =>
-                          `cursor-pointer select-none p-3 text-gray-800 ${
-                            active ? "bg-blue-100" : ""
-                          }`
-                        }
+                        className={({ active }) => `cursor-pointer select-none px-4 py-2.5 transition ${active ? "bg-primary/10 text-primary" : "text-gray-700"}`}
                       >
                         {dept}
                       </Listbox.Option>
@@ -263,30 +206,22 @@ const AppointmentModal = ({ onClose }) => {
                 </div>
               </Listbox>
 
-              {/* Submit */}
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full bg-primary hover:bg-blue-700 text-white py-3 rounded-lg mt-4 transition-all shadow-md hover:shadow-lg disabled:bg-blue-400 disabled:cursor-not-allowed font-semibold"
+                className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-xl transition-all shadow-lg hover:shadow-xl disabled:opacity-60 disabled:cursor-not-allowed font-semibold mt-2"
               >
-                {status === "loading" ? "Booking..." : "Book Appointment"}
+                {status === "loading" ? "Booking..." : "Book Now"}
               </button>
 
-              {/* Messages */}
+              {/* Status Messages */}
               {message && (
-                <div
-                  className={`mt-4 text-center font-medium ${
-                    message.startsWith("✅")
-                      ? "text-green-600"
-                      : message.startsWith("⏳")
-                      ? "text-blue-600"
-                      : "text-red-600"
-                  }`}
-                >
+                <div className={`text-center font-medium text-sm py-2 px-4 rounded-lg ${message.startsWith("✅") ? "bg-green-50 text-green-700" : message.startsWith("⏳") ? "bg-blue-50 text-blue-700" : "bg-red-50 text-red-700"}`}>
                   {message}
                 </div>
               )}
-              {error && <div className="mt-2 text-red-600 text-center">{error}</div>}
+              {error && <div className="text-red-600 text-center text-sm bg-red-50 py-2 px-4 rounded-lg">{error}</div>}
             </form>
           </div>
         </div>
