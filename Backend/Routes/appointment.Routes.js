@@ -1,35 +1,27 @@
-//  import express from "express";
-// import { createAppointment, getAppointments, deleteAppointment } from "../controller/appointment.Controller.js"
-
-// const router = express.Router();
-
-// // Create appointment
-// router.post("/create", createAppointment);
-
-// // Get all appointments
-// router.get("/getall", getAppointments);
-
-// // ✅ Delete appointment by ID
-// router.delete("/delete/:id", deleteAppointment);
-
-// export default router;
-
  import express from "express";
 import {
   createAppointment,
   getAppointments,
+  getAppointmentById,
   deleteAppointment,
-  approveAppointment
+  approveAppointment,
+  updateAppointment,
 } from "../controller/appointment.Controller.js";
 
 const router = express.Router();
 
-router.post("/create", createAppointment);
-router.get("/getall", getAppointments);
-router.delete("/delete/:id", deleteAppointment);
-router.post("/approve/:id", approveAppointment); // POST for approve
+// Optional auth middleware (for admin routes)
+const isAdmin = (req, res, next) => {
+  // You can later add JWT/Role check here
+  next();
+};
+
+// Routes
+router.post("/", createAppointment);
+router.get("/", getAppointments);
+router.get("/:id", getAppointmentById);
+router.patch("/:id", updateAppointment);
+router.delete("/:id", isAdmin, deleteAppointment);
+router.put("/approve/:id", isAdmin, approveAppointment);
 
 export default router;
-
-
- 

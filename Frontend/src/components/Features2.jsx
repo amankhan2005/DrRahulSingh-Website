@@ -1,14 +1,10 @@
- import React, { useState } from "react";
+ import React from "react";
 import { FaPhoneAlt } from "react-icons/fa";
-import { Link } from "react-router-dom"; // <-- Added this import
-import AppointmentModal from "./AppointmentModal";
+import { Link } from "react-router-dom";
 
 const Features = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <section className="container mx-auto px-2 md:grid grid-cols-1 md:grid-cols-4 gap-4">
-      
       {/* Working Time */}
       <div className="bg-primary text-white md:p-6 p-4 mb-4 md:mb-0 rounded-lg border border-gray-200 shadow-md">
         <h3 className="text-lg font-semibold">Working Time</h3>
@@ -28,7 +24,7 @@ const Features = () => {
         </ul>
       </div>
 
-      {/* Doctors Timetable */}
+      {/* Expert Doctors */}
       <div className="bg-primary text-white md:p-6 p-4 flex flex-col justify-between mb-4 md:mb-0 rounded-lg border border-gray-200 shadow-md">
         <div>
           <h3 className="text-lg font-semibold">Expert Doctors</h3>
@@ -37,34 +33,29 @@ const Features = () => {
           </p>
         </div>
         <Link
-          to="/our-team"
+          to="/contact-us"
           className="mt-4 text-center border border-white py-2 px-4 rounded hover:bg-white hover:text-blue-500 transition"
         >
           View Doctors
         </Link>
       </div>
 
-      {/* Appointments */}
+      {/* ✅ Our Specialities */}
       <div className="bg-primary text-white md:p-6 p-4 flex flex-col justify-between mb-4 md:mb-0 rounded-lg border border-gray-200 shadow-md">
         <div>
-          <h3 className="text-lg font-semibold">Appointments</h3>
+          <h3 className="text-lg font-semibold">Our Specialities</h3>
           <p className="text-sm mt-2">
-            Schedule your appointment with our expert doctors easily and get the best medical care at your convenience.
+            We specialize in Brain, Spine, and Peripheral Nerve surgeries — delivering precise, advanced, and trusted neuro care.
           </p>
         </div>
 
-        {/* Button to open modal */}
-        <button
-          onClick={() => setIsOpen(true)}
-          title="Book Appointment"
-          aria-label="Book-Appointment"
+        <Link
+          to="/brain"
           className="mt-4 text-center border border-white py-2 px-4 rounded hover:bg-white hover:text-blue-600 transition-colors duration-300 ease-in-out"
+          aria-label="Learn about our specialities"
         >
-          Make an Appointment
-        </button>
-
-        {/* Modal */}
-        {isOpen && <AppointmentModal onClose={() => setIsOpen(false)} />}
+          Learn More
+        </Link>
       </div>
 
       {/* Emergency Cases */}

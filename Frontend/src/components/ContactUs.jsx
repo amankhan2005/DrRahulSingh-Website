@@ -16,7 +16,7 @@ export default function ContactUs() {
             From <span className="font-bold">Dr. Rahul Singh</span> and our expert team of doctors. Trusted by <span className="font-bold">10,000+ patients</span>, we provide safe, effective, and compassionate care when you need it most. Your health and safety are our top priority.
           </p>
           <Link
-            to="/contact"
+            to="/contact-us"
           
             className="mt-6 inline-block rounded-xl bg-white px-6 py-3 text-primary font-semibold shadow-lg hover:bg-gray-100 transition duration-300 text-base md:text-lg md:px-8 md:py-4"
           >
