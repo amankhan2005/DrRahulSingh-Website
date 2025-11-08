@@ -108,6 +108,7 @@ const AppointmentModal = ({ onClose }) => {
         time: "09:00",
       });
 
+      // close modal after success
       setTimeout(() => onClose(), 1800);
     } catch (err) {
       console.error("Booking Error:", err);
@@ -118,8 +119,12 @@ const AppointmentModal = ({ onClose }) => {
   };
 
   useEffect(() => {
+    // lock body scroll while modal mounted
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    return () => (document.body.style.overflow = "auto");
+    return () => {
+      document.body.style.overflow = originalOverflow || "auto";
+    };
   }, []);
 
   const today = new Date().toISOString().split("T")[0];
@@ -347,21 +352,12 @@ const AppointmentModal = ({ onClose }) => {
   );
 };
 
-// Demo wrapper
+// Production: mount modal only once and remove demo UI after close
 export default function App() {
   const [showModal, setShowModal] = useState(true);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
-      {!showModal && (
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
-        >
-          Open Appointment Modal
-        </button>
-      )}
-      {showModal && <AppointmentModal onClose={() => setShowModal(false)} />}
-    </div>
-  );
+  // When closed, nothing renders (demo removed)
+  if (!showModal) return null;
+
+  return <AppointmentModal onClose={() => setShowModal(false)} />;
 }
