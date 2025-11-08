@@ -68,7 +68,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative over">
       <Slider {...settings}>
         {slides.map((slide) => (
           <Slide key={slide.id} slide={slide} />

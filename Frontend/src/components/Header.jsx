@@ -65,6 +65,20 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Lock body scroll when mobile sidebar is open to prevent background scroll
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      // store previous value to restore later
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev || "auto";
+      };
+    }
+    // if menu closed ensure overflow is restored
+    document.body.style.overflow = "auto";
+  }, [isMobileMenuOpen]);
+
   const toggleDropdown = (label) =>
     setOpenDropdown(openDropdown === label ? null : label);
 
@@ -125,21 +139,16 @@ export default function Header() {
                   {item.subItems && (
                     <div className="absolute top-full left-0 pt-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-300 z-50">
                       <div className="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100 min-w-[240px]">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-cyan-50/50 pointer-events-none"></div>
+                        {/* <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-cyan-50/50 pointer-events-none"></div> */}
                         <ul className="relative py-2">
-                          {item.subItems.map((sub, subIndex) => (
+                          {item?.subItems?.map((sub, subIndex) => (
                             <li key={sub.label}>
                               <Link
                                 to={sub.link}
-                                className="group/item relative block px-5 py-3 text-gray-700 hover:text-blue-600 transition-all duration-200 overflow-hidden"
+                                className="group/item relative block px-4 py-1 text-sm text-gray-700 hover:text-blue-600 transition-all duration-200 overflow-hidden"
                                 style={{ animationDelay: `${subIndex * 50}ms` }}
                               >
-                                <span className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-cyan-500 transform scale-y-0 group-hover/item:scale-y-100 transition-transform duration-200"></span>
-                                <span className="absolute inset-0 bg-gradient-to-r from-blue-50 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-200"></span>
-                                <span className="relative flex items-center gap-2">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 opacity-0 group-hover/item:opacity-100 transition-opacity duration-200"></span>
-                                  {sub.label}
-                                </span>
+                                {sub.label}
                               </Link>
                             </li>
                           ))}
