@@ -7,9 +7,9 @@ const menuItems = [
   { label: "Home", link: "/" },
   {
     label: "About Us",
-    link: "/about",
+    link: "/about-us",
     subItems: [
-      { label: "About Landmark Hospital", link: "/about" },
+      { label: "About Landmark Hospital", link: "/about-us" },
       { label: "About Dr. Rahul Singh", link: "/about-rahulsingh" },
     ],
   },

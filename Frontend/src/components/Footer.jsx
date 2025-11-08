@@ -32,7 +32,7 @@ const Footer = () => {
   const quickLinks = useMemo(
     () => [
       { name: "Home", path: "/" },
-      { name: "About Us", path: "/about" },
+      { name: "About Us", path: "/about-us" },
       { name: "Cases", path: "/cases" },
       { name: "Testimonials", path: "/testimonials" },
       { name: "Blog", path: "/blog" },
