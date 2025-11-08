@@ -1,7 +1,13 @@
- import Appointment from "../model/Appointment.model.js";
+ // controllers/appointment.controller.js
+import Appointment from "../model/Appointment.model.js";
 import { sendMail } from "../utils/sendMail.js";
+import {
+  userAppointmentReceivedTemplate,
+  adminAppointmentTemplate,
+  userAppointmentApprovedTemplate,
+  adminApprovedTemplate,
+} from "../utils/mailTemplates.js";
 
-// ✅ Create new appointment
 export const createAppointment = async (req, res) => {
   try {
     const { name, number, email, department, date, time } = req.body;
@@ -17,24 +23,14 @@ export const createAppointment = async (req, res) => {
       sendMail({
         to: newAppointment.email,
         subject: "Appointment Received ✅",
-        html: `
-          <h3>Hello ${newAppointment.name},</h3>
-          <p>Your appointment request for <b>${newAppointment.department}</b> on <b>${newAppointment.date}</b> at <b>${newAppointment.time}</b> has been received.</p>
-          <p>We will notify you once it’s approved.</p>
-        `,
+        html: userAppointmentReceivedTemplate(newAppointment),
+        text: `Hello ${newAppointment.name},\n\nYour appointment request for ${newAppointment.department} on ${newAppointment.date} at ${newAppointment.time} has been received. We will notify you once it's approved.\n\nTeam Landmark`,
       }),
       sendMail({
         to: process.env.ADMIN_EMAIL,
-        subject: "New Appointment Request",
-        html: `
-          <h3>New Appointment Request!</h3>
-          <p><b>Name:</b> ${newAppointment.name}</p>
-          <p><b>Phone:</b> ${newAppointment.number}</p>
-          <p><b>Email:</b> ${newAppointment.email}</p>
-          <p><b>Department:</b> ${newAppointment.department}</p>
-          <p><b>Date:</b> ${newAppointment.date}</p>
-          <p><b>Time:</b> ${newAppointment.time}</p>
-        `,
+        subject: "🩺 New Appointment Request",
+        html: adminAppointmentTemplate(newAppointment),
+        text: `New appointment\nPatient: ${newAppointment.name}\nEmail: ${newAppointment.email}\nPhone: ${newAppointment.number}\nDepartment: ${newAppointment.department}\nDate: ${newAppointment.date}\nTime: ${newAppointment.time}`,
       }),
     ]);
 
@@ -49,7 +45,6 @@ export const createAppointment = async (req, res) => {
   }
 };
 
-// ✅ Get all appointments (optional filters)
 export const getAppointments = async (req, res) => {
   try {
     const { status, department } = req.query;
@@ -70,7 +65,6 @@ export const getAppointments = async (req, res) => {
   }
 };
 
-// ✅ Get appointment by ID
 export const getAppointmentById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -83,7 +77,6 @@ export const getAppointmentById = async (req, res) => {
   }
 };
 
-// ✅ Delete appointment
 export const deleteAppointment = async (req, res) => {
   try {
     const { id } = req.params;
@@ -96,7 +89,6 @@ export const deleteAppointment = async (req, res) => {
   }
 };
 
-// ✅ Approve appointment
 export const approveAppointment = async (req, res) => {
   try {
     const { id } = req.params;
@@ -107,26 +99,19 @@ export const approveAppointment = async (req, res) => {
     appointment.status = "Approved";
     await appointment.save();
 
+    // Notify user and admin
     await Promise.all([
       sendMail({
         to: appointment.email,
         subject: "Your Appointment is Approved ✅",
-        html: `
-          <h3>Congratulations ${appointment.name}!</h3>
-          <p>Your appointment with <b>${appointment.department}</b> on <b>${appointment.date}</b> at <b>${appointment.time}</b> has been approved.</p>
-          <p>See you soon!</p>
-        `,
+        html: userAppointmentApprovedTemplate(appointment),
+        text: `Hello ${appointment.name},\n\nYour appointment with ${appointment.department} on ${appointment.date} at ${appointment.time} has been approved.\n\nTeam Landmark`,
       }),
       sendMail({
         to: process.env.ADMIN_EMAIL,
         subject: `Appointment Approved: ${appointment.name}`,
-        html: `
-          <h3>Appointment Approved!</h3>
-          <p><b>Patient:</b> ${appointment.name}</p>
-          <p><b>Department:</b> ${appointment.department}</p>
-          <p><b>Date:</b> ${appointment.date}</p>
-          <p><b>Time:</b> ${appointment.time}</p>
-        `,
+        html: adminApprovedTemplate(appointment),
+        text: `Appointment approved\nPatient: ${appointment.name}\nDepartment: ${appointment.department}\nDate: ${appointment.date}\nTime: ${appointment.time}`,
       }),
     ]);
 
@@ -134,11 +119,11 @@ export const approveAppointment = async (req, res) => {
       .status(200)
       .json({ message: "Appointment approved successfully", data: appointment });
   } catch (error) {
+    console.error("Approve Appointment Error:", error);
     res.status(500).json({ message: "Failed to approve appointment", error });
   }
 };
 
-// ✅ Update appointment (optional)
 export const updateAppointment = async (req, res) => {
   try {
     const { id } = req.params;

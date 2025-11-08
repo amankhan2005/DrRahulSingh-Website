@@ -1,8 +1,4 @@
  import React, { useState, useEffect } from "react";
-import { Listbox } from "@headlessui/react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { FaTimes, FaChevronDown } from "react-icons/fa";
 
 const departments = [
   "General",
@@ -11,7 +7,6 @@ const departments = [
   "Peripheral Nerve Surgery & Care",
 ];
 
-// Helper to format date for backend (yyyy-mm-dd)
 const formatDateToYYYYMMDD = (d) => {
   if (!d) return "";
   const yyyy = d.getFullYear();
@@ -20,8 +15,8 @@ const formatDateToYYYYMMDD = (d) => {
   return `${yyyy}-${mm}-${dd}`;
 };
 
-// read from .env (make sure .env.local has VITE_BACKENDURL)
-const BACKEND_URL = import.meta.env.VITE_BACKENDURL || "http://localhost:3000";
+// ✅ Fetch backend URL from environment
+const BACKEND_URL = import.meta.env.VITE_BACKENDURL;
 
 const AppointmentModal = ({ onClose }) => {
   const [form, setForm] = useState({
@@ -29,15 +24,15 @@ const AppointmentModal = ({ onClose }) => {
     number: "",
     email: "",
     department: "General",
-    date: null,
+    date: "",
     time: "09:00",
   });
 
   const [fieldErrors, setFieldErrors] = useState({});
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showDeptDropdown, setShowDeptDropdown] = useState(false);
 
-  // Basic regex for validation
   const regex = {
     name: /^[A-Za-z\s]{2,}$/,
     number: /^[0-9]{10}$/,
@@ -69,12 +64,11 @@ const AppointmentModal = ({ onClose }) => {
     setFieldErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
-  const handleDateChange = (date) => {
-    setForm((prev) => ({ ...prev, date }));
-    setFieldErrors((prev) => ({ ...prev, date: validateField("date", date) }));
+  const handleDateChange = (e) => {
+    setForm((prev) => ({ ...prev, date: e.target.value }));
+    setFieldErrors((prev) => ({ ...prev, date: validateField("date", e.target.value) }));
   };
 
-  // ✅ Submit form directly to backend using fetch
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -90,10 +84,7 @@ const AppointmentModal = ({ onClose }) => {
       return;
     }
 
-    const payload = {
-      ...form,
-      date: formatDateToYYYYMMDD(form.date),
-    };
+    const payload = { ...form };
 
     try {
       setLoading(true);
@@ -113,7 +104,7 @@ const AppointmentModal = ({ onClose }) => {
         number: "",
         email: "",
         department: "General",
-        date: null,
+        date: "",
         time: "09:00",
       });
 
@@ -126,165 +117,210 @@ const AppointmentModal = ({ onClose }) => {
     }
   };
 
-  // Prevent background scroll
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = "auto");
   }, []);
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <>
-      {/* overlay */}
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[11000]" onClick={onClose} />
-
-      {/* modal */}
-      <div className="fixed inset-0 z-[11001] flex items-center justify-center p-3">
+      <div
+        className="fixed inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/60 backdrop-blur-md z-[11000] flex items-center justify-center p-4"
+        onClick={onClose}
+      >
         <div
-          className="bg-white rounded-3xl shadow-2xl w-full max-w-md max-h-[85vh] relative overflow-hidden"
+          className="bg-white rounded-3xl shadow-2xl w-full max-w-md relative animate-[slideUp_0.3s_ease-out]"
           onClick={(e) => e.stopPropagation()}
+          style={{
+            maxHeight: "calc(100vh - 2rem)",
+            display: "flex",
+            flexDirection: "column",
+          }}
         >
           {/* Header */}
-          <div className="bg-primary p-6 relative">
+          <div className="bg-gradient-to-r from-blue-600 to-blue-500 p-6 rounded-t-3xl relative flex-shrink-0">
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-white/90 hover:text-white transition-colors"
+              className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
               aria-label="Close"
             >
-              <FaTimes className="text-xl" />
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
-            <h2 className="text-2xl font-bold text-white mb-1">Book Appointment</h2>
-            <p className="text-white/80 text-sm">Quick and easy consultation booking</p>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-white">Book Appointment</h2>
+                <p className="text-blue-100 text-sm">Schedule your consultation</p>
+              </div>
+            </div>
           </div>
 
           {/* Form */}
-          <div className="overflow-y-auto max-h-[calc(85vh-120px)] p-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex-1 overflow-y-auto px-6 py-5" style={{ minHeight: 0 }}>
+            <form onSubmit={handleSubmit} className="space-y-3.5">
               {/* Name */}
               <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Full Name</label>
                 <input
                   type="text"
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  placeholder="Full Name"
+                  placeholder="Enter your name"
                   className={`w-full border-2 ${
-                    fieldErrors.name ? "border-red-400" : "border-gray-200"
-                  } bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition`}
+                    fieldErrors.name ? "border-red-400 bg-red-50" : "border-gray-200 bg-gray-50"
+                  } px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
                 />
-                {fieldErrors.name && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.name}</p>}
+                {fieldErrors.name && <p className="text-red-500 text-xs mt-1.5 ml-1">{fieldErrors.name}</p>}
               </div>
 
               {/* Phone */}
               <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Mobile Number</label>
                 <input
                   type="tel"
                   name="number"
                   value={form.number}
                   onChange={handleChange}
-                  placeholder="Mobile Number"
+                  placeholder="10-digit number"
                   inputMode="numeric"
                   className={`w-full border-2 ${
-                    fieldErrors.number ? "border-red-400" : "border-gray-200"
-                  } bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition`}
+                    fieldErrors.number ? "border-red-400 bg-red-50" : "border-gray-200 bg-gray-50"
+                  } px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
                 />
-                {fieldErrors.number && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.number}</p>}
+                {fieldErrors.number && <p className="text-red-500 text-xs mt-1.5 ml-1">{fieldErrors.number}</p>}
               </div>
 
               {/* Email */}
               <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Email Address</label>
                 <input
                   type="email"
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  placeholder="Email Address"
+                  placeholder="your@email.com"
                   className={`w-full border-2 ${
-                    fieldErrors.email ? "border-red-400" : "border-gray-200"
-                  } bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition`}
+                    fieldErrors.email ? "border-red-400 bg-red-50" : "border-gray-200 bg-gray-50"
+                  } px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
                 />
-                {fieldErrors.email && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.email}</p>}
+                {fieldErrors.email && <p className="text-red-500 text-xs mt-1.5 ml-1">{fieldErrors.email}</p>}
               </div>
 
               {/* Date & Time */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <DatePicker
-                    selected={form.date}
+                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">Date</label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={form.date}
                     onChange={handleDateChange}
+                    min={today}
                     className={`w-full border-2 ${
-                      fieldErrors.date ? "border-red-400" : "border-gray-200"
-                    } bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition`}
-                    placeholderText="Select Date"
-                    dateFormat="dd/MM/yyyy"
-                    minDate={today}
+                      fieldErrors.date ? "border-red-400 bg-red-50" : "border-gray-200 bg-gray-50"
+                    } px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
                   />
-                  {fieldErrors.date && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.date}</p>}
+                  {fieldErrors.date && <p className="text-red-500 text-xs mt-1.5 ml-1">{fieldErrors.date}</p>}
                 </div>
                 <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-1.5">Time</label>
                   <input
                     type="time"
                     name="time"
                     value={form.time}
                     onChange={handleChange}
                     className={`w-full border-2 ${
-                      fieldErrors.time ? "border-red-400" : "border-gray-200"
-                    } bg-gray-50 px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition`}
+                      fieldErrors.time ? "border-red-400 bg-red-50" : "border-gray-200 bg-gray-50"
+                    } px-4 py-2.5 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all`}
                   />
-                  {fieldErrors.time && <p className="text-red-500 text-xs mt-1 ml-1">{fieldErrors.time}</p>}
+                  {fieldErrors.time && <p className="text-red-500 text-xs mt-1.5 ml-1">{fieldErrors.time}</p>}
                 </div>
               </div>
 
               {/* Department */}
-              <Listbox
-                value={form.department}
-                onChange={(value) => setForm((prev) => ({ ...prev, department: value }))}
-              >
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-1.5">Department</label>
                 <div className="relative">
-                  <Listbox.Button className="relative w-full border-2 border-gray-200 bg-gray-50 px-4 py-2.5 rounded-xl text-left focus:outline-none focus:ring-2 focus:ring-primary transition cursor-pointer">
-                    <span className="block truncate">{form.department}</span>
+                  <button
+                    type="button"
+                    onClick={() => setShowDeptDropdown(!showDeptDropdown)}
+                    className="relative w-full border-2 border-gray-200 bg-gray-50 px-4 py-2.5 rounded-xl text-left focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  >
+                    <span className="block truncate text-gray-700">{form.department}</span>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <FaChevronDown className="text-gray-400 text-sm" />
-                    </span>
-                  </Listbox.Button>
-                  <Listbox.Options className="absolute mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-xl max-h-48 overflow-auto z-[11002] focus:outline-none">
-                    {departments.map((dept) => (
-                      <Listbox.Option
-                        key={dept}
-                        value={dept}
-                        className={({ active }) =>
-                          `cursor-pointer select-none px-4 py-2.5 transition ${
-                            active ? "bg-primary/10 text-primary" : "text-gray-700"
-                          }`
-                        }
+                      <svg
+                        className={`w-4 h-4 text-gray-400 transition-transform ${
+                          showDeptDropdown ? "rotate-180" : ""
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        {dept}
-                      </Listbox.Option>
-                    ))}
-                  </Listbox.Options>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
+                  </button>
+                  {showDeptDropdown && (
+                    <div className="absolute mt-2 w-full bg-white border-2 border-gray-100 rounded-xl shadow-xl z-[11002] max-h-48 overflow-auto">
+                      {departments.map((dept) => (
+                        <button
+                          key={dept}
+                          type="button"
+                          onClick={() => {
+                            setForm((prev) => ({ ...prev, department: dept }));
+                            setShowDeptDropdown(false);
+                          }}
+                          className="w-full text-left px-4 py-2.5 hover:bg-blue-50 hover:text-blue-600 transition-colors text-gray-700"
+                        >
+                          {dept}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </Listbox>
+              </div>
 
               {/* Submit Button */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-xl transition-all shadow-lg hover:shadow-xl disabled:opacity-60 disabled:cursor-not-allowed font-semibold mt-2"
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-3 rounded-xl transition-all shadow-lg hover:shadow-xl disabled:opacity-60 disabled:cursor-not-allowed font-semibold mt-4"
               >
-                {loading ? "Booking..." : "Book Now"}
+                {loading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Booking...
+                  </span>
+                ) : (
+                  "Confirm Appointment"
+                )}
               </button>
 
               {/* Status Message */}
               {message && (
                 <div
-                  className={`text-center font-medium text-sm py-2 px-4 rounded-lg ${
+                  className={`text-center font-medium text-sm py-2.5 px-4 rounded-xl ${
                     message.startsWith("✅")
-                      ? "bg-green-50 text-green-700"
+                      ? "bg-green-100 text-green-700 border border-green-200"
                       : message.startsWith("⏳")
-                      ? "bg-blue-50 text-blue-700"
-                      : "bg-red-50 text-red-700"
+                      ? "bg-blue-100 text-blue-700 border border-blue-200"
+                      : "bg-red-100 text-red-700 border border-red-200"
                   }`}
                 >
                   {message}
@@ -294,8 +330,38 @@ const AppointmentModal = ({ onClose }) => {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </>
   );
 };
 
-export default AppointmentModal;
+// Demo wrapper
+export default function App() {
+  const [showModal, setShowModal] = useState(true);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
+      {!showModal && (
+        <button
+          onClick={() => setShowModal(true)}
+          className="bg-gradient-to-r from-blue-600 to-blue-500 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
+        >
+          Open Appointment Modal
+        </button>
+      )}
+      {showModal && <AppointmentModal onClose={() => setShowModal(false)} />}
+    </div>
+  );
+}
