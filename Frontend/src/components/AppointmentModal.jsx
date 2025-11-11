@@ -7,15 +7,6 @@ const departments = [
   "Peripheral Nerve Surgery & Care",
 ];
 
-const formatDateToYYYYMMDD = (d) => {
-  if (!d) return "";
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
-};
-
-// ✅ Fetch backend URL from environment
 const BACKEND_URL = import.meta.env.VITE_BACKENDURL;
 
 const AppointmentModal = ({ onClose }) => {
@@ -31,6 +22,7 @@ const AppointmentModal = ({ onClose }) => {
   const [fieldErrors, setFieldErrors] = useState({});
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false); // prevent double submit
   const [showDeptDropdown, setShowDeptDropdown] = useState(false);
 
   const regex = {
@@ -69,8 +61,10 @@ const AppointmentModal = ({ onClose }) => {
     setFieldErrors((prev) => ({ ...prev, date: validateField("date", e.target.value) }));
   };
 
-  const handleSubmit = async (e) => {
+  // ---------- Modified handleSubmit: fire-and-forget with optimistic UI ----------
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (submitted) return; // prevent double-submit
 
     const newErrors = {};
     Object.keys(form).forEach((key) => {
@@ -86,37 +80,60 @@ const AppointmentModal = ({ onClose }) => {
 
     const payload = { ...form };
 
-    try {
-      setLoading(true);
-      setMessage("⏳ Booking appointment...");
-      const res = await fetch(`${BACKEND_URL}/appointment`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
+    // Mark as submitted immediately so UI reacts fast
+    setSubmitted(true);
+    setLoading(true);
+    setMessage("⏳ Booking appointment...");
 
-      if (!res.ok) throw new Error(data.message || "Failed to book appointment");
+    // Fire the network request but don't await it — optimistic UX
+    const fetchPromise = fetch(`${BACKEND_URL}/appointment`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-      setMessage("✅ Appointment booked successfully!");
-      setForm({
-        name: "",
-        number: "",
-        email: "",
-        department: "General",
-        date: "",
-        time: "09:00",
-      });
+    // Immediate optimistic success UX
+    setMessage("✅ Appointment booked successfully!");
+    setForm({
+      name: "",
+      number: "",
+      email: "",
+      department: "General",
+      date: "",
+      time: "09:00",
+    });
 
-      // close modal after success
-      setTimeout(() => onClose(), 1800);
-    } catch (err) {
-      console.error("Booking Error:", err);
-      setMessage(`❌ ${err.message}`);
-    } finally {
+    // Close modal quickly (you can tweak timeout)
+    setTimeout(() => {
       setLoading(false);
-    }
+      onClose(); // close modal immediately for "turat" UX
+    }, 700);
+
+    // Still handle actual server response and errors in background
+    fetchPromise
+      .then(async (res) => {
+        const data = await res.json().catch(() => null);
+        if (!res.ok) {
+          // Backend reported an error — notify user (fallback to alert)
+          const errMsg = (data && data.message) || `Server error ${res.status}`;
+          console.error("Booking failed on server:", errMsg);
+          alert(`Booking failed: ${errMsg}`);
+        } else {
+          console.log("Booking confirmed by server:", data);
+          // optionally: update client-side store or analytics here
+        }
+      })
+      .catch((err) => {
+        // Network or other fetch error
+        console.error("Network error while booking:", err);
+        alert("Network error while booking appointment. Please try again.");
+      })
+      .finally(() => {
+        // allow resubmission next time
+        setSubmitted(false);
+      });
   };
+  // -------------------------------------------------------------------------------
 
   useEffect(() => {
     // lock body scroll while modal mounted
@@ -263,9 +280,7 @@ const AppointmentModal = ({ onClose }) => {
                     <span className="block truncate text-gray-700">{form.department}</span>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                       <svg
-                        className={`w-4 h-4 text-gray-400 transition-transform ${
-                          showDeptDropdown ? "rotate-180" : ""
-                        }`}
+                        className={`w-4 h-4 text-gray-400 transition-transform ${showDeptDropdown ? "rotate-180" : ""}`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -297,7 +312,7 @@ const AppointmentModal = ({ onClose }) => {
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || submitted}
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white py-3 rounded-xl transition-all shadow-lg hover:shadow-xl disabled:opacity-60 disabled:cursor-not-allowed font-semibold mt-4"
               >
                 {loading ? (
@@ -352,12 +367,8 @@ const AppointmentModal = ({ onClose }) => {
   );
 };
 
-// Production: mount modal only once and remove demo UI after close
 export default function App() {
   const [showModal, setShowModal] = useState(true);
-
-  // When closed, nothing renders (demo removed)
   if (!showModal) return null;
-
   return <AppointmentModal onClose={() => setShowModal(false)} />;
 }
